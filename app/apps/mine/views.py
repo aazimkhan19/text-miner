@@ -8,7 +8,7 @@ from django.views.generic import CreateView, TemplateView, ListView, DetailView,
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
 from apps.mine.forms import TextForm, ModerateTextForm
-from apps.mine.models import Text, ModeratedText
+from apps.mine.models import Text, ModeratedText, Task
 
 
 class BaseTextCreateView(CreateView):
@@ -18,6 +18,7 @@ class BaseTextCreateView(CreateView):
         """If the form is valid, save the associated model."""
         self.object = form.save()
         self.object.creator = self.request.user
+        self.object.task = Task.objects.get(pk=self.kwargs['pk'])
         self.object.save()
         return super().form_valid(form)
 
@@ -183,8 +184,28 @@ class BaseMinerView(BaseGroupRequiredMixin):
     group_required = 'miner'
 
 
-class MinerInitialView(BaseMinerView, TemplateView):
-    template_name = 'mine/miner/initial.html'
+class MinerInitialView(BaseMinerView):
+    #template_name = 'mine/miner/initial.html'
+    template_name = 'mine/miner/tasks.html'
+    paginate_by = 9
+
+class MinerInitialViewBeginner(MinerInitialView, ListView):
+    queryset = Task.objects.filter(task_level="BEGINNER")
+
+class MinerInitialViewIntermediate(MinerInitialView, ListView):
+    queryset = Task.objects.filter(task_level="INTERMEDIATE")
+
+class MinerInitialViewAdvanced(MinerInitialView, ListView):
+    queryset = Task.objects.filter(task_level="ADVANCED")
+
+
+class MinerTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
+    template_name = 'mine/miner/raw_text_create.html'
+    queryset = Task.objects.all()
+    success_url = reverse_lazy('mine:miner-tasks-beginner')
+    def get_object(self, queryset=None):
+        print(self.queryset)
+        return super().get_object(queryset)
 
 
 class MinerRawTextListView(BaseMinerView, ListView):

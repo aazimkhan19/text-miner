@@ -1,10 +1,29 @@
 from django.db import models
 from apps.authentication.models import User
 
+class Task(models.Model):
+    BEGINNER = 'BEGINNER'
+    INTERMEDIATE = 'INTERMEDIATE'
+    ADVANCED = 'ADVANCED'
+    LEVEL_CHOICES = [
+        (BEGINNER, 'Beginner'),
+        (INTERMEDIATE, 'Intermediate'),
+        (ADVANCED, 'Advanced'),
+    ]
+    task_level = models.CharField(
+        max_length=12,
+        choices=LEVEL_CHOICES,
+        default=BEGINNER,
+    )
+    task_description = models.TextField()
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.pk, self.task_level, self.task_description)
 
 class Text(models.Model):
     content = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
 
     @property
     def short_text(self):

@@ -1,9 +1,136 @@
 {% extends "authentication/base.html" %}
 {% load crispy_forms_tags %}
-
+{% load static %}
+{% block styles %}
+<!--    <link href="{% static 'authentication/css/material-design-iconic-font.min.css' %}" rel="stylesheet" media="all">-->
+<!--    <link href="{% static 'authentication/css/select2.min.css' %}" rel="stylesheet" media="all">-->
+<!--    <link href="{% static 'authentication/css/main.css' %}" rel="stylesheet" media="all">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+{% endblock %}
 {% block content %}
     <form method="post">
         {% crispy form %}
     </form>
+
+<!--    <div class="page-wrapper p-t-130 p-b-50">-->
+<!--        <div class="wrapper wrapper&#45;&#45;w790">-->
+<!--            <div class="card card-5">-->
+<!--                &lt;!&ndash;<div class="card-heading">-->
+<!--                    <h2 class="title">Event Registration Form</h2>-->
+<!--                </div>&ndash;&gt;-->
+<!--                <div class="card-body">-->
+<!--                    <form method="POST">-->
+<!--                        &lt;!&ndash;<div class="form-row">-->
+<!--                            <div class="name">Company</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input class="input&#45;&#45;style-5" type="text" name="company">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>&ndash;&gt;-->
+<!--                        <div class="form-row">-->
+<!--                            <div class="name">Email</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input class="input&#45;&#45;style-5" type="email" name="email">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-row m-b-55">-->
+<!--                            <div class="name">Phone</div>-->
+<!--                            <div class="value">-->
+<!--                                &lt;!&ndash;<div class="row row-refine">-->
+<!--                                    <div class="col-3">-->
+<!--                                        <div class="input-group-desc">-->
+<!--                                            <input class="input&#45;&#45;style-5" type="text" name="area_code">-->
+<!--                                            <label class="label&#45;&#45;desc">Area Code</label>-->
+<!--                                        </div>-->
+<!--                                    </div>&ndash;&gt;-->
+<!--                                    &lt;!&ndash;<div class="col-9">&ndash;&gt;-->
+<!--                                        <div class="input-group-desc">-->
+<!--                                            <input class="input&#45;&#45;style-5" type="text" name="phone">-->
+<!--                                            &lt;!&ndash;<label class="label&#45;&#45;desc">Phone Number</label>&ndash;&gt;-->
+<!--                                        </div>-->
+<!--                                    &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                                &lt;!&ndash;</div>&ndash;&gt;-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--						<div class="form-row m-b-55">-->
+<!--                            <div class="name">Name</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="row row-space">-->
+<!--                                    <div class="col-2">-->
+<!--                                        <div class="input-group-desc">-->
+<!--                                            <input class="input&#45;&#45;style-5" type="text" name="first_name">-->
+<!--                                            <label class="label&#45;&#45;desc">first name</label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                    <div class="col-2">-->
+<!--                                        <div class="input-group-desc">-->
+<!--                                            <input class="input&#45;&#45;style-5" type="text" name="last_name">-->
+<!--                                            <label class="label&#45;&#45;desc">last name</label>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="form-row">-->
+<!--                            <div class="name">Subject</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="input-group">-->
+<!--                                    <div class="rs-select2 js-select-simple select&#45;&#45;no-search">-->
+<!--                                        <select name="subject">-->
+<!--                                            <option disabled="disabled" selected="selected">Choose option</option>-->
+<!--                                            <option>Subject 1</option>-->
+<!--                                            <option>Subject 2</option>-->
+<!--                                            <option>Subject 3</option>-->
+<!--                                        </select>-->
+<!--                                        <div class="select-dropdown"></div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--						<div class="form-row">-->
+<!--                            <div class="name">Password</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input class="input&#45;&#45;style-5" type="text" name="company">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--						<div class="form-row">-->
+<!--                            <div class="name">Password confirmation</div>-->
+<!--                            <div class="value">-->
+<!--                                <div class="input-group">-->
+<!--                                    <input class="input&#45;&#45;style-5" type="text" name="company">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--						&lt;!&ndash;<div class="form-row p-t-20">-->
+<!--                            <label class="label label&#45;&#45;block">Are you an existing customer?</label>-->
+<!--                            <div class="p-t-15">-->
+<!--                                <label class="radio-container m-r-55">Yes-->
+<!--                                    <input type="radio" checked="checked" name="exist">-->
+<!--                                    <span class="checkmark"></span>-->
+<!--                                </label>-->
+<!--                                <label class="radio-container">No-->
+<!--                                    <input type="radio" name="exist">-->
+<!--                                    <span class="checkmark"></span>-->
+<!--                                </label>-->
+<!--                            </div>-->
+<!--                        </div>&ndash;&gt;-->
+<!--                        <div>-->
+<!--                            <button class="btn btn&#45;&#45;radius-2 btn&#45;&#45;red" type="submit">Register</button>-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+{% endblock %}
+{% block javascript %}
+<!--    <script src="{% static 'authentication/js/jquery.min.js' %}"></script>-->
+<!--    <script src="{% static 'authentication/js/select2.min.js' %}"></script>-->
+<!--    <script src="{% static 'authentication/js/global.js' %}"></script>-->
 {% endblock %}
 

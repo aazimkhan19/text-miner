@@ -41,3 +41,9 @@ class ModerateTextForm(forms.ModelForm):
     class Meta:
         model = ModeratedText
         fields = ('content', )
+
+
+class TaskSubmitForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        pass

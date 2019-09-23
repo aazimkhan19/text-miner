@@ -1,7 +1,11 @@
 {% extends "mine/miner/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
+    <h6 class="heading">
+        <span>{{object.task_level}} - {{object.task_description}}</span>
+    </h6>
     <form method="post" class="uniForm">
         {% crispy form %}
     </form>

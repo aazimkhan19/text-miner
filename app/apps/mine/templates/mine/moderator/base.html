@@ -2,19 +2,28 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'mine/css/base.css' %}"/>
+<!--    <link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}"/>-->
 {% endblock %}
 
-{% block menu %}
-    <a class="nav-link" href="{% url 'mine:moderator-raw-texts' %}">
-        Raw data
-    </a>
-    <a class="nav-link" href="{% url 'mine:moderator-moderated-text' %}">
-        Moderated Text
-    </a>
-    <a class="nav-link" href="{% url 'mine:moderator-profile' %}">
-        Profile
-    </a>
+{% block sidebar %}
+    <li class="nav-item">
+        <span data-feather="home"></span>
+        <a class="nav-link active" href="{% url 'mine:moderator-raw-texts' %}">
+            Raw data
+        </a>
+    </li>
+    <li class="nav-item">
+        <span data-feather="home"></span>
+        <a class="nav-link active" href="{% url 'mine:moderator-moderated-text' %}">
+            Moderated Text
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'mine:moderator-profile' %}">
+            Profile
+        </a>
+    </li>
+
 {% endblock %}
 
 {% block content %}

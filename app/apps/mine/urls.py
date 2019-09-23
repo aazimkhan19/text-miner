@@ -1,6 +1,7 @@
 from django.urls import path
 
 from apps.mine import views
+from django.contrib.auth.decorators import login_required
 
 app_name = 'mine'
 urlpatterns = [
@@ -29,7 +30,13 @@ moderator_patterns = [
     path('moderator/profile/', views.ModeratorProfileView.as_view(), name='moderator-profile')
 ]
 miner_patterns = [
-    path('miner/', views.MinerInitialView.as_view(), name='miner-initial'),
+    path('miner/', login_required(views.MinerInitialViewBeginner.as_view()), name='miner-initial'),
+    path('miner/tasks/beginner', login_required(views.MinerInitialViewBeginner.as_view()), name='miner-tasks-beginner'),
+    path('miner/tasks/intermediate', login_required(views.MinerInitialViewIntermediate.as_view()), name='miner-tasks-intermediate'),
+    path('miner/tasks/advanced', login_required(views.MinerInitialViewAdvanced.as_view()), name='miner-tasks-advanced'),
+    path('miner/task/<int:pk>/', login_required(views.MinerTaskDetailView.as_view()), name='miner-task-detail'),
+    #path('miner/task/intermediate/<int:pk>/', login_required(views.MinerTaskDetailView.as_view()), name='miner-task-detail-intermediate'),
+    #path('miner/task/advanced/<int:pk>/', login_required(views.MinerTaskDetailView.as_view()), name='miner-task-detail-advanced'),
     path('miner/texts/', views.MinerRawTextListView.as_view(), name='miner-raw-texts'),
     path('miner/texts/create/', views.MinerRawTextCreateView.as_view(), name='miner-raw-text-create'),
     path('miner/texts/<int:pk>/', views.MinerRawTextDetailView.as_view(), name='miner-raw-text-detail'),

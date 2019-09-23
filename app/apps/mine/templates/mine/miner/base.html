@@ -5,13 +5,33 @@
 <link rel="stylesheet" href="{% static 'mine/css/base.css' %}"/>
 {% endblock %}
 
-{% block menu %}
-    <a class="nav-link" href="{% url 'mine:miner-raw-texts' %}">
-        Raw data
-    </a>
-    <a class="nav-link" href="{% url 'mine:miner-profile' %}">
-        Profile
-    </a>
+{% block sidebar %}
+    <li class="nav-item">
+        <span data-feather="home"></span>
+        <a class="nav-link active" href="{% url 'mine:miner-raw-texts' %}">
+            Raw data
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'mine:miner-tasks-beginner' %}">
+            Beginner
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'mine:miner-tasks-intermediate' %}">
+            Intermediate
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'mine:miner-tasks-advanced' %}">
+            Advanced
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link active" href="{% url 'mine:miner-profile' %}">
+            Profile
+        </a>
+    </li>
 {% endblock %}
 
 {% block content %}

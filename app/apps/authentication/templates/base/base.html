@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html class="h-100">
 {% load static %}
+{% load tag_utils %}
 <head>
     <meta charset="utf-8">
     <title>Text Miner |  {% block title %}{% endblock %}</title>
@@ -8,45 +9,48 @@
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}"/>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap-grid.css' %}"/>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap-reboot.css' %}"/>
-    <link rel="stylesheet" href="{% static 'base/css/base.css' %}"/>
+<!--    <link rel="stylesheet" href="{% static 'base/css/base.css' %}"/>-->
+    <link rel="stylesheet" href="{% static 'base/css/dashboard.css' %}"/>
 
-    {% block css %}
-
-    {% endblock %}
+    {% block css %}{% endblock %}
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 </head>
 
-<body>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-12 navigation-block">
-            <nav class="navbar navbar-expand-lg navbar-light bg-primary">
-              <a class="navbar-brand" href="{% url 'initial' %}">
-                <img src="{% static 'base/img/logo.png' %}" width="30" height="30" alt="">
-              </a>
-              <a class="navbar-brand" href="{% url 'initial' %}">Text Miner</a>
-              <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-              </button>
-
-              <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                  {% block navigation %}
-                  {% endblock %}
-                </ul>
-                <div class="form-inline my-2 my-lg-0">
-                  {% block topright %}
-                  {% endblock %}
+<body class="h-100">
+    <div class="container-fluid flex-grow-1">
+        <nav class="wrapper--w680 navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
+            <ul class="navbar-nav px-3">
+                <li class="nav-item text-nowrap">
+                    {% if user.is_authenticated %}
+                        <a class="nav-link" href="{% url 'authentication:signout' %}"><button class="btn btn-success" type="submit">Exit</button></a>
+                    {% else %}
+                        <a href="{% url 'authentication:signin' %}"><button class="btn btn-success" type="submit">Sign In</button></a>
+                        <a href="{% url 'authentication:signup' %}"><button class="btn btn-success" type="submit">Sign Up</button></a>
+                    {% endif %}
+                </li>
+            </ul>
+        </nav>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        {% block sidebar %}
+                        {% endblock %}
+                    </ul>
                 </div>
-              </div>
             </nav>
         </div>
+<!--        <div class="row stage-block">-->
+<!--        </div>-->
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            {% block stage %}
+            {% endblock %}
+        </main>
     </div>
-    <div class="row stage-block">
-        {% block stage %}
-        {% endblock %}
-    </div>
-</div>
 
 <!-- Mainly scripts -->
 <script src="{% static 'base/js/bootstrap.bundle.js' %}"></script>
