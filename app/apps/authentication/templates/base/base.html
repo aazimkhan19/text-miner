@@ -11,32 +11,33 @@
     <link rel="stylesheet" href="{% static 'base/css/bootstrap-reboot.css' %}"/>
 <!--    <link rel="stylesheet" href="{% static 'base/css/base.css' %}"/>-->
     <link rel="stylesheet" href="{% static 'base/css/dashboard.css' %}"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
 
     {% block css %}{% endblock %}
     <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
 </head>
 
 <body class="h-100">
-    <div class="container-fluid flex-grow-1">
-        <nav class="wrapper--w680 navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-0 shadow">
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    {% if user.is_authenticated %}
-                        <a class="nav-link" href="{% url 'authentication:signout' %}"><button class="btn btn-success" type="submit">Exit</button></a>
-                    {% else %}
-                        <a href="{% url 'authentication:signin' %}"><button class="btn btn-success" type="submit">Sign In</button></a>
-                        <a href="{% url 'authentication:signup' %}"><button class="btn btn-success" type="submit">Sign Up</button></a>
-                    {% endif %}
-                </li>
-            </ul>
-        </nav>
+    <nav class="wrapper--w680 navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow ">
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'authentication:signout' %}"><button class="btn btn-dark" type="submit">Exit</button></a>
+                {% else %}
+                    <a href="{% url 'authentication:signin' %}"><button class="btn btn-dark" type="submit">Sign In</button></a>
+                    <a href="{% url 'authentication:signup' %}"><button class="btn btn-dark" type="submit">Sign Up</button></a>
+                {% endif %}
+            </li>
+        </ul>
+    </nav>
+    <div class="container-fluid">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="row">
             <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="sidebar-sticky">
+                <div class="mt-4 sidebar-sticky">
                     <ul class="nav flex-column">
                         {% block sidebar %}
                         {% endblock %}

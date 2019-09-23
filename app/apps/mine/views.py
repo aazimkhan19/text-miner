@@ -204,7 +204,6 @@ class MinerTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
     queryset = Task.objects.all()
     success_url = reverse_lazy('mine:miner-tasks-beginner')
     def get_object(self, queryset=None):
-        print(self.queryset)
         return super().get_object(queryset)
 
 
