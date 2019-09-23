@@ -1,0 +1,47 @@
+{% extends "new_base/base.html" %}
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/css/level_chooser_content.css' %}">
+{% endblock %}
+{% block content %}
+    <header>
+        <div class="bg">
+            <h2>Welcome to our page</h2>
+            <div class="content">
+                <a class="card"  href="{% url 'mine:miner-tasks' %}">
+                    <div class="topper">
+                        <img src="{% static 'authentication/img/1.png' %}">
+                    </div>
+                    <div class="name">
+                        <h2>BEGINNER</h2>
+                    </div>
+                    <div class="bottomer">
+                        <p>This block is for beginners</p>
+                    </div>
+                </a>
+                <a class="card" href="{% url 'mine:miner-tasks' %}">
+                    <div class="topper">
+                        <img src="{% static 'authentication/img/2.png' %}">
+                    </div>
+                    <div class="name">
+                        <h2>INTERMEDIATE</h2>
+                    </div>
+                    <div class="bottomer">
+                        <p>This block is for intermediates</p>
+                    </div>
+                </a>
+                <a class="card" href="{% url 'mine:miner-tasks' %}">
+                    <div class="topper">
+                        <img src="{% static 'authentication/img/4.png' %}">
+                    </div>
+                    <div class="name">
+                        <h2>ADVANCED</h2>
+                    </div>
+                    <div class="bottomer">
+                        <p>This block is for advanced</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </header>
+{% endblock %}
