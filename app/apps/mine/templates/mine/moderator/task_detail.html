@@ -1,0 +1,22 @@
+{% extends "mine/moderator/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    <div class="card">
+    <div class="card-header">
+      <div class="row">
+        <div class="col-1"><spam class="badge badge-pill badge-info">#{{object.pk}}</spam></div>
+<!--        <div class="col-5">{{object.creator}}</div>-->
+        <div class="col-1"></div>
+        <div class="col-5 text-right">
+          <!--<a href="#">moderations</a>-->
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="card-text">
+        {{object.task_description}}
+      </p>
+    </div>
+  </div>
+{% endblock %}

@@ -6,18 +6,20 @@
 {% block content %}
 <div class="row">
     {% for task in object_list %}
-        <div class="col-md-4 flex-grow-1">
+        <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h4 class="card-title">{{task.task_level}}</h4>
-                    <p class="card-text">{{task.task_description}}</p>
-                    <a href="{% url 'mine:miner-task-detail' task.pk %}" class="btn btn-primary">Do</a>
+                    <h4 class="card-title text-truncate">{{task.task_description}}</h4>
+                    <p class="card-text">{{task.task_level}}</p>
+                    <a href="{% url 'mine:miner-task-detail' task.pk %}" class="btn btn-dark">Do</a>
                 </div>
             </div>
         </div>
     {% endfor %}
+</div>
+<div class="row fixed-bottom mx-auto">
     {% if is_paginated %}
-        <div class="pagination">
+        <div class="pagination m-sm-auto">
             {% if page_obj.has_previous %}
                 <a class="pagination-list" href="?page=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
                 <a href="?page={{ page_obj.previous_page_number }}" class="pagination-list"s><i class="fa fa-angle-left" aria-hidden="true"></i></a>

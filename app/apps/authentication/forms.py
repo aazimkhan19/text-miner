@@ -1,5 +1,5 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Row, Column
+from crispy_forms.layout import Submit, Layout, Row, Column, Field
 from django.contrib.auth.models import Group
 
 from apps.authentication.models import User
@@ -12,22 +12,27 @@ class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
     role = forms.TypedChoiceField(choices=((1, 'miner'), (2, 'moderator'),), empty_value=1, coerce=int)
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Password confirmation',
+                                widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
         super(UserCreationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        # self.helper.form_id = 'id-offline-ticket'
-        # self.helper.form_class = 'OfflineTicket'
-        self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Sign Up'))
         self.fields['email'].required = True
         self.fields['phone'].required = True
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
-
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation',
-                                widget=forms.PasswordInput)
+        self.helper.layout = Layout(
+            Field('email', css_class="form-control form-input"),
+            Field('phone', css_class="form-control form-input"),
+            Field('first_name', css_class="form-control form-input"),
+            Field('last_name', css_class="form-control form-input"),
+            Field('role', css_class="form-control form-input"),
+            Field('password1', css_class="form-control form-input"),
+            Field('password2', css_class="form-control form-input"),
+            Submit('submit', 'Sign Up', css_class="btn btn-lg btn-dark btn-block")
+        )
 
     class Meta:
         model = User
@@ -129,7 +134,12 @@ class UserAuthForm(AuthenticationForm):
         super(UserAuthForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Sign In'))
+        #form-control form-input
+        self.helper.layout = Layout(
+            Field('username', css_class="form-control form-input"),
+            Field('password', css_class="form-control form-input"),
+            Submit('submit', 'Sign In', css_class="btn btn-lg btn-dark btn-block")
+        )
 
 
 class ProfileForm(forms.ModelForm):

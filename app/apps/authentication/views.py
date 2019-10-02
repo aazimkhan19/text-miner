@@ -5,7 +5,7 @@ from django.views.generic import CreateView, TemplateView
 
 from apps.authentication.forms import UserCreationForm, UserAuthForm
 
-
+#TODO can be deleted
 class InitialView(TemplateView):
     template_name = 'authentication/initial.html'
 
@@ -27,7 +27,7 @@ class SignInView(LoginView):
     form_class = UserAuthForm
 
     def get_success_url(self):
-        return reverse_lazy('initial') # TODO create proxy view to cabinets
+        return reverse_lazy('initial')
 
 
 class ExitView(LogoutView):

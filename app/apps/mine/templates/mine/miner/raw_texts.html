@@ -1,29 +1,32 @@
 {% extends "mine/miner/base.html" %}
 
 {% block content %}
-    <table class="table">
-        <thead class="thead-dark">
-          <tr>
-            <th>#</th>
-            <th>Content</th>
-            <th>Creator</th>
-          </tr>
-        </thead>
-        <tbody>
-        {% for text in object_list %}
-          <tr>
-            <td><a href="{% url 'mine:admin-raw-text-detail' text.pk %}">{{ text.pk }}</a></td>
-            <td>{{ text.short_text }}</td>
-            <td>{{ text.creator.email }}</td>
-          </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    <div>
-        <a href="{% url 'mine:admin-raw-text-create' %}">
-            <button type="button" class="btn btn-primary btn-lg btn-block">
-                Add text
-            </button>
-        </a>
+    <div class="table-responsive">
+        <table class="table table-hover table-borderless">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">task</th>
+                    <th scope="col">Content</th>
+                    <th scope="col">Moderator</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for text in object_list %}
+                    <tr>
+                        <td><a href="#TODO">{{ text.pk }}</a></td>
+                        <td>{{ text.short_text }}</td>
+                        <td>{{ text.creator.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
+<!--TODO-->
+<!--    <div>-->
+<!--        <a href="{% url 'mine:admin-raw-text-create' %}">-->
+<!--            <button type="button" class="btn btn-primary btn-lg btn-block">-->
+<!--                Add text-->
+<!--            </button>-->
+<!--        </a>-->
+<!--    </div>-->
 {% endblock %}

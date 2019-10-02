@@ -4,6 +4,7 @@
 {% load tag_utils %}
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Text Miner |  {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'base/css/all.css' %}"/>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}"/>
@@ -19,7 +20,17 @@
 
 <body class="h-100">
     <nav class="wrapper--w680 navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow ">
-        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
+        {% if user.is_authenticated %}
+            {% if user|group_name:'miner' %}
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:miner-initial' %}">Text Miner</a>
+            {% elif user|group_name:'moderator' %}
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:moderator-initial' %}">Text Miner</a>
+            {% else %}
+                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:admin-initial' %}">Text Miner</a>
+            {% endif %}
+        {% else %}
+            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
+        {% endif %}
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 {% if user.is_authenticated %}
@@ -35,22 +46,8 @@
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">-->
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="mt-4 sidebar-sticky">
-                    <ul class="nav flex-column">
-                        {% block sidebar %}
-                        {% endblock %}
-                    </ul>
-                </div>
-            </nav>
-        </div>
-<!--        <div class="row stage-block">-->
-<!--        </div>-->
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            {% block stage %}
-            {% endblock %}
-        </main>
+        {% block stage %}
+        {% endblock %}
     </div>
 
 <!-- Mainly scripts -->

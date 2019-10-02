@@ -1,0 +1,86 @@
+{% extends "mine/moderator/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h4>
+    {{object.title}}
+</h4>
+
+<div class="row">
+    <div class="col-sm m-2">
+        <div class="row">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Your tasks</h3>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{object.title}}
+                    </p>
+                    <p class="card-text">
+                        {{object.owner}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Results</h3>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{object.title}}
+                    </p>
+                    <p class="card-text">
+                        {{object.owner}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm m-2">
+        <div class="row">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Invitation code</h3>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{object.title}}
+                    </p>
+                    <p class="card-text">
+                        {{object.owner}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Members</h3>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{object.title}}
+                    </p>
+                    <p class="card-text">
+                        {{object.owner}}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Delete classroom</h3>
+
+                <div class="card-body">
+                    <p class="card-text">
+                        {{object.title}}
+                    </p>
+                    <p class="card-text">
+                        {{object.owner}}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

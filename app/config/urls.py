@@ -18,10 +18,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.authentication.views import InitialView
+from apps.mine import views as mine_view
 
 patterns = [
-    path('', InitialView.as_view(), name='initial'),
+    path('', mine_view.initial, name='initial'),
     path('authentication/', include('apps.authentication.urls')),
     path('mine/', include('apps.mine.urls')),
     path('social/', include('social_django.urls', namespace='social')),
