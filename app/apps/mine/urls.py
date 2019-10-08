@@ -1,7 +1,6 @@
 from django.urls import path
 
 from apps.mine import views
-from django.contrib.auth.decorators import login_required
 
 app_name = 'mine'
 urlpatterns = [
@@ -21,18 +20,20 @@ admin_patterns = [
     path('admin/profile/', views.AdminProfileView.as_view(), name='admin-profile')
 ]
 moderator_patterns = [
-    path('moderator/', views.ModeratorInitialView.as_view(), name='moderator-initial'),
+    path('moderator/', views.ModeratorClassroomListView.as_view(), name='moderator-initial'),
     path('moderator/texts/', views.ModeratorRawTextListView.as_view(), name='moderator-raw-texts'),
     path('moderator/texts/<int:pk>/', views.ModeratorRawTextDetailView.as_view(), name='moderator-raw-text-detail'),
     path('moderator/texts/<int:pk>/moderate/', views.ModeratorModerateTextView.as_view(), name='moderator-raw-text-moderate'),
     path('moderator/texts/moderated/', views.ModeratorModeratedTextListView.as_view(), name='moderator-moderated-text'),
     path('moderator/texts/moderated/<int:pk>/', views.ModeratorModeratedTextDetailView.as_view(), name='moderator-moderated-text-detail'),
-    path('moderator/tasks/create/', views.ModeratorTaskCreateView.as_view(), name='moderator-task-create'),
-    path('moderator/task/<int:pk>/', views.ModeratorTaskDetailView.as_view(), name='moderator-task'),
-    path('moderator/tasks/', views.ModeratorTaskListView.as_view(), name='moderator-tasks'),
     path('moderator/classroom/<int:pk>', views.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
     path('moderator/classrooms/', views.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
     path('moderator/classroom/create', views.ModeratorClassroomCreateView.as_view(), name='moderator-classroom-create'),
+    path('moderator/classroom/<int:cpk>/user/<int:upk>/remove', views.ModeratorRemoveUserView.as_view(), name='moderator-classroom-user-remove'),
+    path('moderator/classroom/<int:pk>/tasks/create/', views.ModeratorClassroomTaskCreateView.as_view(), name='moderator-classroom-task-create'),
+    path('moderator/tasks/create/', views.ModeratorTaskCreateView.as_view(), name='moderator-task-create'),
+    path('moderator/task/<int:pk>/', views.ModeratorTaskDetailView.as_view(), name='moderator-task'),
+    path('moderator/tasks/', views.ModeratorTaskListView.as_view(), name='moderator-tasks'),
     path('moderator/profile/', views.ModeratorProfileView.as_view(), name='moderator-profile')
 ]
 miner_patterns = [
@@ -44,6 +45,10 @@ miner_patterns = [
     path('miner/texts/', views.MinerRawTextListView.as_view(), name='miner-raw-texts'),
     path('miner/texts/create/', views.MinerRawTextCreateView.as_view(), name='miner-raw-text-create'),
     path('miner/texts/<int:pk>/', views.MinerRawTextDetailView.as_view(), name='miner-raw-text-detail'),
+    path('miner/classroom/join/', views.MinerClassroomJoinView.as_view(), name='miner-classroom-join'),
+    path('miner/classroom/<int:pk>', views.MinerClassroomDetailView.as_view(), name='miner-classroom-detail'),
+    path('miner/classroom/<int:cpk>/task/<int:tpk>', views.MinerClassroomTaskDetailView.as_view(), name='miner-classroom-task-detail'),
+    path('miner/classrooms/', views.MinerClassroomListView.as_view(), name='miner-classrooms'),
     path('miner/profile/', views.MinerProfileView.as_view(), name='miner-profile')
 ]
 urlpatterns += admin_patterns

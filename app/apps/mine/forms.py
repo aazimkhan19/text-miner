@@ -54,7 +54,7 @@ class CreateTaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ('task_level', 'task_description')
+        fields = ('task_level', 'task_title', 'task_description')
 
 
 class CreateClassroomForm(forms.ModelForm):
@@ -69,3 +69,22 @@ class CreateClassroomForm(forms.ModelForm):
     class Meta:
         model = Classroom
         fields = ('title', )
+
+
+class JoinClassroomForm(forms.Form):
+    invitation_code = forms.CharField(min_length=8 ,max_length=8, label="Invitation code")
+
+    def __init__(self, *args, **kwargs):
+        super(JoinClassroomForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_id = 'id-offline-ticket'
+        self.helper.form_class = 'OfflineTicket'
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', u'Join'))
+
+    def clean_invitation_code(self):
+        try:
+            classroom = Classroom.objects.get(invitation_code=self.cleaned_data['invitation_code'])
+        except Classroom.DoesNotExist:
+            raise forms.ValidationError("Classroom does not exist.")
+        return classroom

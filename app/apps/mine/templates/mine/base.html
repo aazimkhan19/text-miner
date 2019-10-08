@@ -5,41 +5,20 @@
 <link rel="stylesheet" href="{% static 'mine/css/base.css' %}"/>
 {% endblock %}
 
-<!--TODO-->
-<!--{% block topright %}-->
-<!--<img src="{% static 'base/img/logo.png' %}" height="30px" width="30px" class="rounded-circle" alt="...">-->
-<!--{% endblock %}-->
-
 {% block stage %}
-<!--TODO-->
-<!--    <div class="col-2 menu-block">-->
-<!--        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">-->
-<!--          {% block menu %}-->
-<!--          {% endblock %}-->
-<!--        </div>-->
-<!--    </div>-->
-<!--    <div class="col-9 content-block">-->
-        {% block contentTODO %}
-        {% endblock %}
-<!--    </div>-->
-<!--TODO-->
-<!--    <div class="col-1"></div>-->
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="mt-4 sidebar-sticky">
+                <ul class="nav flex-column">
+                    {% block sidebar %}
+                    {% endblock %}
+                </ul>
+            </div>
+        </nav>
 
-        <div class="row">
-            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-                <div class="mt-4 sidebar-sticky">
-                    <ul class="nav flex-column">
-                        {% block sidebar %}
-                        {% endblock %}
-                    </ul>
-                </div>
-            </nav>
-
-<!--        <div class="row stage-block">-->
-<!--        </div>-->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-                {% block content %}
-                {% endblock %}
-            </main>
-        </div>
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            {% block content %}
+            {% endblock %}
+        </main>
+    </div>
 {% endblock %}

@@ -1,6 +1,15 @@
 from django.db import models
 from apps.authentication.models import User
 
+class Classroom(models.Model):
+    title = models.CharField(max_length=50)
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    participants = models.ManyToManyField(User, related_name='participants', blank=True)
+    invitation_code = models.CharField(max_length=8, unique=True)
+
+    def __str__(self):
+        return '{} - {} - {}'.format(self.pk, self.title, self.owner.email)
+
 class Task(models.Model):
     BEGINNER = 'BEGINNER'
     INTERMEDIATE = 'INTERMEDIATE'
@@ -15,8 +24,13 @@ class Task(models.Model):
         choices=LEVEL_CHOICES,
         default=BEGINNER,
     )
-    task_title = models.TextField(max_length=50, null=True)
+    task_title = models.CharField(max_length=50, null=True)
     task_description = models.TextField()
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='tasks',null=True)
+
+    @property
+    def short_text(self):
+        return '{}...'.format(self.task_description[:40])
 
     def __str__(self):
         return '{} - {} - {}'.format(self.pk, self.task_level, self.task_title)
@@ -25,6 +39,7 @@ class Text(models.Model):
     content = models.TextField()
     creator = models.ForeignKey(User, on_delete=models.CASCADE)
     task = models.ForeignKey(Task, on_delete=models.CASCADE, null=True)
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='completed_tasks', null=True)
 
     @property
     def short_text(self):
@@ -45,15 +60,6 @@ class ModeratedText(models.Model):
 
     def __str__(self):
         return '{} - {}'.format(self.pk, self.moderator.email)
-
-class Classroom(models.Model):
-    title = models.CharField(max_length=50)
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    participants = models.ManyToManyField(User, related_name='participants', blank=True)
-    tasks = models.ManyToManyField(Task, blank=True)
-
-    def __str__(self):
-        return '{} - {} - {}'.format(self.pk, self.title, self.owner.email)
 
 
 class CompletedTask(models.Model):

@@ -1,16 +1,17 @@
 from braces.views import GroupRequiredMixin as BaseGroupRequiredMixin, SuperuserRequiredMixin
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.shortcuts import redirect, render
 
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView, ListView, DetailView, RedirectView, UpdateView
+from django.views.generic import CreateView, TemplateView, ListView, DetailView, RedirectView, UpdateView, FormView
 
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
-from apps.mine.forms import TextForm, ModerateTextForm, CreateTaskForm, CreateClassroomForm
+from apps.mine.forms import TextForm, ModerateTextForm, CreateTaskForm, CreateClassroomForm, JoinClassroomForm
 from apps.mine.models import Text, ModeratedText, Task, Classroom
 
+from nanoid import generate
 
 class BaseTextCreateView(CreateView):
     form_class = TextForm
@@ -19,7 +20,8 @@ class BaseTextCreateView(CreateView):
         """If the form is valid, save the associated model."""
         self.object = form.save()
         self.object.creator = self.request.user
-        self.object.task = Task.objects.get(pk=self.kwargs['pk'])
+        self.object.task = Task.objects.get(pk=self.kwargs['tpk'])
+        self.object.classroom = Classroom.objects.get(pk=self.kwargs['cpk'])
         self.object.save()
         return super().form_valid(form)
 
@@ -61,14 +63,20 @@ class BaseTextModerationView(CreateView):
 class BaseTaskCreateView(CreateView):
     form_class = CreateTaskForm
 
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.classroom = Classroom.objects.get(pk=self.kwargs['pk'])
+        self.object.save()
+        return super().form_valid(form)
+
 
 class BaseClassroomCreateView(CreateView):
     form_class = CreateClassroomForm
 
     def form_valid(self, form):
-        print(self.object)
         self.object = form.save()
         self.object.owner = self.request.user
+        self.object.invitation_code = generate(size=8)
         self.object.save()
         return super().form_valid(form)
 
@@ -225,17 +233,33 @@ class ModeratorClassroomListView(BaseModeratorView, ListView):
     def get_queryset(self):
         return self.queryset.filter(owner=self.request.user)
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(ModeratorClassroomListView, self).get_context_data(**kwargs)
-    #     context['people'] = ClassroomPeople.objects.filter(classroom__in = self.queryset)
-    #     print("CONTEXT", ClassroomPeople.objects.filter(classroom__in = self.get_queryset()))
-    #     print("QUERYSET", self.get_queryset())
-    #     return context
-
 
 class ModeratorClassroomDetailView(BaseModeratorView, DetailView):
     template_name = "mine/moderator/classroom.html"
     queryset = Classroom.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(ModeratorClassroomDetailView, self).get_context_data(**kwargs)
+        context['tasks'] = Task.objects.filter(classroom = Classroom.objects.get(pk=self.kwargs['pk']))
+        return context
+
+
+class ModeratorClassroomTaskCreateView(BaseModeratorView, BaseTaskCreateView):
+    template_name = "mine/moderator/create_task.html"
+
+    def get_success_url(self):
+        return reverse_lazy('mine:moderator-classroom-detail', kwargs = {'pk' : self.kwargs['pk'], })
+
+
+class ModeratorRemoveUserView(BaseModeratorView, RedirectView):
+    def get(self, request, *args, **kwargs):
+        user = User.objects.filter(pk=kwargs['upk'])
+        if user.exists():
+            Classroom.objects.filter(pk=kwargs['cpk']).first().participants.remove(user.first())
+        return super().get(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse_lazy('mine:moderator-classroom-detail', kwargs={'pk': kwargs['cpk']})
 
 
 # Miner views
@@ -274,6 +298,7 @@ class MinerTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
             success_url = reverse_lazy('mine:miner-tasks-advanced')
         return success_url
 
+
 class MinerRawTextListView(BaseMinerView, ListView):
     template_name = 'mine/miner/raw_texts.html'
     queryset = Text.objects.all()
@@ -296,6 +321,46 @@ class MinerProfileView(BaseMinerView, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class MinerClassroomJoinView(BaseMinerView, FormView):
+    form_class = JoinClassroomForm
+    template_name = "mine/miner/join_classroom.html"
+
+    def form_valid(self, form):
+        form.cleaned_data['invitation_code'].participants.add(self.request.user)
+        return HttpResponseRedirect(reverse_lazy('mine:miner-classroom-detail', kwargs = {'pk': form.cleaned_data['invitation_code'].pk}))
+
+
+class MinerClassroomListView(BaseMinerView, ListView):
+    template_name = "mine/miner/classroom_list.html"
+    queryset = Classroom.objects.all()
+
+    def get_queryset(self):
+        return self.queryset.filter(participants__in=[self.request.user])
+
+
+class MinerClassroomDetailView(BaseMinerView, DetailView):
+    template_name = "mine/miner/classroom.html"
+    queryset = Classroom.objects.all()
+
+    # def get_queryset(self):
+    #     return self.queryset.filter(classroom=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super(MinerClassroomDetailView, self).get_context_data(**kwargs)
+        context['completed_tasks'] = Text.objects.filter(classroom=Classroom.objects.get(pk=self.kwargs['pk']), creator=self.request.user)
+        context['tasks'] = Task.objects.filter(classroom=Classroom.objects.get(pk=self.kwargs['pk'])).exclude(id__in=context['completed_tasks'].values('task'))
+        return context
+
+
+class MinerClassroomTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
+    template_name = 'mine/miner/raw_text_create.html'
+    queryset = Task.objects.all()
+    pk_url_kwarg = "tpk"
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('mine:miner-classroom-detail', kwargs={'pk': self.kwargs['cpk']})
 
 
 def initial(request):

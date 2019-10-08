@@ -1,0 +1,68 @@
+{% extends "mine/miner/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<h4>
+    {{object.title}}
+</h4>
+
+<div class="row">
+    <nav class="w-100 m-3">
+        <div class="nav nav-tabs w-100 nav-tabs-justified" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">New tasks</a>
+            <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Results</a>
+            <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">All tasks</a>
+        </div>
+    </nav>
+    <div class="tab-content m-3 w-100" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+            {% if tasks.all %}
+                <div class="row">
+                    {% for task in tasks.all %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h4 class="card-title text-truncate">{{task.task_description}}</h4>
+                                    <p class="card-text">{{task.task_level}}</p>
+                                    <a href="{% url 'mine:miner-classroom-task-detail' object.pk task.pk %}" class="btn btn-dark">Do</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <li class="list-group-item">
+                    <span class="h5 align-self-center">No tasks yet</span>
+                </li>
+            {% endif %}
+        </div>
+
+        <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+            {% if completed_tasks.all %}
+                <div class="row">
+                    {% for task in completed_tasks.all %}
+                        <div class="col-md-4">
+                            <div class="card mb-4 shadow-sm">
+                                <div class="card-body">
+                                    <h4 class="card-title text-truncate">{{task.task_description}}</h4>
+                                    <p class="card-text">{{task.task_level}}</p>
+                                    <a href="{% url 'mine:miner-task-detail' task.pk %}" class="btn btn-dark">Do</a>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <li class="list-group-item">
+                    <span class="h5 align-self-center">No completed tasks yet</span>
+                </li>
+            {% endif %}
+        </div>
+
+        <div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+
+        </div>
+    </div>
+</div>
+{% endblock %}

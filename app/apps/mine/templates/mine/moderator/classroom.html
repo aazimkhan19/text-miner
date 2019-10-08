@@ -1,6 +1,18 @@
 {% extends "mine/moderator/base.html" %}
 {% load crispy_forms_tags %}
 
+{% block css%}
+<style>
+    .icon {
+      width: 16px;
+      height: 16px;
+      padding: 0;
+      margin: 0;
+      vertical-align: middle;
+    }
+</style>
+{% endblock %}
+
 {% block content %}
 
 <h4>
@@ -8,22 +20,42 @@
 </h4>
 
 <div class="row">
-    <div class="col-sm m-2">
-        <div class="row">
+    <div class="col-lg-6 col-md-12 pl-4 pr-4">
+        <div class="row mb-3">
             <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Your tasks</h3>
 
-                <div class="card-body">
-                    <p class="card-text">
-                        {{object.title}}
-                    </p>
-                    <p class="card-text">
-                        {{object.owner}}
-                    </p>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="align-self-center">
+                        <span class="font-weight-bold h3">Your tasks</span>
+                    </div>
+                    <a href="{% url 'mine:moderator-classroom-task-create' object.pk%}"><button class="btn btn-link">Add task</button></a>
                 </div>
+
+<!--                 TODO form, actions-->
+                <ul class="list-group list-group-flush">
+                    {% if tasks.all %}
+                        {% for task in tasks.all %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                    <span class="h6 font-weight-bold">{{task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{task.short_text}}</p>
+                                </div>
+                                <div class="align-self-center h5">
+                                    <a href="{% url 'mine:moderator-task-create'%}"><i class="fa fa-pencil mr-1"></i></a>
+                                    <a href="{% url 'mine:moderator-task-create'%}"><i class="fa fa-trash-o text-danger"></i></a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <span class="h5 align-self-center">No tasks yet</span>
+                        </li>
+                    {% endif %}
+
+                </ul>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Results</h3>
 
@@ -38,49 +70,76 @@
             </div>
         </div>
     </div>
-    <div class="col-sm m-2">
-        <div class="row">
+    <div class="col-lg-6 col-md-12 pl-4 pr-4">
+        <div class="row mb-3">
             <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Invitation code</h3>
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <div class="align-self-center">
+                        <span class="font-weight-bold h3">Invitation code</span>
+                    </div>
 
-                <div class="card-body">
-                    <p class="card-text">
-                        {{object.title}}
-                    </p>
-                    <p class="card-text">
-                        {{object.owner}}
-                    </p>
+                    <div class="input-group w-auto">
+                      <input id="invitation-code" type="text" class="form-control" value={{object.invitation_code}} readonly>
+                      <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
+                      </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Members</h3>
-
-                <div class="card-body">
-                    <p class="card-text">
-                        {{object.title}}
-                    </p>
-                    <p class="card-text">
-                        {{object.owner}}
-                    </p>
-                </div>
+<!--                 TODO form, actions-->
+                <ul class="list-group list-group-flush">
+                    {% if object.participants.all %}
+                        {% for participant in object.participants.all %}
+                        <li class="list-group-item d-flex justify-content-between align-content-center">
+                            <div class="align-self-center">
+                                <span class="h6">{{participant.first_name}} {{participant.last_name}} -</span>
+                                <span class="font-weight-bold">{{participant.email}}</span>
+                            </div>
+                            <a href="{% url 'mine:moderator-classroom-user-remove' object.pk participant.pk%}"><button class="btn btn-link text-danger">Remove</button></a>
+                        </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <span class="h5 align-self-center">No members yet</span>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
-        <div class="row">
+        <div class="row mb-3">
             <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Delete classroom</h3>
+                <h3 class="card-header font-weight-bold bg-danger text-light">Delete classroom</h3>
 
                 <div class="card-body">
                     <p class="card-text">
-                        {{object.title}}
+                        After you delete a classroom, you cannot invite people to join that classroom. You will lose all your tasks and results of tasks
                     </p>
-                    <p class="card-text">
-                        {{object.owner}}
-                    </p>
+                </div>
+
+                <div class="card-footer d-flex flex-column align-items-end">
+                    <a href="{% url 'mine:moderator-classroom-task-create' object.pk%}">
+                        <button class="btn btn-link text-danger">Delete classroom</button>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block javascript %}
+<script defer>
+    function myFunction() {
+      var copyText = document.getElementById("invitation-code");
+      copyText.select();
+      copyText.setSelectionRange(0, 99999);
+      document.execCommand("copy");
+    }
+</script>
 {% endblock %}
