@@ -1,55 +1,55 @@
 from django.urls import path
 
-from apps.mine import views
-
+from apps.mine.view import admin, initial, miner, moderator
 app_name = 'mine'
 urlpatterns = [
 ]
 
 admin_patterns = [
-    path('admin/', views.AdminInitialView.as_view(), name='admin-initial'),
-    path('admin/texts/', views.AdminRawTextListView.as_view(), name='admin-raw-texts'),
-    path('admin/texts/create/', views.AdminRawTextCreateView.as_view(), name='admin-raw-text-create'),
-    path('admin/texts/<int:pk>/', views.AdminRawTextDetailView.as_view(), name='admin-raw-text-detail'),
-    path('admin/texts/<int:pk>/moderate/', views.AdminModerateTextView.as_view(), name='admin-raw-text-moderate'),
-    path('admin/texts/moderated/', views.AdminModeratedTextListView.as_view(), name='admin-moderated-text'),
-    path('admin/texts/moderated/<int:pk>/', views.AdminModeratedTextDetailView.as_view(), name='admin-moderated-text-detail'),
-    path('admin/users/miners/', views.AdminMinerListView.as_view(), name='admin-miners'),
-    path('admin/users/moderators/', views.AdminModeratorListView.as_view(), name='admin-moderators'),
-    path('admin/users/<int:pk>/activate/', views.AdminUserActivateView.as_view(), name='admin-user-turn'),
-    path('admin/profile/', views.AdminProfileView.as_view(), name='admin-profile')
+    path('admin/', admin.AdminInitialView.as_view(), name='admin-initial'),
+    path('admin/texts/', admin.AdminRawTextListView.as_view(), name='admin-raw-texts'),
+    path('admin/texts/create/', admin.AdminRawTextCreateView.as_view(), name='admin-raw-text-create'),
+    path('admin/texts/<int:pk>/', admin.AdminRawTextDetailView.as_view(), name='admin-raw-text-detail'),
+    path('admin/texts/<int:pk>/moderate/', admin.AdminModerateTextView.as_view(), name='admin-raw-text-moderate'),
+    path('admin/texts/moderated/', admin.AdminModeratedTextListView.as_view(), name='admin-moderated-text'),
+    path('admin/texts/moderated/<int:pk>/', admin.AdminModeratedTextDetailView.as_view(), name='admin-moderated-text-detail'),
+    path('admin/users/miners/', admin.AdminMinerListView.as_view(), name='admin-miners'),
+    path('admin/users/moderators/', admin.AdminModeratorListView.as_view(), name='admin-moderators'),
+    path('admin/users/<int:pk>/activate/', admin.AdminUserActivateView.as_view(), name='admin-user-turn'),
+    path('admin/profile/', admin.AdminProfileView.as_view(), name='admin-profile')
 ]
 moderator_patterns = [
-    path('moderator/', views.ModeratorClassroomListView.as_view(), name='moderator-initial'),
-    path('moderator/texts/', views.ModeratorRawTextListView.as_view(), name='moderator-raw-texts'),
-    path('moderator/texts/<int:pk>/', views.ModeratorRawTextDetailView.as_view(), name='moderator-raw-text-detail'),
-    path('moderator/texts/<int:pk>/moderate/', views.ModeratorModerateTextView.as_view(), name='moderator-raw-text-moderate'),
-    path('moderator/texts/moderated/', views.ModeratorModeratedTextListView.as_view(), name='moderator-moderated-text'),
-    path('moderator/texts/moderated/<int:pk>/', views.ModeratorModeratedTextDetailView.as_view(), name='moderator-moderated-text-detail'),
-    path('moderator/classroom/<int:pk>', views.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
-    path('moderator/classrooms/', views.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
-    path('moderator/classroom/create', views.ModeratorClassroomCreateView.as_view(), name='moderator-classroom-create'),
-    path('moderator/classroom/<int:cpk>/user/<int:upk>/remove', views.ModeratorRemoveUserView.as_view(), name='moderator-classroom-user-remove'),
-    path('moderator/classroom/<int:pk>/tasks/create/', views.ModeratorClassroomTaskCreateView.as_view(), name='moderator-classroom-task-create'),
-    path('moderator/tasks/create/', views.ModeratorTaskCreateView.as_view(), name='moderator-task-create'),
-    path('moderator/task/<int:pk>/', views.ModeratorTaskDetailView.as_view(), name='moderator-task'),
-    path('moderator/tasks/', views.ModeratorTaskListView.as_view(), name='moderator-tasks'),
-    path('moderator/profile/', views.ModeratorProfileView.as_view(), name='moderator-profile')
+    path('moderator/', moderator.ModeratorClassroomListView.as_view(), name='moderator-initial'),
+    path('moderator/texts/', moderator.ModeratorRawTextListView.as_view(), name='moderator-raw-texts'),
+    path('moderator/texts/<int:pk>/', moderator.ModeratorRawTextDetailView.as_view(), name='moderator-raw-text-detail'),
+    path('moderator/texts/<int:pk>/moderate/', moderator.ModeratorModerateTextView.as_view(), name='moderator-raw-text-moderate'),
+    path('moderator/texts/moderated/', moderator.ModeratorModeratedTextListView.as_view(), name='moderator-moderated-text'),
+    path('moderator/texts/moderated/<int:pk>/', moderator.ModeratorModeratedTextDetailView.as_view(), name='moderator-moderated-text-detail'),
+    path('moderator/classroom/<int:pk>', moderator.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
+    path('moderator/classrooms/', moderator.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
+    path('moderator/classroom/create', moderator.ModeratorClassroomCreateView.as_view(), name='moderator-classroom-create'),
+    path('moderator/classroom/<int:cpk>/user/<int:upk>/remove', moderator.ModeratorRemoveUserView.as_view(), name='moderator-classroom-user-remove'),
+    path('moderator/classroom/<int:pk>/tasks/create/', moderator.ModeratorClassroomTaskCreateView.as_view(), name='moderator-classroom-task-create'),
+    path('moderator/tasks/create/', moderator.ModeratorTaskCreateView.as_view(), name='moderator-task-create'),
+    path('moderator/task/<int:pk>/', moderator.ModeratorTaskDetailView.as_view(), name='moderator-task'),
+    path('moderator/tasks/', moderator.ModeratorTaskListView.as_view(), name='moderator-tasks'),
+    path('moderator/profile/', moderator.ModeratorProfileView.as_view(), name='moderator-profile')
 ]
 miner_patterns = [
-    path('miner/', views.MinerInitialViewBeginner.as_view(), name='miner-initial'),
-    path('miner/tasks/beginner/', views.MinerInitialViewBeginner.as_view(), name='miner-tasks-beginner'),
-    path('miner/tasks/intermediate/', views.MinerInitialViewIntermediate.as_view(), name='miner-tasks-intermediate'),
-    path('miner/tasks/advanced/', views.MinerInitialViewAdvanced.as_view(), name='miner-tasks-advanced'),
-    path('miner/task/<int:pk>/', views.MinerTaskDetailView.as_view(), name='miner-task-detail'),
-    path('miner/texts/', views.MinerRawTextListView.as_view(), name='miner-raw-texts'),
-    path('miner/texts/create/', views.MinerRawTextCreateView.as_view(), name='miner-raw-text-create'),
-    path('miner/texts/<int:pk>/', views.MinerRawTextDetailView.as_view(), name='miner-raw-text-detail'),
-    path('miner/classroom/join/', views.MinerClassroomJoinView.as_view(), name='miner-classroom-join'),
-    path('miner/classroom/<int:pk>', views.MinerClassroomDetailView.as_view(), name='miner-classroom-detail'),
-    path('miner/classroom/<int:cpk>/task/<int:tpk>', views.MinerClassroomTaskDetailView.as_view(), name='miner-classroom-task-detail'),
-    path('miner/classrooms/', views.MinerClassroomListView.as_view(), name='miner-classrooms'),
-    path('miner/profile/', views.MinerProfileView.as_view(), name='miner-profile')
+    path('miner/', miner.MinerInitialViewBeginner.as_view(), name='miner-initial'),
+    path('miner/tasks/beginner/', miner.MinerInitialViewBeginner.as_view(), name='miner-tasks-beginner'),
+    path('miner/tasks/intermediate/', miner.MinerInitialViewIntermediate.as_view(), name='miner-tasks-intermediate'),
+    path('miner/tasks/advanced/', miner.MinerInitialViewAdvanced.as_view(), name='miner-tasks-advanced'),
+    path('miner/task/<int:pk>/', miner.MinerTaskDetailView.as_view(), name='miner-task-detail'),
+    path('miner/classroom/join/', miner.MinerClassroomJoinView.as_view(), name='miner-classroom-join'),
+    path('miner/classroom/<int:pk>', miner.MinerClassroomDetailView.as_view(), name='miner-classroom-detail'),
+    path('miner/classroom/<int:pk>/results', miner.MinerClassroomResultsView.as_view(), name='miner-classroom-detail-results'),
+    path('miner/classroom/<int:cpk>/task/<int:tpk>', miner.MinerClassroomTaskDetailView.as_view(), name='miner-classroom-task-detail'),
+    path('miner/classrooms/', miner.MinerClassroomListView.as_view(), name='miner-classrooms'),
+    path('miner/classroom/<int:cpk>/result/<int:tpk>/', miner.MinerClassroomResultDetailView.as_view(), name='miner-classroom-result-detail'),
+    path('miner/notifications', miner.MinerNotificationsView.as_view(), name='miner-notifications'),
+    path('miner/notifications/<int:pk>/toggle', miner.MinerNotificationToggleView.as_view(), name='miner-notification-status-toggle'),
+    path('miner/profile/', miner.MinerProfileView.as_view(), name='miner-profile')
 ]
 urlpatterns += admin_patterns
 urlpatterns += moderator_patterns

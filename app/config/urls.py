@@ -18,7 +18,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 
-from apps.mine import views as mine_view
+from apps.mine.view import initial as mine_view
 
 patterns = [
     path('', mine_view.initial, name='initial'),

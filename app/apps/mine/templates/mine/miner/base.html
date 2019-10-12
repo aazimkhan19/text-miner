@@ -12,12 +12,6 @@
         </span>
     </li>
     <li class="nav-item" style="padding-bottom: 0.5rem">
-        <span data-feather="home"></span>
-        <a class="nav-link" href="{% url 'mine:miner-raw-texts' %}">
-            <i class="fa fa-list" style="color: #ff9933"></i> Raw data
-        </a>
-    </li>
-    <li class="nav-item" style="padding-bottom: 0.5rem">
         <a class="nav-link" href="{% url 'mine:miner-tasks-beginner' %}">
             <i class="fa fa-star" style="color: #ff9933"></i> Beginner
         </a>
@@ -40,6 +34,11 @@
     <li class="nav-item" >
         <a class="nav-link" href="{% url 'mine:miner-classroom-join' %}">
             <i class="fa fa-group" style="color: #ff9933"></i> Join a classroom
+        </a>
+    </li>
+    <li class="nav-item" >
+        <a class="nav-link" href="{% url 'mine:miner-notifications' %}">
+            <i class="fa fa-bell" style="color: #ff9933"></i> Notifications
         </a>
     </li>
     <li class="nav-item" >

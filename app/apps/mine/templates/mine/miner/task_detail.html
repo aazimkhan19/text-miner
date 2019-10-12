@@ -1,30 +1,22 @@
-{% extends "new_base/base.html" %}
-{% load static %}
+{% extends "mine/miner/base.html" %}
 {% load crispy_forms_tags %}
-{% block styles %}
-    <link rel="stylesheet" type="text/css" href="{% static 'levels/css/style4.css' %}">
-{% endblock %}
+{% load static %}
+
 {% block content %}
-    <header>
-        <div class="bg">
-            <div class="content">
-                <div class="card">
-                    <div class="topper"><h2>{{object.task_description}}</h2></div>
-                    <div class="bottomer">
-<!--                        <p>You see a notice about a cooking competition in school. For the competition, you need to write a recipe for an easy dish. For example, an omelette, a smoothie, bread etc.-->
-                    </div>
-                    <div class="inputter">
-<!--                        <textarea rows="15" cols="100" name="comment" form="usrform"></textarea>-->
-                        <form method="post" class="uniForm">
-                            {% crispy form %}
-                        </form>
-<!--                        <button>Submit</button>-->
-                    </div>
-                </div>
-
+    <div class="d-flex ml-3 mb-4">
+        <a class="h5" href="{% url 'mine:miner-classroom-detail' view.kwargs.cpk %}">
+            <i class="fa fa-arrow-left"></i> Back
+        </a>
+        <h5 class="font-weight-bold ml-3">{{ task.task_title }} - {{task.task_level}}</h5>
+    </div>
+    <div class="col-md-8 flex-grow-1">
+        <div class="card mb-4 shadow-sm">
+            <h3 class="ml-3 mt-2 mr-3 card-text">{{ task.task_description }}</h3>
+            <div class="card-body">
+                <form method="post" class="uniForm">
+                    {% crispy form %}
+                </form>
             </div>
-
         </div>
-
-    </header>
+    </div>
 {% endblock %}

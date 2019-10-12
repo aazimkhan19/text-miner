@@ -4,6 +4,8 @@ from django.contrib.auth.models import Group
 
 from apps.authentication.models import User
 
+from apps.mine.models import Miner
+
 from django import forms
 from django.contrib.auth.forms import ReadOnlyPasswordHashField, AuthenticationForm
 
@@ -80,6 +82,7 @@ class UserCreationForm(forms.ModelForm):
             if role == 1:
                 group = Group.objects.get(name='miner')
                 group.user_set.add(user)
+                Miner.objects.create(user=user)
             else:
                 group = Group.objects.get(name='moderator')
                 group.user_set.add(user)

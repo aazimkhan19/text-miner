@@ -16,7 +16,7 @@
 {% block content %}
 
 <h4>
-    {{object.title}}
+    {{classroom.title}}
 </h4>
 
 <div class="row">
@@ -33,8 +33,8 @@
 
 <!--                 TODO form, actions-->
                 <ul class="list-group list-group-flush">
-                    {% if tasks.all %}
-                        {% for task in tasks.all %}
+                    {% if classroom.tasks.all %}
+                        {% for task in classroom.tasks.all %}
                             <li class="list-group-item d-flex justify-content-between">
                                 <div class="d-flex flex-column align-self-center">
                                     <span class="h6 font-weight-bold">{{task.task_title}}</span>
@@ -61,10 +61,10 @@
 
                 <div class="card-body">
                     <p class="card-text">
-                        {{object.title}}
+                        {{classroom.title}}
                     </p>
                     <p class="card-text">
-                        {{object.owner}}
+                        {{classroom.owner}}
                     </p>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                     </div>
 
                     <div class="input-group w-auto">
-                      <input id="invitation-code" type="text" class="form-control" value={{object.invitation_code}} readonly>
+                      <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
                       <div class="input-group-append">
                         <button class="btn btn-outline-secondary" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
                       </div>
@@ -94,14 +94,14 @@
                 <h3 class="card-header font-weight-bold">Members</h3>
 <!--                 TODO form, actions-->
                 <ul class="list-group list-group-flush">
-                    {% if object.participants.all %}
-                        {% for participant in object.participants.all %}
+                    {% if classroom.participant.all %}
+                        {% for user in classroom.participant.all %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
                             <div class="align-self-center">
-                                <span class="h6">{{participant.first_name}} {{participant.last_name}} -</span>
-                                <span class="font-weight-bold">{{participant.email}}</span>
+                                <span class="h6">{{user.user.first_name}} {{user.user.last_name}}</span>
+                                <span class="font-weight-bold">{{user.user.email}}</span>
                             </div>
-                            <a href="{% url 'mine:moderator-classroom-user-remove' object.pk participant.pk%}"><button class="btn btn-link text-danger">Remove</button></a>
+                            <a href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><button class="btn btn-link text-danger">Remove</button></a>
                         </li>
                         {% endfor %}
                     {% else %}
