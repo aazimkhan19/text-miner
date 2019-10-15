@@ -2,19 +2,17 @@
 
 {% block content %}
     {% for classroom in classrooms %}
-        <div class="card bg-white text-decoration-none mb-3 col-md-6">
-            <div class="row">
-                <div class="col">
-                    <div class="pl-4 pt-2">
-                        <div class="row">
-                            <h4 class="card-title font-weight-bold">{{classroom.title}}</h4>
-                        </div>
-                        <div class="row">
-                            <h6 class="card-title">{{classroom.participants_count}} students - {{classroom.tasks_count}} tasks</h6>
-                        </div>
+        <div class="card bg-white text-decoration-none mb-3 col-sm-12 col-lg-6">
+            <div class="row d-flex justify-content-between pl-3 pr-3 pt-1 pb-1">
+                <div class="pl-4 pt-2">
+                    <div class="row">
+                        <h4 class="card-title font-weight-bold">{{classroom.title}}</h4>
+                    </div>
+                    <div class="row">
+                        <h6 class="card-title">{{classroom.participants_count}} students - {{classroom.tasks_count}} tasks</h6>
                     </div>
                 </div>
-                <a href="{% url 'mine:moderator-classroom-detail' classroom.pk %}" class="col align-self-center">
+                <a href="{% url 'mine:moderator-classroom-detail' classroom.pk %}" class="align-self-center">
                     <button class="btn-dark btn float-right">View</button>
                 </a>
             </div>

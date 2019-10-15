@@ -2,21 +2,40 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <div class="card">
-    <div class="card-header">
-      <div class="row">
-        <div class="col-1"><spam class="badge badge-pill badge-info">#{{object.pk}}</spam></div>
-        <div class="col-5">{{object.creator}}</div>
-        <div class="col-1"></div>
-        <div class="col-5 text-right">
-          <!--<a href="#">moderations</a>-->
+<div class="d-flex ml-3 mb-4">
+    <a class="h5" href="{% url 'mine:miner-classroom-detail-results' text.task.classroom.pk %}">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+    <h5 class="font-weight-bold ml-3">{{text.task.classroom.title}}</h5>
+</div>
+
+<div class="col-md-12 col-lg-6">
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header d-flex align-items-center">
+            <div>
+                <span class="font-weight-bold h4">{{ text.task.task_title }}</span>
+            </div>
         </div>
-      </div>
+
+        <p class="card-text h6 ml-4 mr-4 mb-2 mt-3">{{ text.task.task_description }}</p>
+
+        <div class="card-body">
+            <p class="card-text h6">Your submission</p>
+            <div class="card card-body mb-4  shadow">
+                <p class="card-text h6">{{ text.content }}</p>
+            </div>
+
+            {% if moderated %}
+                <p class="card-text h6">Moderated</p>
+                <div class="card card-body mb-3 shadow">
+                    <p class="card-text h6">{{ moderated_text.content }}</p>
+                </div>
+            {% else %}
+                <div class="card card-body mb-3 shadow">
+                    <p class="card-text h6">Not checked yet</p>
+                </div>
+            {% endif %}
+        </div>
     </div>
-    <div class="card-body">
-      <p class="card-text">
-        {{object.content}}
-      </p>
-    </div>
-  </div>
+</div>
 {% endblock %}

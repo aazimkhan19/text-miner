@@ -4,15 +4,20 @@
 
 {% block content %}
     <div class="d-flex ml-3 mb-4">
-        <a class="h5" href="{% url 'mine:miner-classroom-detail' view.kwargs.cpk %}">
+        <a class="h5" href="{% url 'mine:miner-classroom-detail' task.classroom.pk %}">
             <i class="fa fa-arrow-left"></i> Back
         </a>
-        <h5 class="font-weight-bold ml-3">{{ task.task_title }} - {{task.task_level}}</h5>
+        <h5 class="font-weight-bold ml-3">{{task.classroom.title}}</h5>
     </div>
-    <div class="col-md-8 flex-grow-1">
+    <div class="col-md-12 col-lg-6 flex-grow-1">
         <div class="card mb-4 shadow-sm">
-            <h3 class="ml-3 mt-2 mr-3 card-text">{{ task.task_description }}</h3>
+            <div class="card-header d-flex align-items-center">
+                <div>
+                    <span class="font-weight-bold h4">{{ task.task_title }}</span>
+                </div>
+            </div>
             <div class="card-body">
+                <p class="card-text h6 mb-4">{{ task.task_description }}</p>
                 <form method="post" class="uniForm">
                     {% crispy form %}
                 </form>

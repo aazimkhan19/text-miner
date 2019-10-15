@@ -27,7 +27,7 @@ class Task(models.Model):
     )
     task_title = models.CharField(max_length=50, null=True)
     task_description = models.TextField()
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='tasks', null=True)
+    classroom = models.ForeignKey(Classroom, on_delete=models.SET_NULL, related_name='tasks', null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
     @property
@@ -40,7 +40,7 @@ class Task(models.Model):
 
 class Miner(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-    classroom = models.ManyToManyField(Classroom, related_name='participant', blank=True)
+    classroom = models.ManyToManyField(Classroom, related_name='participants', blank=True)
     task = models.ManyToManyField(Task, through='Text')
 
     def __str__(self):
@@ -50,8 +50,8 @@ class Miner(models.Model):
 class Text(models.Model):
     content = models.TextField()
     creator = models.ForeignKey(Miner, on_delete=models.CASCADE, related_name='completed_tasks')
-    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='completed_tasks', null=True)
-    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE, related_name='completed_tasks', null=True)
+    task = models.ForeignKey(Task, on_delete=models.SET_NULL, related_name='completed_tasks', null=True)
+    classroom = models.ForeignKey(Classroom, on_delete=models.SET_NULL, related_name='completed_tasks', null=True)
     date = models.DateTimeField(auto_now_add=True, null=True)
 
     @property
@@ -59,13 +59,15 @@ class Text(models.Model):
         return '{}...'.format(self.content[:40])
 
     def __str__(self):
+        if self.task is None:
+            return '{} - {}'.format(self.pk, self.creator.user.email)
         return '{} - {} - {}'.format(self.pk, self.creator.user.email, self.task.pk)
 
 
 class ModeratedText(models.Model):
     content = models.TextField()
-    original = models.ForeignKey(Text, on_delete=models.CASCADE)
-    moderator = models.ForeignKey(User, on_delete=models.CASCADE)
+    original = models.ForeignKey(Text, on_delete=models.CASCADE, related_name="moderated_tasks")
+    moderator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="moderated_tasks")
     date = models.DateTimeField(auto_now_add=True, null=True)
 
     @property

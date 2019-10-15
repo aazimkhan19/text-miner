@@ -20,19 +20,16 @@ admin_patterns = [
 ]
 moderator_patterns = [
     path('moderator/', moderator.ModeratorClassroomListView.as_view(), name='moderator-initial'),
-    path('moderator/texts/', moderator.ModeratorRawTextListView.as_view(), name='moderator-raw-texts'),
-    path('moderator/texts/<int:pk>/', moderator.ModeratorRawTextDetailView.as_view(), name='moderator-raw-text-detail'),
-    path('moderator/texts/<int:pk>/moderate/', moderator.ModeratorModerateTextView.as_view(), name='moderator-raw-text-moderate'),
-    path('moderator/texts/moderated/', moderator.ModeratorModeratedTextListView.as_view(), name='moderator-moderated-text'),
-    path('moderator/texts/moderated/<int:pk>/', moderator.ModeratorModeratedTextDetailView.as_view(), name='moderator-moderated-text-detail'),
-    path('moderator/classroom/<int:pk>', moderator.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
     path('moderator/classrooms/', moderator.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
+    path('moderator/classroom/<int:pk>', moderator.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
     path('moderator/classroom/create', moderator.ModeratorClassroomCreateView.as_view(), name='moderator-classroom-create'),
     path('moderator/classroom/<int:cpk>/user/<int:upk>/remove', moderator.ModeratorRemoveUserView.as_view(), name='moderator-classroom-user-remove'),
     path('moderator/classroom/<int:pk>/tasks/create/', moderator.ModeratorClassroomTaskCreateView.as_view(), name='moderator-classroom-task-create'),
-    path('moderator/tasks/create/', moderator.ModeratorTaskCreateView.as_view(), name='moderator-task-create'),
-    path('moderator/task/<int:pk>/', moderator.ModeratorTaskDetailView.as_view(), name='moderator-task'),
-    path('moderator/tasks/', moderator.ModeratorTaskListView.as_view(), name='moderator-tasks'),
+    path('moderator/classroom/<int:cpk>/task/<int:tpk>/edit', moderator.ModeratorClassroomTaskEditView.as_view(), name='moderator-classroom-edit-task'),
+    path('moderator/classroom/<int:cpk>/text/<int:tpk>/moderate/', moderator.ModeratorClassroomModerateTextView.as_view(), name='moderator-classroom-text-moderate'),
+    path('moderator/classroom/<int:cpk>/text/moderated/<int:tpk>/', moderator.ModeratorClassroomModeratedTextView.as_view(), name='moderator-classroom-moderated-text'),
+    # Refactor to soft delete
+    # path('moderator/classroom/<int:cpk>/task/<int:tpk>/remove', moderator.ModeratorClassroomTaskRemoveView.as_view(), name='moderator-classroom-task-remove'),
     path('moderator/profile/', moderator.ModeratorProfileView.as_view(), name='moderator-profile')
 ]
 miner_patterns = [
@@ -49,7 +46,7 @@ miner_patterns = [
     path('miner/classroom/<int:cpk>/result/<int:tpk>/', miner.MinerClassroomResultDetailView.as_view(), name='miner-classroom-result-detail'),
     path('miner/notifications', miner.MinerNotificationsView.as_view(), name='miner-notifications'),
     path('miner/notifications/<int:pk>/toggle', miner.MinerNotificationToggleView.as_view(), name='miner-notification-status-toggle'),
-    path('miner/profile/', miner.MinerProfileView.as_view(), name='miner-profile')
+    path('miner/profile/', miner.MinerProfileView.as_view(), name='miner-profile'),
 ]
 urlpatterns += admin_patterns
 urlpatterns += moderator_patterns

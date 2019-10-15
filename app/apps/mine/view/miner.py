@@ -94,7 +94,7 @@ class MinerNotificationToggleView(BaseMinerView, RedirectView):
 
 class MinerClassroomJoinView(BaseMinerView, FormView):
     form_class = JoinClassroomForm
-    template_name = "mine/miner/join_classroom.html"
+    template_name = "mine/miner/classroom_join.html"
 
     def form_valid(self, form):
         Miner.objects.filter(user=self.request.user).first().classroom.add(form.cleaned_data['invitation_code'])
@@ -132,7 +132,7 @@ class MinerClassroomDetailView(BaseMinerView, BaseClassroomDetailView):
 
 
 class MinerClassroomResultsView(BaseMinerView, BaseClassroomDetailView):
-    template_name = "mine/miner/classroom_result.html"
+    template_name = 'mine/miner/classroom_result.html'
 
     def get_context_data(self, **kwargs):
         classroom = self.get_object()
@@ -146,7 +146,8 @@ class MinerClassroomResultsView(BaseMinerView, BaseClassroomDetailView):
 class MinerClassroomTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
     template_name = 'mine/miner/task_detail.html'
     model = Task
-    pk_url_kwarg = "tpk"
+    context_object_name = 'task'
+    pk_url_kwarg = 'tpk'
 
     def get_queryset(self):
         return Classroom.objects.get(pk=self.kwargs['cpk']).tasks.all()
@@ -169,10 +170,20 @@ class MinerClassroomTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView
 class MinerClassroomResultDetailView(BaseMinerView, DetailView):
     template_name = 'mine/miner/task_result.html'
     model = Text
-    pk_url_kwarg = "tpk"
+    context_object_name = 'text'
+    pk_url_kwarg = 'tpk'
 
     def get_queryset(self):
         classroom = Classroom.objects.get(pk=self.kwargs['cpk'])
         miner = self.request.user.miner
         texts = miner.completed_tasks.filter(task__classroom=classroom)
         return texts
+
+    def get_context_data(self, **kwargs):
+        try:
+            moderated_text = ModeratedText.objects.get(original__pk=self.kwargs['tpk'])
+            context = {'moderated': True, 'moderated_text': moderated_text}
+        except ModeratedText.DoesNotExist:
+            context = {'moderated': False}
+        kwargs.update(context)
+        return super().get_context_data(**kwargs)

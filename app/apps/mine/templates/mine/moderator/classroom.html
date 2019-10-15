@@ -1,23 +1,14 @@
 {% extends "mine/moderator/base.html" %}
 {% load crispy_forms_tags %}
 
-{% block css%}
-<style>
-    .icon {
-      width: 16px;
-      height: 16px;
-      padding: 0;
-      margin: 0;
-      vertical-align: middle;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
 
-<h4>
-    {{classroom.title}}
-</h4>
+<div class="d-flex mb-3">
+    <a class="h5" href="{% url 'mine:moderator-classrooms' %}">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+    <h5 class="font-weight-bold ml-3">{{classroom.title}}</h5>
+</div>
 
 <div class="row">
     <div class="col-lg-6 col-md-12 pl-4 pr-4">
@@ -28,10 +19,9 @@
                     <div class="align-self-center">
                         <span class="font-weight-bold h3">Your tasks</span>
                     </div>
-                    <a href="{% url 'mine:moderator-classroom-task-create' object.pk%}"><button class="btn btn-link">Add task</button></a>
+                    <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link">Add task</button></a>
                 </div>
 
-<!--                 TODO form, actions-->
                 <ul class="list-group list-group-flush">
                     {% if classroom.tasks.all %}
                         {% for task in classroom.tasks.all %}
@@ -40,9 +30,8 @@
                                     <span class="h6 font-weight-bold">{{task.task_title}}</span>
                                     <p class="h6 text-truncate">{{task.short_text}}</p>
                                 </div>
-                                <div class="align-self-center h5">
-                                    <a href="{% url 'mine:moderator-task-create'%}"><i class="fa fa-pencil mr-1"></i></a>
-                                    <a href="{% url 'mine:moderator-task-create'%}"><i class="fa fa-trash-o text-danger"></i></a>
+                                <div class="align-self-center h4">
+                                    <a href="{% url 'mine:moderator-classroom-edit-task' classroom.pk task.pk %}"><i class="fa fa-pencil mr-1"></i></a>
                                 </div>
                             </li>
                         {% endfor %}
@@ -51,22 +40,55 @@
                             <span class="h5 align-self-center">No tasks yet</span>
                         </li>
                     {% endif %}
-
                 </ul>
             </div>
         </div>
         <div class="row mb-3">
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Results</h3>
-
-                <div class="card-body">
-                    <p class="card-text">
-                        {{classroom.title}}
-                    </p>
-                    <p class="card-text">
-                        {{classroom.owner}}
-                    </p>
-                </div>
+                <ul class="list-group list-group-flush">
+                    {% if texts.all %}
+                        {% for text in texts.all %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                        <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{text.mod_count}} {{text.creator}}</p>
+                                </div>
+                                <div class="align-self-center h4">
+                                    <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <span class="h5 align-self-center">No tasks yet</span>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="row mb-3">
+            <div class="card w-100">
+                <h3 class="card-header font-weight-bold">Moderated</h3>
+                <ul class="list-group list-group-flush">
+                    {% if moderated_texts.all %}
+                        {% for text in moderated_texts.all %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                    <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{text.original.creator}}</p>
+                                </div>
+                                <div class="align-self-center h5">
+                                    <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <li class="list-group-item">
+                            <span class="h5 align-self-center">No tasks yet</span>
+                        </li>
+                    {% endif %}
+                </ul>
             </div>
         </div>
     </div>
@@ -77,31 +99,27 @@
                     <div class="align-self-center">
                         <span class="font-weight-bold h3">Invitation code</span>
                     </div>
-
                     <div class="input-group w-auto">
-                      <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
-                      <div class="input-group-append">
-                        <button class="btn btn-outline-secondary" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
-                      </div>
+                        <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-outline-secondary" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
+                        </div>
                     </div>
-
-
                 </div>
             </div>
         </div>
         <div class="row mb-3">
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Members</h3>
-<!--                 TODO form, actions-->
                 <ul class="list-group list-group-flush">
-                    {% if classroom.participant.all %}
-                        {% for user in classroom.participant.all %}
+                    {% if classroom.participants.all %}
+                        {% for user in classroom.participants.all %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
                             <div class="align-self-center">
                                 <span class="h6">{{user.user.first_name}} {{user.user.last_name}}</span>
                                 <span class="font-weight-bold">{{user.user.email}}</span>
                             </div>
-                            <a href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><button class="btn btn-link text-danger">Remove</button></a>
+                            <a class="h4" href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></a>
                         </li>
                         {% endfor %}
                     {% else %}
@@ -123,7 +141,8 @@
                 </div>
 
                 <div class="card-footer d-flex flex-column align-items-end">
-                    <a href="{% url 'mine:moderator-classroom-task-create' object.pk%}">
+<!--                    TODO delete classroom option-->
+                    <a href="#TODO">
                         <button class="btn btn-link text-danger">Delete classroom</button>
                     </a>
                 </div>

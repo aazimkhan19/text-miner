@@ -88,3 +88,15 @@ class JoinClassroomForm(forms.Form):
         except Classroom.DoesNotExist:
             raise forms.ValidationError("Classroom does not exist.")
         return classroom
+
+
+class ModifyTaskForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(ModifyTaskForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.add_input(Submit('submit', 'Save'))
+
+    class Meta:
+        model = Task
+        fields = ('task_level', 'task_title', 'task_description')

@@ -1,0 +1,34 @@
+{% extends "mine/moderator/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+<div class="d-flex ml-3 mb-4">
+    <a class="h5" href="{% url 'mine:moderator-classroom-detail' moderated_text.original.task.classroom.pk %}">
+        <i class="fa fa-arrow-left"></i> Back
+    </a>
+    <h5 class="font-weight-bold ml-3">{{moderated_text.original.task.classroom.title}}</h5>
+</div>
+<div class="col-md-12 col-lg-6">
+    <div class="card mb-3 shadow-sm">
+        <div class="card-header d-flex align-items-center">
+            <div>
+                <span class="font-weight-bold h4">{{ moderated_text.original.task.task_title }}</span>
+            </div>
+        </div>
+
+        <p class="card-text h6 ml-4 mr-4 mb-2 mt-3">{{ moderated_text.original.task.task_description }}</p>
+
+        <div class="card-body">
+            <p class="card-text h6">Original</p>
+            <div class="card card-body mb-4  shadow">
+                <p class="card-text h6">{{ moderated_text.original.content }}</p>
+            </div>
+
+            <p class="card-text h6">Moderated</p>
+            <div class="card card-body mb-3 shadow">
+                <p class="card-text h6">{{ moderated_text.content }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
