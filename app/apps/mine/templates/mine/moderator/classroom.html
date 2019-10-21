@@ -1,5 +1,6 @@
 {% extends "mine/moderator/base.html" %}
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
 
@@ -23,23 +24,21 @@
                 </div>
 
                 <ul class="list-group list-group-flush">
-                    {% if classroom.tasks.all %}
-                        {% for task in classroom.tasks.all %}
-                            <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
-                                    <span class="h6 font-weight-bold">{{task.task_title}}</span>
-                                    <p class="h6 text-truncate">{{task.short_text}}</p>
-                                </div>
-                                <div class="align-self-center h4">
-                                    <a href="{% url 'mine:moderator-classroom-edit-task' classroom.pk task.pk %}"><i class="fa fa-pencil mr-1"></i></a>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    {% else %}
+                    {% for task in tasks %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="d-flex flex-column align-self-center">
+                                <span class="h6 font-weight-bold">{{task.task_title}}</span>
+                                <p class="h6 text-truncate">{{task.short_text}}</p>
+                            </div>
+                            <div class="align-self-center h4">
+                                <a href="{% url 'mine:moderator-classroom-edit-task' classroom.pk task.pk %}"><i class="fa fa-pencil mr-1"></i></a>
+                            </div>
+                        </li>
+                    {% empty %}
                         <li class="list-group-item">
                             <span class="h5 align-self-center">No tasks yet</span>
                         </li>
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -47,23 +46,21 @@
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Results</h3>
                 <ul class="list-group list-group-flush">
-                    {% if texts.all %}
-                        {% for text in texts.all %}
-                            <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
-                                        <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
-                                    <p class="h6 text-truncate">{{text.mod_count}} {{text.creator}}</p>
-                                </div>
-                                <div class="align-self-center h4">
-                                    <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    {% else %}
+                    {% for text in texts.all %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="d-flex flex-column align-self-center">
+                                    <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
+                                <p class="h6 text-truncate">{{text.creator}}</p>
+                            </div>
+                            <div class="align-self-center h4">
+                                <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
+                            </div>
+                        </li>
+                    {% empty %}
                         <li class="list-group-item">
                             <span class="h5 align-self-center">No tasks yet</span>
                         </li>
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -71,23 +68,21 @@
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Moderated</h3>
                 <ul class="list-group list-group-flush">
-                    {% if moderated_texts.all %}
-                        {% for text in moderated_texts.all %}
-                            <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
-                                    <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
-                                    <p class="h6 text-truncate">{{text.original.creator}}</p>
-                                </div>
-                                <div class="align-self-center h5">
-                                    <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
-                                </div>
-                            </li>
-                        {% endfor %}
-                    {% else %}
+                    {% for text in moderated_texts.all %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            <div class="d-flex flex-column align-self-center">
+                                <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
+                                <p class="h6 text-truncate">{{text.original.creator}}</p>
+                            </div>
+                            <div class="align-self-center h5">
+                                <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
+                            </div>
+                        </li>
+                    {% empty %}
                         <li class="list-group-item">
                             <span class="h5 align-self-center">No tasks yet</span>
                         </li>
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -112,8 +107,7 @@
             <div class="card w-100">
                 <h3 class="card-header font-weight-bold">Members</h3>
                 <ul class="list-group list-group-flush">
-                    {% if classroom.participants.all %}
-                        {% for user in classroom.participants.all %}
+                    {% for user in participants %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
                             <div class="align-self-center">
                                 <span class="h6">{{user.user.first_name}} {{user.user.last_name}}</span>
@@ -121,12 +115,11 @@
                             </div>
                             <a class="h4" href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></a>
                         </li>
-                        {% endfor %}
-                    {% else %}
+                    {% empty %}
                         <li class="list-group-item">
                             <span class="h5 align-self-center">No members yet</span>
                         </li>
-                    {% endif %}
+                    {% endfor %}
                 </ul>
             </div>
         </div>
@@ -153,12 +146,5 @@
 {% endblock %}
 
 {% block javascript %}
-<script defer>
-    function myFunction() {
-      var copyText = document.getElementById("invitation-code");
-      copyText.select();
-      copyText.setSelectionRange(0, 99999);
-      document.execCommand("copy");
-    }
-</script>
+<script src="{% static 'base/js/copy.js' %}"></script>
 {% endblock %}

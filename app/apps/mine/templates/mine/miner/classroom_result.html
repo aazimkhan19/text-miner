@@ -17,7 +17,6 @@
             <a class="nav-item nav-link active" href="{% url 'mine:miner-classroom-detail-results' classroom.pk %}">Results</a>
         </div>
     </nav>
-    {% if texts.all %}
         <div class="row m-3 w-100">
             {% for text in texts.all %}
                 <div class="col-md-4">
@@ -29,12 +28,11 @@
                         </div>
                     </div>
                 </div>
+            {% empty %}
+                <li class="list-group-item">
+                    <span class="h5 align-self-center">No completed tasks yet</span>
+                </li>
             {% endfor %}
         </div>
-    {% else %}
-        <li class="list-group-item">
-            <span class="h5 align-self-center">No tasks yet</span>
-        </li>
-    {% endif %}
 </div>
 {% endblock %}

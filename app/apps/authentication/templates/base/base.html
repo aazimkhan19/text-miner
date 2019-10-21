@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}"/>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap-grid.css' %}"/>
     <link rel="stylesheet" href="{% static 'base/css/bootstrap-reboot.css' %}"/>
-<!--    <link rel="stylesheet" href="{% static 'base/css/base.css' %}"/>-->
     <link rel="stylesheet" href="{% static 'base/css/dashboard.css' %}"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" type="text/css">
 
@@ -20,17 +19,7 @@
 
 <body class="h-100">
     <nav class="wrapper--w680 navbar navbar-light fixed-top bg-light flex-md-nowrap p-0 shadow ">
-        {% if user.is_authenticated %}
-            {% if user|group_name:'miner' %}
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:miner-initial' %}">Text Miner</a>
-            {% elif user|group_name:'moderator' %}
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:moderator-initial' %}">Text Miner</a>
-            {% else %}
-                <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'mine:admin-initial' %}">Text Miner</a>
-            {% endif %}
-        {% else %}
-            <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
-        {% endif %}
+        <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="{% url 'initial' %}">Text Miner</a>
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
                 {% if user.is_authenticated %}

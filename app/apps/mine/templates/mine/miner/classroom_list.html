@@ -17,5 +17,9 @@
                 </a>
             </div>
         </div>
+    {% empty %}
+        <li class="list-group-item">
+            <span class="h5 align-self-center">No classrooms yet</span>
+        </li>
     {% endfor %}
 {% endblock %}

@@ -34,7 +34,7 @@ DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # EMAIL SETTINGS TODO set another email host
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'unilever.elefanto.smtp@gmail.com'
+EMAIL_HOST_USER = 'textminersmtp@gmail.com'
 EMAIL_HOST_PASSWORD = '`5-j^ch?NtPDmPR"'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
@@ -61,6 +61,7 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize'
 ]
 
 THIRD_PARTY_APPS = [

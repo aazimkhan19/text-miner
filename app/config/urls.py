@@ -17,7 +17,6 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-
 from apps.mine.view import initial as mine_view
 
 patterns = [
@@ -26,6 +25,9 @@ patterns = [
     path('mine/', include('apps.mine.urls')),
     path('social/', include('social_django.urls', namespace='social')),
 ]
+
+handler404 = 'apps.mine.view.initial.error404'
+handler500 = 'apps.mine.view.initial.error500'
 
 if settings.DEBUG:
     import debug_toolbar

@@ -1,5 +1,6 @@
 from django.db import models
 from apps.authentication.models import User
+from django.urls import reverse
 
 
 class Classroom(models.Model):
@@ -34,6 +35,9 @@ class Task(models.Model):
     def short_text(self):
         return '{}...'.format(self.task_description[:40])
 
+    def get_absolute_url(self):
+        return reverse('mine:miner-classroom-task-detail', args=[str(self.classroom.pk),str(self.pk)])
+
     def __str__(self):
         return '{} - {} - {}'.format(self.pk, self.task_title, self.classroom)
 
@@ -58,6 +62,9 @@ class Text(models.Model):
     def short_text(self):
         return '{}...'.format(self.content[:40])
 
+    def get_absolute_url(self):
+        return reverse('mine:moderator-classroom-text-moderate', args=[str(self.classroom.pk),str(self.pk)])
+
     def __str__(self):
         if self.task is None:
             return '{} - {}'.format(self.pk, self.creator.user.email)
@@ -73,6 +80,9 @@ class ModeratedText(models.Model):
     @property
     def short_text(self):
         return '{}...'.format(self.content[:40])
+
+    def get_absolute_url(self):
+        return reverse('mine:miner-classroom-result-detail', args=[str(self.original.classroom.pk),str(self.original.pk)])
 
     def __str__(self):
         return '{} - {}'.format(self.pk, self.moderator.email)

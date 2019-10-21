@@ -5,36 +5,8 @@
 
 {% endblock %}
 {% block content %}
-<!--    <form class="form-signin">-->
-<!--&lt;!&ndash;      <img class="mb-4" src="{{ site.baseurl }}/docs/{{ site.docs_version }}/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72">&ndash;&gt;-->
-<!--        <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>-->
-
-<!--        <label for="email" class="sr-only">Email address</label>-->
-<!--        <input type="email" id="email" class="form-control form-input" placeholder="Email address" required autofocus>-->
-
-<!--        <label for="phone" class="sr-only">Phone</label>-->
-<!--        <input type="tel" id="phone" class="form-control form-input" placeholder="Phone" required>-->
-
-<!--        <label for="first_name" class="sr-only">First name</label>-->
-<!--        <input type="text" id="first_name" class="form-control form-input" placeholder="First name" required>-->
-
-<!--        <label for="last_name" class="sr-only">Last name</label>-->
-<!--        <input type="text" id="last_name" class="form-control form-input" placeholder="Last name" required>-->
-
-<!--        <label for="role" class="sr-only">Role</label>-->
-<!--        <input type="password" id="role" class="form-control form-input" placeholder="Role" required>-->
-
-<!--        <label for="password" class="sr-only">Password</label>-->
-<!--        <input type="password" id="password" class="form-control form-input" placeholder="Password" required>-->
-
-<!--        <label for="password_confirm" class="sr-only">Password confirmation</label>-->
-<!--        <input type="password" id="password_confirm" class="form-control form-input" placeholder="Password confirmation" required>-->
-
-<!--        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>-->
-<!--    </form>-->
         <form class="form-signin" method="post">
             <h1 class="h3 mb-3 font-weight-normal">Please sign up</h1>
             {% crispy form %}
         </form>
-
 {% endblock %}

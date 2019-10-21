@@ -44,7 +44,8 @@ miner_patterns = [
     path('miner/classroom/<int:cpk>/task/<int:tpk>', miner.MinerClassroomTaskDetailView.as_view(), name='miner-classroom-task-detail'),
     path('miner/classrooms/', miner.MinerClassroomListView.as_view(), name='miner-classrooms'),
     path('miner/classroom/<int:cpk>/result/<int:tpk>/', miner.MinerClassroomResultDetailView.as_view(), name='miner-classroom-result-detail'),
-    path('miner/notifications', miner.MinerNotificationsView.as_view(), name='miner-notifications'),
+    path('miner/notifications/unread', miner.MinerUnreadNotificationsView.as_view(), name='miner-notifications-unread'),
+    path('miner/notifications/read', miner.MinerReadNotificationsView.as_view(), name='miner-notifications-read'),
     path('miner/notifications/<int:pk>/toggle', miner.MinerNotificationToggleView.as_view(), name='miner-notification-status-toggle'),
     path('miner/profile/', miner.MinerProfileView.as_view(), name='miner-profile'),
 ]

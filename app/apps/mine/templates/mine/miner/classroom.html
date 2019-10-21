@@ -2,7 +2,6 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
 <div class="d-flex">
     <a class="h5" href="{% url 'mine:miner-classrooms' %}">
         <i class="fa fa-arrow-left"></i> Back
@@ -17,24 +16,22 @@
             <a class="nav-item nav-link" href="{% url 'mine:miner-classroom-detail-results' classroom.pk %}">Results</a>
         </div>
     </nav>
-    {% if tasks.all %}
-        <div class="row m-3 w-100">
-            {% for task in tasks.all %}
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h4 class="card-title text-truncate"><span class="badge badge-primary">New</span> {{task.task_title}}</h4>
-                            <p class="card-text">{{task.task_level}}</p>
-                            <a href="{% url 'mine:miner-classroom-task-detail' object.pk task.pk %}" class="btn btn-dark">Do</a>
-                        </div>
+    <div class="row m-3 w-100">
+        {% for task in tasks.all %}
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-truncate"><span class="badge badge-primary">New</span> {{task.task_title}}</h4>
+                        <p class="card-text">{{task.task_level}}</p>
+                        <a href="{% url 'mine:miner-classroom-task-detail' object.pk task.pk %}" class="btn btn-dark">Do</a>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-    {% else %}
-        <li class="list-group-item">
-            <span class="h5 align-self-center">No tasks yet</span>
-        </li>
-    {% endif %}
+            </div>
+        {% empty %}
+            <li class="list-group-item">
+                <span class="h5 align-self-center">No tasks yet</span>
+            </li>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
