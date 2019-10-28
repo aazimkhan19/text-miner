@@ -14,7 +14,7 @@ class TextForm(forms.ModelForm):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', u'Submit'))
+        self.helper.add_input(Submit('submit', u'Submit', css_class='btn btn-dark'))
 
     class Meta:
         model = Text
@@ -36,7 +36,7 @@ class ModerateTextForm(forms.ModelForm):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', u'Submit'))
+        self.helper.add_input(Submit('submit', u'Submit', css_class='btn btn-dark'))
 
     class Meta:
         model = ModeratedText
@@ -50,7 +50,7 @@ class CreateTaskForm(forms.ModelForm):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', u'Create'))
+        self.helper.add_input(Submit('submit', u'Create', css_class='btn btn-dark'))
 
     class Meta:
         model = Task
@@ -64,7 +64,7 @@ class CreateClassroomForm(forms.ModelForm):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', u'Create'))
+        self.helper.add_input(Submit('submit', u'Create', css_class='btn btn-dark'))
 
     class Meta:
         model = Classroom
@@ -80,7 +80,7 @@ class JoinClassroomForm(forms.Form):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', u'Join'))
+        self.helper.add_input(Submit('submit', u'Join', css_class='btn btn-dark'))
 
     def clean_invitation_code(self):
         try:
@@ -95,7 +95,7 @@ class ModifyTaskForm(forms.ModelForm):
         super(ModifyTaskForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Save'))
+        self.helper.add_input(Submit('submit', 'Save', css_class='btn btn-dark'))
 
     class Meta:
         model = Task

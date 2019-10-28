@@ -9,9 +9,9 @@
         <div class="col-md-4">
             <div class="card mb-4 shadow-sm">
                 <div class="card-body">
-                    <h4 class="card-title text-truncate">{{task.task_description}}</h4>
-                    <p class="card-text">{{task.task_level}}</p>
-                    <a href="{% url 'mine:miner-task-detail' task.pk %}" class="btn btn-dark">Do</a>
+                    <h4 class="card-title text-truncate">{{task.task_title}}</h4>
+                    <p class="card-text text-truncate">{{task.task_description}}</p>
+                    <a href="{% url 'mine:miner-task-detail' view.kwargs.pk task.pk %}" class="btn btn-dark">Do</a>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
         <div class="pagination m-sm-auto">
             {% if page_obj.has_previous %}
                 <a class="pagination-list" href="?page=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-list"s><i class="fa fa-angle-left" aria-hidden="true"></i></a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-list"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
             {% endif %}
 
             {% for num in page_obj.paginator.page_range %}

@@ -1,7 +1,7 @@
 from braces.views import GroupRequiredMixin as BaseGroupRequiredMixin, SuperuserRequiredMixin
 from django.http import HttpResponseRedirect
-from django.template.loader import render_to_string
-
+from django.shortcuts import get_object_or_404, get_list_or_404
+from django.db.models import Count, Q
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, FormView, RedirectView
 
@@ -23,6 +23,7 @@ class BaseTextCreateView(CreateView):
         self.object.classroom = Classroom.objects.get(pk=self.kwargs['cpk'])
         self.object.save()
         self.configure_email(self.object.classroom, self.object)
+        self.configure_notification(self.object.classroom)
         return super().form_valid(form)
 
     def configure_email(self, classroom, text):
@@ -34,6 +35,12 @@ class BaseTextCreateView(CreateView):
         recipient = [classroom.owner.email]
         send_email.delay(name, subject, title, message, url, recipient)
 
+    def configure_notification(self, classroom):
+        message = 'New essay submitted in {}'.format(classroom.title)
+        Notification.objects.create(user=classroom.owner,
+                                    link=self.object.get_absolute_url(),
+                                    description=message)
+
 
 class BaseMinerView(BaseGroupRequiredMixin):
     group_required = 'miner'
@@ -41,38 +48,23 @@ class BaseMinerView(BaseGroupRequiredMixin):
 
 
 # region MinerInitial
-class MinerInitialView(BaseMinerView):
-    template_name = 'mine/miner/tasks.html'
+class MinerInitialView(BaseMinerView, ListView):
+    template_name = 'mine/miner/main_tasks.html'
     paginate_by = 9
 
-
-class MinerInitialViewBeginner(MinerInitialView, ListView):
-    queryset = Task.objects.filter(task_level="BEGINNER")
-
-
-class MinerInitialViewIntermediate(MinerInitialView, ListView):
-    queryset = Task.objects.filter(task_level="INTERMEDIATE")
-
-
-class MinerInitialViewAdvanced(MinerInitialView, ListView):
-    queryset = Task.objects.filter(task_level="ADVANCED")
+    def get_queryset(self):
+        return get_object_or_404(Classroom, pk=self.kwargs['pk']).tasks.all()
 
 
 class MinerTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
-    template_name = 'mine/miner/task_detail.html'
-    queryset = Task.objects.all()
+    template_name = 'mine/miner/main_task.html'
+    pk_url_kwarg = 'tpk'
+
+    def get_queryset(self):
+        return Task.objects.filter(classroom__pk=self.kwargs['pk'])
 
     def get_success_url(self, **kwargs):
-        # Костыль, нужно будет потом переделать...
-        obj = Task.objects.get(pk=self.kwargs['pk']).task_level
-        success_url = ''
-        if obj == 'BEGINNER':
-            success_url = reverse_lazy('mine:miner-tasks-beginner')
-        elif obj == 'INTERMEDIATE':
-            success_url = reverse_lazy('mine:miner-tasks-intermediate')
-        elif obj == 'ADVANCED':
-            success_url = reverse_lazy('mine:miner-tasks-advanced')
-        return success_url
+        return reverse_lazy('mine:miner-tasks', kwargs={'pk': self.kwargs['pk']})
 # endregion MinerInitial
 
 
@@ -95,14 +87,14 @@ class MinerUnreadNotificationsView(MinerNotificationsView):
     template_name = 'mine/miner/notifications_unread.html'
 
     def get_queryset(self):
-        return self.request.user.notifications.filter(read=False)
+        return self.request.user.notifications.filter(read=False).order_by('-date')
 
 
 class MinerReadNotificationsView(MinerNotificationsView):
     template_name = 'mine/miner/notifications_read.html'
 
     def get_queryset(self):
-        return self.request.user.notifications.filter(read=True)
+        return self.request.user.notifications.filter(read=True).order_by('-date')
 
 
 class MinerNotificationToggleView(BaseMinerView, RedirectView):
@@ -138,7 +130,9 @@ class MinerClassroomListView(BaseMinerView, ListView):
     template_name = "mine/miner/classroom_list.html"
 
     def get_queryset(self):
-        return self.request.user.miner.classroom.all()
+        miner = self.request.user.miner
+        return self.request.user.miner.classroom.all() \
+            .annotate(badge=Count('tasks', distinct=True) - Count('completed_tasks', filter=Q(completed_tasks__creator=miner), distinct=True))
 
 
 class BaseClassroomDetailView(DetailView):
@@ -180,13 +174,13 @@ class MinerClassroomTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView
     template_name = 'mine/miner/task_detail.html'
 
     def get_queryset(self):
-        return Classroom.objects.get(pk=self.kwargs['cpk']).tasks.all()
+        return get_object_or_404(Classroom, pk=self.kwargs['cpk']).tasks.all()
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('mine:miner-classroom-detail', kwargs={'pk': self.kwargs['cpk']})
 
     def get(self, request, *args, **kwargs):
-        task = self.model.objects.get(pk=kwargs['tpk'])
+        task = self.get_object()
         miner = self.request.user.miner
         texts = task.completed_tasks.filter(creator=miner)
         if texts.exists():
@@ -204,7 +198,7 @@ class MinerClassroomResultDetailView(BaseMinerView, DetailView):
     template_name = 'mine/miner/task_result.html'
 
     def get_queryset(self):
-        classroom = Classroom.objects.get(pk=self.kwargs['cpk'])
+        classroom = get_object_or_404(Classroom, pk=self.kwargs['cpk'])
         miner = self.request.user.miner
         texts = miner.completed_tasks.filter(task__classroom=classroom)
         return texts

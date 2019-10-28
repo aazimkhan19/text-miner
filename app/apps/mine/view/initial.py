@@ -1,9 +1,11 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, reverse
+
 
 def initial(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='miner').exists():
-            return redirect('mine:miner-initial')
+            beginner_classroom_pk = 25
+            return redirect(reverse('mine:miner-tasks', kwargs={'pk': beginner_classroom_pk}))
         else:
             return redirect('mine:moderator-initial')
     return render(request, 'authentication/initial.html')

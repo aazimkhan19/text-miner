@@ -1,18 +1,16 @@
 from braces.views import GroupRequiredMixin as BaseGroupRequiredMixin, SuperuserRequiredMixin
 from django.http import Http404
-from django.shortcuts import render
-from django.template.loader import render_to_string
-
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, RedirectView, UpdateView
-
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
 
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
 from apps.mine.forms import TextForm, ModerateTextForm, CreateTaskForm, CreateClassroomForm, JoinClassroomForm, ModifyTaskForm
-from apps.mine.models import Text, ModeratedText, Task, Classroom
-from apps.mine.task import send_email, send_emails
+from apps.mine.models import Text, ModeratedText, Task, Classroom, Notification
+from apps.mine.task import send_email, send_emails, send_mass_notification
 
 from nanoid import generate
 
@@ -51,6 +49,7 @@ class BaseTextModerationView(CreateView):
         self.object.moderator = self.request.user
         self.object.save()
         self.configure_email(self.object.original.classroom, self.object)
+        self.configure_notification(self.object.original.classroom, self.object)
         return super().form_valid(form)
 
     def configure_email(self, classroom, moderated_text):
@@ -62,6 +61,12 @@ class BaseTextModerationView(CreateView):
         recipient = [moderated_text.original.creator.user.email]
         send_email.delay(name, subject, title, message, url, recipient)
 
+    def configure_notification(self, classroom, moderated_text):
+        message = 'Your essay have been checked in {}'.format(classroom.title)
+        Notification.objects.create(user=moderated_text.original.creator.user,
+                                    link=self.object.get_absolute_url(),
+                                    description=message)
+
 
 class BaseTaskCreateView(CreateView):
     form_class = CreateTaskForm
@@ -71,11 +76,17 @@ class BaseTaskCreateView(CreateView):
         self.object.classroom = Classroom.objects.get(pk=self.kwargs['pk'])
         self.object.save()
         self.configure_email(self.object.classroom, self.object)
+        self.configure_notification(self.object.classroom, self.object)
         return super().form_valid(form)
 
     def configure_email(self, classroom, task):
         url = self.request.META['HTTP_HOST'] + task.get_absolute_url()
         send_emails.delay(classroom.pk, task.pk, url)
+
+    def configure_notification(self, classroom, task):
+        message = 'New task added in {}'.format(classroom.title)
+        url = task.get_absolute_url()
+        send_mass_notification.delay(classroom.pk, message, url)
 
 
 class BaseModeratorView(BaseGroupRequiredMixin):
@@ -91,6 +102,40 @@ class ModeratorProfileView(BaseModeratorView, UpdateView):
 
     def get_object(self, queryset=None):
         return self.request.user
+
+
+class ModeratorNotificationsView(BaseModeratorView, ListView):
+    model = Notification
+    context_object_name = 'notifications'
+
+
+class ModeratorUnreadNotificationsView(ModeratorNotificationsView):
+    template_name = 'mine/moderator/notifications_unread.html'
+
+    def get_queryset(self):
+        return self.request.user.notifications.filter(read=False).order_by('-date')
+
+
+class ModeratorReadNotificationsView(ModeratorNotificationsView):
+    template_name = 'mine/moderator/notifications_read.html'
+
+    def get_queryset(self):
+        return self.request.user.notifications.filter(read=True).order_by('-date')
+
+
+class ModeratorNotificationToggleView(BaseModeratorView, RedirectView):
+    url = reverse_lazy('mine:moderator-notifications-unread')
+
+    def get(self, request, *args, **kwargs):
+        notifications = Notification.objects.filter(pk=kwargs['pk'])
+        if notifications.exists():
+            notification = notifications.first()
+            unread_url = reverse_lazy('mine:moderator-notifications-unread')
+            read_url = reverse_lazy('mine:moderator-notifications-read')
+            self.url = read_url if notification.read else unread_url
+            notification.read = not notification.read
+            notification.save()
+        return super().get(request, *args, **kwargs)
 # endregion Personal
 
 
@@ -131,11 +176,34 @@ class ModeratorClassroomDetailView(BaseModeratorView, DetailView):
 
     def get_context_data(self, **kwargs):
         classroom = self.get_object()
+
         tasks = Task.objects.filter(classroom=classroom).order_by('-date')
         moderated_texts = ModeratedText.objects.filter(original__task__classroom=classroom).order_by('-date')
-        texts = Text.objects.filter(task__classroom=classroom).order_by('-date').exclude(pk__in=moderated_texts.values_list('original__pk', flat=True))
+        texts = Text.objects.filter(task__classroom=classroom).order_by('-date').exclude(
+            pk__in=moderated_texts.values_list('original__pk', flat=True))
         participants = classroom.participants.all().order_by('user__first_name', 'user__last_name')
-        print('DEBUG', participants)
+
+        paginator = Paginator(tasks, 5)
+        page = self.request.GET.get('task')
+        try:
+            tasks = paginator.page(page)
+        except (PageNotAnInteger, EmptyPage):
+            tasks = paginator.page(1)
+
+        paginator = Paginator(texts, 10)
+        page = self.request.GET.get('text')
+        try:
+            texts = paginator.page(page)
+        except(PageNotAnInteger, EmptyPage):
+            texts = paginator.page(1)
+
+        paginator = Paginator(moderated_texts, 5)
+        page = self.request.GET.get('moderated')
+        try:
+            moderated_texts = paginator.page(page)
+        except(PageNotAnInteger, EmptyPage):
+            moderated_texts = paginator.page(1)
+
         context = {
             'tasks': tasks,
             'texts': texts,
@@ -150,7 +218,7 @@ class ModeratorClassroomTaskCreateView(BaseModeratorView, BaseTaskCreateView):
     template_name = "mine/moderator/task_create.html"
 
     def get_context_data(self, **kwargs):
-        classroom = Classroom.objects.get(pk=self.kwargs['pk'])
+        classroom = get_object_or_404(Classroom, pk=self.kwargs['pk'])
         context = {'classroom': classroom}
         kwargs.update(context)
         return super().get_context_data(**kwargs)

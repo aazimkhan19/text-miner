@@ -30,14 +30,15 @@ moderator_patterns = [
     path('moderator/classroom/<int:cpk>/text/moderated/<int:tpk>/', moderator.ModeratorClassroomModeratedTextView.as_view(), name='moderator-classroom-moderated-text'),
     # Refactor to soft delete
     # path('moderator/classroom/<int:cpk>/task/<int:tpk>/remove', moderator.ModeratorClassroomTaskRemoveView.as_view(), name='moderator-classroom-task-remove'),
+    path('moderator/notifications/unread', moderator.ModeratorUnreadNotificationsView.as_view(), name='moderator-notifications-unread'),
+    path('moderator/notifications/read', moderator.ModeratorReadNotificationsView.as_view(), name='moderator-notifications-read'),
+    path('moderator/notifications/<int:pk>/toggle', moderator.ModeratorNotificationToggleView.as_view(), name='moderator-notification-status-toggle'),
     path('moderator/profile/', moderator.ModeratorProfileView.as_view(), name='moderator-profile')
 ]
 miner_patterns = [
-    path('miner/', miner.MinerInitialViewBeginner.as_view(), name='miner-initial'),
-    path('miner/tasks/beginner/', miner.MinerInitialViewBeginner.as_view(), name='miner-tasks-beginner'),
-    path('miner/tasks/intermediate/', miner.MinerInitialViewIntermediate.as_view(), name='miner-tasks-intermediate'),
-    path('miner/tasks/advanced/', miner.MinerInitialViewAdvanced.as_view(), name='miner-tasks-advanced'),
-    path('miner/task/<int:pk>/', miner.MinerTaskDetailView.as_view(), name='miner-task-detail'),
+    path('miner/', miner.MinerInitialView.as_view(), name='miner-initial'),
+    path('miner/tasks/<int:pk>/', miner.MinerInitialView.as_view(), name='miner-tasks'),
+    path('miner/tasks/<int:pk>/task/<int:tpk>', miner.MinerTaskDetailView.as_view(), name='miner-task-detail'),
     path('miner/classroom/join/', miner.MinerClassroomJoinView.as_view(), name='miner-classroom-join'),
     path('miner/classroom/<int:pk>', miner.MinerClassroomDetailView.as_view(), name='miner-classroom-detail'),
     path('miner/classroom/<int:pk>/results', miner.MinerClassroomResultsView.as_view(), name='miner-classroom-detail-results'),

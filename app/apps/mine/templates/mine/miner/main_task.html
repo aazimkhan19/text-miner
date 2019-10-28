@@ -4,7 +4,7 @@
 
 {% block content %}
     <div class="d-flex mb-4">
-        <a class="h5" href="{% url 'mine:miner-classroom-detail' task.classroom.pk %}">
+        <a class="h5" href="{% url 'mine:miner-tasks' view.kwargs.pk %}">
             <i class="fa fa-arrow-left"></i> Back
         </a>
         <h5 class="font-weight-bold ml-3">{{task.classroom.title}}</h5>

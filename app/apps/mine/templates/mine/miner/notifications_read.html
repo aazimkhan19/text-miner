@@ -9,14 +9,14 @@
                 <a href="{% url 'mine:miner-notifications-read' %}" class="nav-item nav-link active">Read</a>
             </div>
         </nav>
-        <div class="m-3 col-sm-12 col-md-12 col-lg-12 col-xl-6">
-            <div class="card">
-                <ul class="list-group list-group-flush">
-                    {% if notifications.all %}
+        {% if notifications.all %}
+            <div class="m-3 col-sm-12 col-md-12 col-lg-12 col-xl-6">
+                <div class="card">
+                    <ul class="list-group list-group-flush">
                         {% for notification in notifications.all %}
                             <li class="list-group-item d-flex justify-content-between">
                                 <div class="d-flex flex-column align-self-center">
-                                    <a href="{% url 'mine:miner-profile' %}" class="h6 font-weight-bold">{{notification.description}}</a>
+                                    <a href={{notification.link}} class="h6 font-weight-bold">{{notification.description}}</a>
                                     <p class="h6 text-truncate">{{notification.date|naturaltime}}</p>
                                 </div>
                                 <div class="align-self-center h5">
@@ -24,13 +24,14 @@
                                 </div>
                             </li>
                         {% endfor %}
-                    {% else %}
-                        <li class="list-group-item">
-                            <span class="h5 align-self-center">No tasks yet</span>
-                        </li>
-                    {% endif %}
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
+        {% else %}
+            <div class="card m-3 p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
+                <span class="h3">View notifications</span>
+                <span class="h6"><i class="fa fa-bell-o"></i> Notifications marked as read will be here</span>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}

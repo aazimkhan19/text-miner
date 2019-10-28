@@ -68,7 +68,7 @@ class Text(models.Model):
     def __str__(self):
         if self.task is None:
             return '{} - {}'.format(self.pk, self.creator.user.email)
-        return '{} - {} - {}'.format(self.pk, self.creator.user.email, self.task.pk)
+        return '{} - {} - {} - {}'.format(self.pk, self.creator.user.email, self.classroom.pk,self.task.pk)
 
 
 class ModeratedText(models.Model):
@@ -90,8 +90,9 @@ class ModeratedText(models.Model):
 
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
-    timestamp = models.DateTimeField(auto_now_add=True)
-    task = models.ForeignKey(Task, on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
+    # TODO consider later applying polymorphism
+    link = models.TextField(null=True)
     description = models.CharField(max_length=100)
     read = models.BooleanField(default=False)
 

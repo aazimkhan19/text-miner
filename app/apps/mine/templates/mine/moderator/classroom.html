@@ -14,98 +14,165 @@
 <div class="row">
     <div class="col-lg-6 col-md-12 pl-4 pr-4">
         <div class="row mb-3">
-            <div class="card w-100">
-
-                <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card w-100 rounded-0">
+                <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
                         <span class="font-weight-bold h3">Your tasks</span>
                     </div>
-                    <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link">Add task</button></a>
+                    <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link text-light">Add task</button></a>
                 </div>
+                <ul class="list-group list-group-flush">
+                    {% if tasks %}
+                        {% for task in tasks %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                    <span class="h6 font-weight-bold">{{task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{task.short_text}}</p>
+                                </div>
+                                <div class="align-self-center h4">
+                                    <a href="{% url 'mine:moderator-classroom-edit-task' classroom.pk task.pk %}"><i class="fa fa-pencil mr-1"></i></a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <div class="d-flex justify-content-around">
+                            <ul class="pagination m-1 text-center">
+                                {% if tasks.has_previous %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?task=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?task={{tasks.previous_page_number}}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
 
-                <ul class="list-group list-group-flush">
-                    {% for task in tasks %}
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="d-flex flex-column align-self-center">
-                                <span class="h6 font-weight-bold">{{task.task_title}}</span>
-                                <p class="h6 text-truncate">{{task.short_text}}</p>
-                            </div>
-                            <div class="align-self-center h4">
-                                <a href="{% url 'mine:moderator-classroom-edit-task' classroom.pk task.pk %}"><i class="fa fa-pencil mr-1"></i></a>
-                            </div>
-                        </li>
-                    {% empty %}
+                                {% for number in tasks.paginator.page_range %}
+                                    {% if tasks.number == number %}
+                                        <li class="page-item ml-1 mr-1 active"><a class="page-link">{{ number }}</a></li>
+                                    {% elif number == tasks.number|add:'-1' or number == tasks.number|add:'1' %}
+                                        <li class="page-item ml-1 mr-1"><a class="page-link" href="?task={{number}}">{{ number }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if tasks.has_next %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?task={{tasks.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?task={{tasks.paginator.num_pages}}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No tasks yet</span>
+                            <span class="h5 align-self-center">You haven't created any tasks yet</span>
                         </li>
-                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Results</h3>
+            <div class="card w-100 rounded-0">
+                <h3 class="card-header font-weight-bold bg-dark text-light rounded-0">Results</h3>
                 <ul class="list-group list-group-flush">
-                    {% for text in texts.all %}
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="d-flex flex-column align-self-center">
-                                    <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
-                                <p class="h6 text-truncate">{{text.creator}}</p>
-                            </div>
-                            <div class="align-self-center h4">
-                                <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
-                            </div>
-                        </li>
-                    {% empty %}
+                    {% if texts %}
+                        {% for text in texts %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                        <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{text.creator}}</p>
+                                </div>
+                                <div class="align-self-center h4">
+                                    <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <div class="d-flex justify-content-around">
+                            <ul class="pagination m-1 text-center">
+                                {% if texts.has_previous %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?text=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?text={{texts.previous_page_number}}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
+
+                                {% for number in texts.paginator.page_range %}
+                                    {% if texts.number == number %}
+                                        <li class="page-item ml-1 mr-1 active"><a class="page-link">{{ number }}</a></li>
+                                    {% elif number == texts.number|add:'-1' or number == texts.number|add:'1' %}
+                                        <li class="page-item ml-1 mr-1"><a class="page-link" href="?text={{number}}">{{ number }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if texts.has_next %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?text={{texts.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?text={{texts.paginator.num_pages}}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No tasks yet</span>
+                            <span class="h5 align-self-center">No submissions</span>
                         </li>
-                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Moderated</h3>
+            <div class="card w-100 rounded-0">
+                <h3 class="card-header font-weight-bold bg-dark text-light rounded-0">Moderated</h3>
                 <ul class="list-group list-group-flush">
-                    {% for text in moderated_texts.all %}
-                        <li class="list-group-item d-flex justify-content-between">
-                            <div class="d-flex flex-column align-self-center">
-                                <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
-                                <p class="h6 text-truncate">{{text.original.creator}}</p>
-                            </div>
-                            <div class="align-self-center h5">
-                                <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
-                            </div>
-                        </li>
-                    {% empty %}
+                    {% if moderated_texts %}
+                        {% for text in moderated_texts %}
+                            <li class="list-group-item d-flex justify-content-between">
+                                <div class="d-flex flex-column align-self-center">
+                                    <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
+                                    <p class="h6 text-truncate">{{text.original.creator}}</p>
+                                </div>
+                                <div class="align-self-center h5">
+                                    <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                        <div class="d-flex justify-content-around">
+                            <ul class="pagination m-1 text-center">
+                                {% if moderated_texts.has_previous %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?moderated=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?moderated={{moderated_texts.previous_page_number}}"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
+                                {% endif %}
+
+                                {% for number in moderated_texts.paginator.page_range %}
+                                    {% if moderated_texts.number == number %}
+                                        <li class="page-item ml-1 mr-1 active"><a class="page-link">{{ number }}</a></li>
+                                    {% elif number == moderated_texts.number|add:'-1' or number == moderated_texts.number|add:'1' %}
+                                        <li class="page-item ml-1 mr-1"><a class="page-link" href="?moderated={{number}}">{{ number }}</a></li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% if moderated_texts.has_next %}
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?moderated={{moderated_texts.next_page_number}}"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
+                                    <li class="page-item ml-1 mr-1"><a class="page-link" href="?moderated={{moderated_texts.paginator.num_pages}}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </div>
+                    {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No tasks yet</span>
+                            <span class="h5 align-self-center">No checked assignments</span>
                         </li>
-                    {% endfor %}
+                    {% endif %}
                 </ul>
             </div>
         </div>
     </div>
     <div class="col-lg-6 col-md-12 pl-4 pr-4">
         <div class="row mb-3">
-            <div class="card w-100">
-                <div class="card-header d-flex justify-content-between align-items-center">
+            <div class="card w-100 rounded-0">
+                <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
                         <span class="font-weight-bold h3">Invitation code</span>
                     </div>
                     <div class="input-group w-auto">
                         <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
                         <div class="input-group-append">
-                            <button class="btn btn-outline-secondary" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
+                            <button class="btn btn-outline-light" type="button" onclick="myFunction()"><i class="fa fa-clipboard"></i></button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="card w-100">
-                <h3 class="card-header font-weight-bold">Members</h3>
+            <div class="card w-100 rounded-0">
+                <h3 class="card-header font-weight-bold rounded-0 bg-dark text-light">Members</h3>
                 <ul class="list-group list-group-flush">
                     {% for user in participants %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
@@ -117,15 +184,15 @@
                         </li>
                     {% empty %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No members yet</span>
+                            <span class="h5 align-self-center">This classroom has no members yet</span>
                         </li>
                     {% endfor %}
                 </ul>
             </div>
         </div>
         <div class="row mb-3">
-            <div class="card w-100">
-                <h3 class="card-header font-weight-bold bg-danger text-light">Delete classroom</h3>
+            <div class="card w-100 rounded-0">
+                <h3 class="card-header font-weight-bold rounded-0 bg-danger text-light">Delete classroom</h3>
 
                 <div class="card-body">
                     <p class="card-text">

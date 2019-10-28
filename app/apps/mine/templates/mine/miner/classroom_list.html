@@ -6,7 +6,12 @@
             <div class="row d-flex justify-content-between pl-3 pr-3 pt-1 pb-1">
                 <div class="pl-4 pt-2">
                     <div class="row">
-                        <h4 class="card-title font-weight-bold">{{classroom.title}}</h4>
+                        <h4 class="card-title font-weight-bold">
+                            {% if classroom.badge > 0 %}
+                                <span class="badge badge-primary badge-pill">{{classroom.badge}}</span>
+                            {% endif %}
+                            {{classroom.title}}
+                        </h4>
                     </div>
                     <div class="row">
                         <h6 class="card-title">{{classroom.owner.first_name}} {{classroom.owner.last_name}}</h6>
@@ -18,8 +23,11 @@
             </div>
         </div>
     {% empty %}
-        <li class="list-group-item">
-            <span class="h5 align-self-center">No classrooms yet</span>
-        </li>
+        <div class="h-100 d-flex justify-content-center">
+            <div class="d-flex flex-column align-items-center">
+                <span class="h5">You haven't joined any classrooms yet ¯\_(ツ)_/¯</span>
+                <a href="{% url 'mine:miner-classroom-join' %}"><button class="btn btn-dark">Join a classroom</button></a>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}

@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="d-flex ml-3 mb-4">
+<div class="d-flex mb-4">
     <a class="h5" href="{% url 'mine:miner-classroom-detail-results' text.task.classroom.pk %}">
         <i class="fa fa-arrow-left"></i> Back
     </a>
@@ -32,7 +32,7 @@
                 </div>
             {% else %}
                 <div class="card card-body mb-3 shadow">
-                    <p class="card-text h6">Not checked yet</p>
+                    <p class="card-text h6">Your submission haven't checked yet</p>
                 </div>
             {% endif %}
         </div>
