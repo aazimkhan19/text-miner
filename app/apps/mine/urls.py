@@ -19,6 +19,8 @@ admin_patterns = [
     path('admin/profile/', admin.AdminProfileView.as_view(), name='admin-profile')
 ]
 moderator_patterns = [
+    path('email/', moderator.email_template, name='email'),
+
     path('moderator/', moderator.ModeratorClassroomListView.as_view(), name='moderator-initial'),
     path('moderator/classrooms/', moderator.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
     path('moderator/classroom/<int:pk>', moderator.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),

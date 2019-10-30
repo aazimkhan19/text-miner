@@ -1,15 +1,16 @@
-{% extends "base/base.html" %}
+<!DOCTYPE html>
+<html lang="en">
 {% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-{% block css %}
-    <link rel="stylesheet" href="{% static 'authentication/css/base.css' %}"/>
-    <link rel="stylesheet" type="text/css" href="{% static 'authentication/css/level_chooser_content.css' %}">
+    <title>Text Miner |  {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'base/css/signin.css' %}"/>
-{% endblock %}
-
-{% block stage %}
-    <main role="main" class="col-md-5 m-sm-auto" >
-        {% block content %}
-        {% endblock %}
-    </main>
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'base/css/bootstrap.css' %}"/>
+</head>
+<body id="body">
+    {% block forms %}
+    {% endblock %}
+</body>
+</html>

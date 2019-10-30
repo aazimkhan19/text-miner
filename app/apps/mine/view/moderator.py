@@ -285,3 +285,13 @@ class ModeratorRemoveUserView(BaseModeratorView, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return reverse_lazy('mine:moderator-classroom-detail', kwargs={'pk': self.kwargs['cpk']})
 # endregion Classroom
+
+
+def email_template(request):
+    from django.shortcuts import render
+    context = {
+        'name': 'Alexander',
+        'card_title': 'An essay about summer',
+        'card_text': 'new task in HW\' CSS105',
+    }
+    return render(request, 'mine/email_body.html', context)

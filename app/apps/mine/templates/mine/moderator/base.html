@@ -1,38 +1,19 @@
 {% extends "mine/base.html" %}
-{% load static %}
 
-{% block css %}
-<!--    <link rel="stylesheet" href="{% static 'main/css/bootstrap.css' %}"/>-->
-{% endblock %}
-
-{% block sidebar %}
-    <li class="nav-item justify-content-center align-items-center" style="padding-bottom: 0.5rem">
-        <span class="nav-link font-weight-bold ">
-            Hello, {{user.first_name}}!
-        </span>
-    </li>
-    <li class="nav-item" style="padding-bottom: 0.5rem">
-        <a class="nav-link" href="{% url 'mine:moderator-classrooms' %}">
-            <i class="fa fa-list" style="color: #ff9933"></i> My classrooms
-        </a>
-    </li>
-    <li class="nav-item" style="padding-bottom: 0.5rem">
-        <a class="nav-link" href="{% url 'mine:moderator-classroom-create' %}">
-            <i class="fa fa-pencil" style="color: #ff9933"></i> Create classroom
-        </a>
-    </li>
-    <li class="nav-item" style="padding-bottom: 0.5rem">
-        <a class="nav-link" href="{% url 'mine:moderator-notifications-unread' %}">
-            <i class="fa fa-bell" style="color: #ff9933"></i> Notifications
-        </a>
-    </li>
-    <li class="nav-item" style="padding-bottom: 0.5rem">
-        <a class="nav-link" href="{% url 'mine:moderator-profile' %}">
-            <i class="fa fa-user" style="color: #ff9933"></i> Profile
-        </a>
-    </li>
-
-{% endblock %}
-
-{% block content %}
+{% block menu %}
+    <div class="list-group-item list-group-item-action bg-dark text-light font-weight-bold">
+        Hello, {{user.first_name}}!
+    </div>
+    <a href="{% url 'mine:moderator-classrooms' %}" class="list-group-item list-group-item-action bg-dark text-light">
+        <i class="fa fa-list" style="color: #ff9933"></i> My classrooms
+    </a>
+    <a href="{% url 'mine:moderator-classroom-create' %}" class="list-group-item list-group-item-action bg-dark text-light">
+        <i class="fa fa-list" style="color: #ff9933"></i> Create classroom
+    </a>
+    <a href="{% url 'mine:moderator-notifications-unread' %}" class="list-group-item list-group-item-action bg-dark text-light">
+        <i class="fa fa-bell" style="color: #ff9933"></i> Notifications
+    </a>
+    <a href="{% url 'mine:moderator-profile' %}" class="list-group-item list-group-item-action bg-dark text-light">
+        <i class="fa fa-user" style="color: #ff9933"></i> Profile
+    </a>
 {% endblock %}

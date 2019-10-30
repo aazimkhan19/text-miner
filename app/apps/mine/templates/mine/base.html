@@ -1,23 +1,11 @@
 {% extends "base/base.html" %}
-{% load static %}
 
-{% block css %}
-<link rel="stylesheet" href="{% static 'mine/css/base.css' %}"/>
-{% endblock %}
-
-{% block stage %}
-    <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
-            <div class="mt-4 sidebar-sticky">
-                <ul class="nav flex-column">
-                    {% block sidebar %}
-                    {% endblock %}
-                </ul>
-            </div>
-        </nav>
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            {% block content %}
-            {% endblock %}
-        </main>
+{% block sidebar %}
+<div class="bg-dark border-right" id="sidebar-wrapper">
+    <div class="sidebar-heading bg-white">Text Miner</div>
+    <div id="menu" class="list-group list-group-flush">
+        {% block menu %}
+        {% endblock %}
     </div>
+</div>
 {% endblock %}

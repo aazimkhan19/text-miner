@@ -1,9 +1,12 @@
 {% extends "authentication/base.html" %}
 {% load crispy_forms_tags %}
 
-{% block content %}
-    <form method="post" class="form-signin">
+{% block forms %}
+    <form method="post" class="form-signin card card-body mx-auto sizing">
         <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
         {% crispy form %}
     </form>
+    <div class="card card-body mx-auto sizing sizing-helper text-center">
+        <p class="m-0">Don't have an account? <a href="{% url 'authentication:signup' %}">Sign up</a></p>
+    </div>
 {% endblock %}
