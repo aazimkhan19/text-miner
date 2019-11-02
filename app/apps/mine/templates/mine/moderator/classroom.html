@@ -4,20 +4,20 @@
 
 {% block content %}
 
-<div class="d-flex mb-3">
+<div class="d-flex">
     <a class="h5" href="{% url 'mine:moderator-classrooms' %}">
         <i class="fa fa-arrow-left"></i> Back
     </a>
     <h5 class="font-weight-bold ml-3">{{classroom.title}}</h5>
 </div>
-
-<div class="row">
+<!-- class="d-flex flex-column align-self-center"-->
+<div class="row ml-1 mb-1 mr-1">
     <div class="col-lg-6 col-md-12 pl-4 pr-4">
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
                 <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
-                        <span class="font-weight-bold h3">Your tasks</span>
+                        <span class="font-weight-bold h4">Your tasks</span>
                     </div>
                     <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link text-light">Add task</button></a>
                 </div>
@@ -25,7 +25,7 @@
                     {% if tasks %}
                         {% for task in tasks %}
                             <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
+                                <div class="d-flex flex-column align-self-center" style="width: 90%">
                                     <span class="h6 font-weight-bold">{{task.task_title}}</span>
                                     <p class="h6 text-truncate">{{task.short_text}}</p>
                                 </div>
@@ -65,17 +65,17 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h3 class="card-header font-weight-bold bg-dark text-light rounded-0">Results</h3>
+                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">Results</h4>
                 <ul class="list-group list-group-flush">
                     {% if texts %}
                         {% for text in texts %}
                             <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
-                                        <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
+                                <div class="d-flex flex-column align-self-center" style="width: 90%">
+                                    <span class="h6 font-weight-bold">{{text.task.task_title}}</span>
                                     <p class="h6 text-truncate">{{text.creator}}</p>
                                 </div>
                                 <div class="align-self-center h4">
-                                    <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit mr-1"></i></a>
+                                    <a href="{% url 'mine:moderator-classroom-text-moderate' classroom.pk text.pk %}"><i class="fa fa-edit"></i></a>
                                 </div>
                             </li>
                         {% endfor %}
@@ -110,12 +110,12 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h3 class="card-header font-weight-bold bg-dark text-light rounded-0">Moderated</h3>
+                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">Moderated</h4>
                 <ul class="list-group list-group-flush">
                     {% if moderated_texts %}
                         {% for text in moderated_texts %}
                             <li class="list-group-item d-flex justify-content-between">
-                                <div class="d-flex flex-column align-self-center">
+                                <div class="d-flex flex-column align-self-center" style="width: 80%">
                                     <span class="h6 font-weight-bold">{{text.original.task.task_title}}</span>
                                     <p class="h6 text-truncate">{{text.original.creator}}</p>
                                 </div>
@@ -159,7 +159,7 @@
             <div class="card w-100 rounded-0">
                 <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
-                        <span class="font-weight-bold h3">Invitation code</span>
+                        <span class="font-weight-bold h4">Class code</span>
                     </div>
                     <div class="input-group w-auto">
                         <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
@@ -172,15 +172,15 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h3 class="card-header font-weight-bold rounded-0 bg-dark text-light">Members</h3>
+                <h4 class="card-header font-weight-bold rounded-0 bg-dark text-light">Members</h4>
                 <ul class="list-group list-group-flush">
                     {% for user in participants %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
-                            <div class="align-self-center">
-                                <span class="h6">{{user.user.first_name}} {{user.user.last_name}}</span>
-                                <span class="font-weight-bold">{{user.user.email}}</span>
+                            <div class="align-self-center"  style="width: 90%;">
+                                <p class="h6 text-truncate">{{user.user.first_name}} {{user.user.last_name}}</p>
+                                <p class="font-weight-bold text-truncate">{{user.user.email}}</p>
                             </div>
-                            <a class="h4" href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></a>
+                            <a class="h4 align-self-center" href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></a>
                         </li>
                     {% empty %}
                         <li class="list-group-item">
@@ -192,7 +192,7 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h3 class="card-header font-weight-bold rounded-0 bg-danger text-light">Delete classroom</h3>
+                <h4 class="card-header font-weight-bold rounded-0 bg-danger text-light">Delete classroom</h4>
 
                 <div class="card-body">
                     <p class="card-text">

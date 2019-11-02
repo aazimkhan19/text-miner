@@ -1,13 +1,10 @@
 {% extends "mine/miner/base.html" %}
 {% load static %}
-{% block css %}
-<!--    <link rel="stylesheet" type="text/css" href="{% static 'levels/css/style1.css' %}">-->
-{% endblock %}
 {% block content %}
 <div class="row">
     {% for task in object_list %}
         <div class="col-md-12 col-lg-6 col-xl-4">
-            <div class="card mb-4 shadow-sm">
+            <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <h4 class="card-title text-truncate">{{task.task_title}}</h4>
                     <p class="card-text text-truncate">{{task.task_description}}</p>

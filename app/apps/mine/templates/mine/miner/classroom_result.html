@@ -2,38 +2,37 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-
 <div class="d-flex">
     <a class="h5" href="{% url 'mine:miner-classrooms' %}">
         <i class="fa fa-arrow-left"></i> Back
     </a>
-    <h5 class="font-weight-bold ml-3 mb-4">{{classroom.title}}</h5>
+    <h5 class="font-weight-bold ml-3 mb-3">{{classroom.title}}</h5>
 </div>
 
-<div class="row">
-    <nav class="w-100 m-3">
+<div class="row ml-1 mb-1 mr-1">
+    <nav class="w-100 mb-2">
         <div class="nav nav-tabs">
             <a class="nav-item nav-link" href="{% url 'mine:miner-classroom-detail' classroom.pk %}">New tasks</a>
             <a class="nav-item nav-link active" href="{% url 'mine:miner-classroom-detail-results' classroom.pk %}">Results</a>
         </div>
     </nav>
-        <div class="row m-3 w-100">
-            {% for text in texts.all %}
-                <div class="col-md-12 col-lg-6 col-xl-4">
-                    <div class="card mb-4 shadow-sm">
-                        <div class="card-body">
-                            <h4 class="card-title text-truncate">{{text.task.task_title}}</h4>
-                            <p class="card-text">{{text.task.task_level}}</p>
-                            <a href="{% url 'mine:miner-classroom-result-detail' object.pk text.pk %}" class="btn btn-dark">View</a>
-                        </div>
+    <div class="m-1 row w-100">
+        {% for text in texts.all %}
+            <div class="col-md-12 col-lg-6 col-xl-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h4 class="card-title text-truncate">{{text.task.task_title}}</h4>
+                        <p class="card-text">{{text.task.task_level}}</p>
+                        <a href="{% url 'mine:miner-classroom-result-detail' object.pk text.pk %}" class="btn btn-dark">View</a>
                     </div>
                 </div>
-            {% empty %}
-                <div class="card p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
-                    <span class="h3">View classroom updates</span>
-                    <span class="h6"><i class="fa fa-check"></i> Completed assignments will be posted here</span>
-                </div>
-            {% endfor %}
-        </div>
+            </div>
+        {% empty %}
+            <div class="card p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
+                <span class="h3">View classroom updates</span>
+                <span class="h6"><i class="fa fa-check"></i> Completed assignments will be posted here</span>
+            </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}

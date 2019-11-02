@@ -3,23 +3,21 @@
 {% block content %}
     {% for classroom in classrooms %}
         <div class="card bg-white text-decoration-none mb-3 col-sm-12 col-lg-6">
-            <div class="row d-flex justify-content-between pl-3 pr-3 pt-1 pb-1">
-                <div class="pl-4 pt-2">
-                    <div class="row">
-                        <h4 class="card-title font-weight-bold">
-                            {% if classroom.badge > 0 %}
-                                <span class="badge badge-primary badge-pill">{{classroom.badge}}</span>
-                            {% endif %}
-                            {{classroom.title}}
-                        </h4>
-                    </div>
-                    <div class="row">
-                        <h6 class="card-title">{{classroom.owner.first_name}} {{classroom.owner.last_name}}</h6>
-                    </div>
+            <div class="d-flex justify-content-between pt-3 pb-3">
+                <div class="d-flex flex-column align-self-center" style="width: 90%">
+                    <span class="h4 font-weight-bold">
+                        {% if classroom.badge > 0 %}
+                            <span class="badge badge-primary badge-pill">{{classroom.badge}}</span>
+                        {% endif %}
+                        {{classroom.title}}
+                    </span>
+                    <p class="h6 text-truncate">{{classroom.owner.first_name}} {{classroom.owner.last_name}}</p>
                 </div>
-                <a href="{% url 'mine:miner-classroom-detail' classroom.pk %}" class="align-self-center">
-                    <button class="btn-dark btn float-right">View</button>
-                </a>
+                <div class="align-self-center h5">
+                    <a href="{% url 'mine:miner-classroom-detail' classroom.pk %}" class="align-self-center">
+                        <button class="btn-dark btn float-right">View</button>
+                    </a>
+                </div>
             </div>
         </div>
     {% empty %}

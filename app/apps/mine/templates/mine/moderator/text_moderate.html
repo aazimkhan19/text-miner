@@ -2,14 +2,14 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-<div class="d-flex mb-3">
+<div class="d-flex mb-2">
     <a class="h5" href="{% url 'mine:moderator-classroom-detail' text.task.classroom.pk %}">
         <i class="fa fa-arrow-left"></i> Back
     </a>
     <h5 class="font-weight-bold ml-3">{{text.task.classroom.title}}</h5>
 </div>
 <div class="col-md-12 col-lg-6">
-    <div class="card rounded-0">
+    <div class="card rounded-0 mb-4">
         <div class="card-header d-flex align-items-center rounded-0 bg-dark text-light">
             <div>
                 <span class="font-weight-bold h4">{{ text.task.task_title }}</span>
