@@ -1,21 +1,22 @@
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Row, Column, Field
+from crispy_forms.layout import Submit, Layout, Field
 from django.contrib.auth.models import Group
+from django.utils.translation import ugettext_lazy as _
 
 from apps.authentication.models import User
 
 from apps.mine.models import Miner
 
 from django import forms
-from django.contrib.auth.forms import ReadOnlyPasswordHashField, AuthenticationForm
+from django.contrib.auth.forms import ReadOnlyPasswordHashField, AuthenticationForm, UsernameField
 
 
 class UserCreationForm(forms.ModelForm):
     """A form for creating new users. Includes all the required
     fields, plus a repeated password."""
-    role = forms.TypedChoiceField(choices=((1, 'miner'), (2, 'moderator'),), empty_value=1, coerce=int)
-    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
-    password2 = forms.CharField(label='Password confirmation',
+    role = forms.TypedChoiceField(choices=((1, _('Студент')), (2, _('Мұғалім')),), empty_value=1, coerce=int, label=_("Рөліңіз"))
+    password1 = forms.CharField(label=_('Құпия сөз'), widget=forms.PasswordInput)
+    password2 = forms.CharField(label=_('Құпия сөзді растау'),
                                 widget=forms.PasswordInput)
 
     def __init__(self, *args, **kwargs):
@@ -33,35 +34,41 @@ class UserCreationForm(forms.ModelForm):
             Field('role', css_class="form-control form-input"),
             Field('password1', css_class="form-control form-input"),
             Field('password2', css_class="form-control form-input"),
-            Submit('submit', 'Sign Up', css_class="btn btn-lg btn-dark btn-block")
+            Submit('submit', _('Тіркелу'), css_class="btn btn-lg btn-dark btn-block")
         )
 
     class Meta:
         model = User
         fields = ('email', 'phone', 'first_name', 'last_name')
+        labels = {
+            'email': _("Электрондық пошта"),
+            'phone': _("Телефон"),
+            'first_name': _("Аты"),
+            'last_name': _("Тегі"),
+        }
 
     def clean_email(self):
         email = self.cleaned_data.get("email")
         if not email:
-            raise forms.ValidationError('email field is not provided')
+            raise forms.ValidationError(_('Электрондық пошта берілмеген'))
         if User.objects.filter(email=email).exists():
-            raise forms.ValidationError('User with this Email is already in use')
+            raise forms.ValidationError(_('Осы электрондық поштамен тіркелген қолданушы бар'))
         return email
 
     def clean_phone(self):
         phone = self.cleaned_data.get("phone")
         if not phone:
-            raise forms.ValidationError('phone field is not provided')
+            raise forms.ValidationError(_('Телефон нөмірі берілмеген'))
         if User.objects.filter(phone=phone).exists():
-            raise forms.ValidationError('User with this Phone is already in use')
+            raise forms.ValidationError(_('Осы телефонмен тіркелген қолданушы бар'))
         return phone
 
     def clean_role(self):
         role = self.cleaned_data.get("role")
         if not role:
-            raise forms.ValidationError('Role is not provided')
+            raise forms.ValidationError(_('Рөл таңдалмаған'))
         if role not in [1, 2]:
-            raise forms.ValidationError('Role can be either miner or moderator')
+            raise forms.ValidationError(_('Рөл мұғалім немесе студент бола алады'))
         return role
 
     def clean_password2(self):
@@ -69,7 +76,7 @@ class UserCreationForm(forms.ModelForm):
         password1 = self.cleaned_data.get("password1")
         password2 = self.cleaned_data.get("password2")
         if password1 and password2 and password1 != password2:
-            raise forms.ValidationError("Passwords don't match")
+            raise forms.ValidationError(_("Құпия сөздер сәйкес емес"))
         return password2
 
     def save(self, commit=True):
@@ -133,15 +140,18 @@ class UserChangeForm(forms.ModelForm):
 
 
 class UserAuthForm(AuthenticationForm):
+    username = UsernameField(
+        label=_('Электрондық пошта'),
+        widget=forms.TextInput(attrs={'autofocus': True})
+    )
     def __init__(self, *args, **kwargs):
         super(UserAuthForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        #form-control form-input
         self.helper.layout = Layout(
             Field('username', css_class="form-control form-input"),
             Field('password', css_class="form-control form-input"),
-            Submit('submit', 'Sign In', css_class="btn btn-lg btn-dark btn-block")
+            Submit('submit', _('Кіру'), css_class="btn btn-lg btn-dark btn-block")
         )
 
 
@@ -150,9 +160,15 @@ class ProfileForm(forms.ModelForm):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_method = 'post'
-        self.helper.add_input(Submit('submit', 'Save', css_class='btn btn-dark'))
+        self.helper.add_input(Submit('submit', _('Сақтау'), css_class='btn btn-dark'))
 
     class Meta:
         model = User
         fields = ('email', 'first_name',
                   'last_name', 'phone')
+        labels = {
+            'email': _('Электрондық пошта'),
+            'first_name': _('Аты'),
+            'last_name': _('Тегі'),
+            'phone': _('Телефон'),
+        }

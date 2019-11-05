@@ -11,13 +11,14 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 import datetime
 import environ
+from django.utils.translation import gettext_lazy as _
 
 
 ROOT_DIR = environ.Path(__file__) - 3  # (/config/settings/common.py - 3 = /)
 PARENT_DIR = environ.Path(__file__) - 4
 APPS_DIR = ROOT_DIR.path('apps')
 public_root = PARENT_DIR.path('public')
-
+LOCALE_PATHS = (ROOT_DIR.path('locale'), )
 
 env = environ.Env()  # set default values and casting
 environ.Env.read_env(PARENT_DIR.file('.env'))  # reading .env file
@@ -88,6 +89,7 @@ MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -174,7 +176,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'kk'
 
 TIME_ZONE = 'Asia/Almaty'
 
@@ -184,6 +186,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+LANGUAGES = (
+    ('kk', _('Kazakh')),
+    ('en', _('English')),
+)
 
 # STATIC FILE CONFIGURATION
 # ------------------------------------------------------------------------------

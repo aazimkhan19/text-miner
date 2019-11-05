@@ -1,12 +1,12 @@
 {% extends "mine/moderator/base.html" %}
 {% load crispy_forms_tags %}
 {% load static %}
-
+{% load i18n %}
 {% block content %}
 
 <div class="d-flex">
     <a class="h5" href="{% url 'mine:moderator-classrooms' %}">
-        <i class="fa fa-arrow-left"></i> Back
+        <i class="fa fa-arrow-left"></i> {% trans "Артқа" %}
     </a>
     <h5 class="font-weight-bold ml-3">{{classroom.title}}</h5>
 </div>
@@ -17,9 +17,9 @@
             <div class="card w-100 rounded-0">
                 <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
-                        <span class="font-weight-bold h4">Your tasks</span>
+                        <span class="font-weight-bold h4">{% trans "Тапсырмалар" %}</span>
                     </div>
-                    <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link text-light">Add task</button></a>
+                    <a href="{% url 'mine:moderator-classroom-task-create' classroom.pk %}"><button class="btn btn-link text-light">+ {% trans "Жаңа тапсырма" %}</button></a>
                 </div>
                 <ul class="list-group list-group-flush">
                     {% if tasks %}
@@ -57,7 +57,7 @@
                         </div>
                     {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">You haven't created any tasks yet</span>
+                            <span class="h5 align-self-center">{% trans "Сіз әлі ешқандай тапсырма қоспадыңыз" %}</span>
                         </li>
                     {% endif %}
                 </ul>
@@ -65,7 +65,7 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">Results</h4>
+                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">{% trans "Эсселер" %}</h4>
                 <ul class="list-group list-group-flush">
                     {% if texts %}
                         {% for text in texts %}
@@ -102,7 +102,7 @@
                         </div>
                     {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No submissions</span>
+                            <span class="h5 align-self-center">{% trans "Тексерілмеген эсселер жоқ" %}</span>
                         </li>
                     {% endif %}
                 </ul>
@@ -110,7 +110,7 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">Moderated</h4>
+                <h4 class="card-header font-weight-bold bg-dark text-light rounded-0">{% trans "Тексерілген эсселер" %}</h4>
                 <ul class="list-group list-group-flush">
                     {% if moderated_texts %}
                         {% for text in moderated_texts %}
@@ -120,7 +120,7 @@
                                     <p class="h6 text-truncate">{{text.original.creator}}</p>
                                 </div>
                                 <div class="align-self-center h5">
-                                    <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">Detail</a>
+                                    <a href="{% url 'mine:moderator-classroom-moderated-text' classroom.pk text.pk %}">{% trans "Толығырақ" %}</a>
                                 </div>
                             </li>
                         {% endfor %}
@@ -147,7 +147,7 @@
                         </div>
                     {% else %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">No checked assignments</span>
+                            <span class="h5 align-self-center">{% trans "Тексерілген эсселер жоқ" %}</span>
                         </li>
                     {% endif %}
                 </ul>
@@ -159,7 +159,7 @@
             <div class="card w-100 rounded-0">
                 <div class="card-header d-flex justify-content-between align-items-center rounded-0 bg-dark text-light">
                     <div class="align-self-center">
-                        <span class="font-weight-bold h4">Class code</span>
+                        <span class="font-weight-bold h4">{% trans "Сынып коды" %}</span>
                     </div>
                     <div class="input-group w-auto">
                         <input id="invitation-code" type="text" class="form-control" value={{classroom.invitation_code}} readonly>
@@ -172,7 +172,7 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h4 class="card-header font-weight-bold rounded-0 bg-dark text-light">Members</h4>
+                <h4 class="card-header font-weight-bold rounded-0 bg-dark text-light">{% trans "Студенттер" %}</h4>
                 <ul class="list-group list-group-flush">
                     {% for user in participants %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
@@ -184,7 +184,7 @@
                         </li>
                     {% empty %}
                         <li class="list-group-item">
-                            <span class="h5 align-self-center">This classroom has no members yet</span>
+                            <span class="h5 align-self-center">{% trans "Бұл сыныпта әлі студент жоқ" %}</span>
                         </li>
                     {% endfor %}
                 </ul>
@@ -192,18 +192,18 @@
         </div>
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
-                <h4 class="card-header font-weight-bold rounded-0 bg-danger text-light">Delete classroom</h4>
+                <h4 class="card-header font-weight-bold rounded-0 bg-danger text-light">{% trans "Сыныпты жою" %}</h4>
 
                 <div class="card-body">
                     <p class="card-text">
-                        After you delete a classroom, you cannot invite people to join that classroom. You will lose all your tasks and results of tasks
+                            {% trans "Сыныпты жойғаннан кейін студенттерді сыныпқа шақыра алмайсыз. Сіз барлық тапсырмаларыңыздан және тапсырмалардың нәтижелерінен айрыласыз." %}
                     </p>
                 </div>
 
                 <div class="card-footer d-flex flex-column align-items-end">
 <!--                    TODO delete classroom option-->
                     <a href="#TODO">
-                        <button class="btn btn-link text-danger">Delete classroom</button>
+                        <button class="btn btn-link text-danger">{% trans "Сыныпты жою" %}</button>
                     </a>
                 </div>
             </div>

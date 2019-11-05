@@ -1,22 +1,31 @@
 {% extends "mine/base.html" %}
-
+{% load i18n %}
 {% block menu %}
     <div class="list-group-item list-group-item-action bg-dark text-light font-weight-bold">
-        Hello, {{user.first_name}}!
+        {% trans "Cәлем" %}, {{user.first_name}}!
     </div>
     {% for main_classroom in main_classrooms %}
-        <a href="{% url 'mine:miner-tasks' main_classroom.pk %}" class="list-group-item list-group-item-action bg-dark text-light"><i class="fa fa-star" style="color: #ff9933"></i> {{main_classroom.title}}</a>
+        <a href="{% url 'mine:miner-tasks' main_classroom.0 %}" class="list-group-item list-group-item-action bg-dark text-light">
+            <i class="fa fa-star" style="color: #ff9933"></i>
+            {% if main_classroom.1 == 'beginner' %}
+                {% trans "Жеңіл деңгей" %}
+            {% elif main_classroom.1 == 'intermediate' %}
+                {% trans "Орташа деңгей" %}
+            {% elif main_classroom.1 == 'advanced' %}
+                {% trans "Күрделі деңгей" %}
+            {% endif %}
+        </a>
     {% endfor %}
     <a href="{% url 'mine:miner-classrooms' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-list" style="color: #ff9933"></i> My classrooms
+        <i class="fa fa-list" style="color: #ff9933"></i> {% trans "Менің сынымтарым" %}
     </a>
     <a href="{% url 'mine:miner-classroom-join' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-group" style="color: #ff9933"></i> Join a classroom
+        <i class="fa fa-group" style="color: #ff9933"></i> {% trans "Сыныпқа қосылу" %}
     </a>
     <a href="{% url 'mine:miner-notifications-unread' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-bell" style="color: #ff9933"></i> Notifications
+        <i class="fa fa-bell" style="color: #ff9933"></i> {% trans "Хабарламалар" %}
     </a>
     <a href="{% url 'mine:miner-profile' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-user" style="color: #ff9933"></i> Profile
+        <i class="fa fa-user" style="color: #ff9933"></i> {% trans "Профиль" %}
     </a>
 {% endblock %}

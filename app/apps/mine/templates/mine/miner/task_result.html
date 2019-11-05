@@ -1,10 +1,10 @@
 {% extends "mine/miner/base.html" %}
 {% load crispy_forms_tags %}
-
+{% load i18n %}
 {% block content %}
 <div class="d-flex mb-2">
     <a class="h5" href="{% url 'mine:miner-classroom-detail-results' text.task.classroom.pk %}">
-        <i class="fa fa-arrow-left"></i> Back
+        <i class="fa fa-arrow-left"></i> {% trans "Артқа" %}
     </a>
     <h5 class="font-weight-bold ml-3">{{text.task.classroom.title}}</h5>
 </div>
@@ -20,19 +20,19 @@
         <p class="card-text h6 ml-4 mr-4 mb-2 mt-3">{{ text.task.task_description }}</p>
 
         <div class="card-body">
-            <p class="card-text h6">Your submission</p>
+            <p class="card-text h6">{% trans "Сіздің эссеңіз" %}</p>
             <div class="card card-body mb-4  shadow">
                 <p class="card-text h6">{{ text.content }}</p>
             </div>
 
             {% if moderated %}
-                <p class="card-text h6">Moderated</p>
+                <p class="card-text h6">{% trans "Тексерілген" %}</p>
                 <div class="card card-body mb-3 shadow">
                     <p class="card-text h6">{{ moderated_text.content }}</p>
                 </div>
             {% else %}
                 <div class="card card-body mb-3 shadow">
-                    <p class="card-text h6">Your submission haven't checked yet</p>
+                    <p class="card-text h6">{% trans "Сіздің эссеңіз әлі тексерілген жоқ" %}</p>
                 </div>
             {% endif %}
         </div>

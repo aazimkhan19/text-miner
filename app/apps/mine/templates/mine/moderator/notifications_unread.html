@@ -1,12 +1,11 @@
 {% extends "mine/moderator/base.html" %}
-{% load humanize %}
-
+{% load i18n %}
 {% block content %}
     <div class="row">
         <nav class="w-100 mr-3 ml-3 mb-2">
             <div class="nav nav-tabs">
-                <a href="{% url 'mine:moderator-notifications-unread' %}" class="nav-item nav-link active">Unread</a>
-                <a href="{% url 'mine:moderator-notifications-read' %}" class="nav-item nav-link">Read</a>
+                <a href="{% url 'mine:moderator-notifications-unread' %}" class="nav-item nav-link active">{% trans "Оқылмаған" %}</a>
+                <a href="{% url 'mine:moderator-notifications-read' %}" class="nav-item nav-link">{% trans "Оқылған" %}</a>
             </div>
         </nav>
         {% if notifications.all %}
@@ -17,7 +16,7 @@
                             <li class="list-group-item d-flex justify-content-between">
                                 <div class="d-flex flex-column align-self-center">
                                     <a href={{notification.link}} class="h6 font-weight-bold">{{notification.description}}</a>
-                                    <p class="h6 text-truncate">{{notification.date|naturaltime}}</p>
+                                    <p class="h6 text-truncate">{{notification.date|date:"d/F/Y  H:i"}}</p>
                                 </div>
                                 <div class="align-self-center h5">
                                     <a href="{% url 'mine:moderator-notification-status-toggle' notification.pk %}"><i class="fa fa-check mr-1"></i></a>
@@ -29,8 +28,8 @@
             </div>
         {% else %}
             <div class="card m-3 p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
-                <span class="h3">View notifications</span>
-                <span class="h6"><i class="fa fa-bell"></i> Unread notifications will be here</span>
+                <span class="h3">{% trans "Хабарламаларды қараңыз" %}</span>
+                <span class="h6"><i class="fa fa-bell"></i> {% trans "Оқылмаған хабарламалар осында болады" %}</span>
             </div>
         {% endif %}
 

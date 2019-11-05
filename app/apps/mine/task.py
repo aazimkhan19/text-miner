@@ -14,12 +14,9 @@ def send_email(name, subject, title, message, url, recipient):
 
 
 @shared_task
-def send_emails(classroom_pk, task_pk, url):
+def send_emails(classroom_pk, task_pk, subject, message, url):
     classroom = Classroom.objects.get(pk=classroom_pk)
     task = Task.objects.get(pk=task_pk)
-
-    subject = 'New task'
-    message = 'new task added in {}'.format(classroom.title)
 
     for recipient in classroom.participants.all():
         template = render_html_template(recipient.user.first_name, task.task_title, message, url)

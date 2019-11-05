@@ -20,6 +20,7 @@ from django.urls import path, include
 from apps.mine.view import initial as mine_view
 
 patterns = [
+    path('i18n/', include('django.conf.urls.i18n')),
     path('', mine_view.initial, name='initial'),
     path('authentication/', include('apps.authentication.urls')),
     path('mine/', include('apps.mine.urls')),

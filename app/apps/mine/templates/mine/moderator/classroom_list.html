@@ -1,5 +1,5 @@
 {% extends "mine/moderator/base.html" %}
-
+{% load i18n %}
 {% block content %}
     {% for classroom in classrooms %}
         <div class="card bg-white text-decoration-none mb-3 col-sm-12 col-lg-6">
@@ -8,11 +8,14 @@
                     <span class="h4 font-weight-bold">
                         {{classroom.title}}
                     </span>
-                    <p class="h6 text-truncate">{{classroom.participants_count}} students - {{classroom.tasks_count}} tasks</p>
+                    <p class="h6 text-truncate">
+                        {% blocktrans count num_students=classroom.participants_count %}{{num_students}} студент - {% plural %}{{num_students}} студент - {% endblocktrans %}
+                        {% blocktrans count num_tasks=classroom.tasks_count %}{{num_tasks}} тапсырма{% plural %}{{num_tasks}} тапсырма{% endblocktrans %}
+                    </p>
                 </div>
                 <div class="align-self-center h5">
                     <a href="{% url 'mine:moderator-classroom-detail' classroom.pk %}" class="align-self-center">
-                        <button class="btn-dark btn float-right">View</button>
+                        <button class="btn-dark btn float-right">{% trans "Өту" %}</button>
                     </a>
                 </div>
             </div>
@@ -20,8 +23,8 @@
     {% empty %}
         <div class="h-100 d-flex justify-content-center">
             <div class="d-flex flex-column align-items-center">
-                <span class="h5 align-self-center">You haven't created any classrooms yet ¯\_(ツ)_/¯</span>
-                <a href="{% url 'mine:moderator-classroom-create' %}"><button class="btn btn-dark">Create a classroom</button></a>
+                <span class="h5 align-self-center">{% trans "Сіз әлі бірде-бір сынып құрған жоқсыз" %}</span>
+                <a href="{% url 'mine:moderator-classroom-create' %}"><button class="btn btn-dark">{% trans "Сынып құру" %}</button></a>
             </div>
         </div>
     {% endfor %}

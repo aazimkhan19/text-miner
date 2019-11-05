@@ -1,6 +1,6 @@
 from braces.views import GroupRequiredMixin as BaseGroupRequiredMixin, SuperuserRequiredMixin
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, get_list_or_404
+from django.shortcuts import get_object_or_404
 from django.db.models import Count, Q
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, DetailView, UpdateView, FormView, RedirectView
@@ -28,15 +28,15 @@ class BaseTextCreateView(CreateView):
 
     def configure_email(self, classroom, text):
         name = classroom.owner.first_name
-        subject = 'New text sumbitted'
+        subject = 'Жаңа эссе жіберілді'
         title = '{} {}'.format(text.creator.user.first_name, text.creator.user.last_name)
-        message = 'new submission in {}'.format(classroom.title)
+        message = '{} сыныбында жаңа эссе жіберілді'.format(classroom.title)
         url = self.request.META['HTTP_HOST'] + text.get_absolute_url()
         recipient = [classroom.owner.email]
         send_email.delay(name, subject, title, message, url, recipient)
 
     def configure_notification(self, classroom):
-        message = 'New essay submitted in {}'.format(classroom.title)
+        message = '{} сыныбында жаңа эссе жіберілді'.format(classroom.title)
         Notification.objects.create(user=classroom.owner,
                                     link=self.object.get_absolute_url(),
                                     description=message)

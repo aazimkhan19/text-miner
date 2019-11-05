@@ -1,5 +1,6 @@
 {% extends "mine/miner/base.html" %}
 {% load static %}
+{% load i18n %}
 {% block content %}
 <div class="row">
     {% for task in object_list %}
@@ -8,7 +9,7 @@
                 <div class="card-body">
                     <h4 class="card-title text-truncate">{{task.task_title}}</h4>
                     <p class="card-text text-truncate">{{task.task_description}}</p>
-                    <a href="{% url 'mine:miner-task-detail' view.kwargs.pk task.pk %}" class="btn btn-dark">Do</a>
+                    <a href="{% url 'mine:miner-task-detail' view.kwargs.pk task.pk %}" class="btn btn-dark">{% trans "Тапсырмаға өту" %}</a>
                 </div>
             </div>
         </div>

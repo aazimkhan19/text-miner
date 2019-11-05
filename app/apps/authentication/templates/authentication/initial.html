@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html class="h-100">
 {% load static %}
+{% load i18n %}
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -22,27 +23,31 @@
 	  	</button>
 	  	<ul class="nav navbar-nav ml-auto">
 	  		<div class="collapse navbar-collapse" id="navbarNav">
-	  			<form class="form-inline">
-					<li class="nav-item dropdown">
-    				    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          					<img src="{% static 'base/img/worlwide.png' %}" alt="Logo" style="width:25px;"/>
-        				</a>
-						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-						  	<a class="dropdown-item" href="#kk" data-reload>Қазақша</a>
-						  	<a class="dropdown-item" href="#ru" data-reload>Русский</a>
-					  		<a class="dropdown-item" href="#eng" data-reload >English</a>
-						</div>
-			      	</li>
+	  			<div class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						<img src="{% static 'base/img/worlwide.png' %}" alt="Logo" style="width:25px;"/>
+					</a>
+					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+						<form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                            {% get_current_language as LANGUAGE_CODE %}
+                            {% get_available_languages as LANGUAGES %}
+                            {% get_language_info_list for LANGUAGES as languages %}
+                            {% for language in languages %}
+                                <button type="submit" class="dropdown-item {% if language.code == LANGUAGE_CODE %} bg-dark text-light {% endif %}" name="language" value="{{ language.code }}">{{ language.name_local }} ({{ language.code }})</button>
+                            {% endfor %}
+                            <input name="next" type="hidden" value="{{request.get_full_path}}">
+                        </form>
+					</div>
+				</div>
 
-	  				<a href="{% url 'authentication:signin' %}"><button class="btn btn-outline-warning mr-1" type="button" id='b1'>Кіру</button></a>
-	    			<a href="{% url 'authentication:signup' %}"><button class="btn btn-dark" type="button" id='b2'>Бастау</button></a>
-	  			</form>
+				<a href="{% url 'authentication:signin' %}"><button class="btn btn-outline-warning mr-1" type="button" id='b1'>{% trans "Кіру" %}</button></a>
+				<a href="{% url 'authentication:signup' %}"><button class="btn btn-dark" type="button" id='b2'>{% trans "Бастау" %}</button></a>
 	  		</div>
 		</ul>
 	</nav>
 	<div id="banner"  class="jumbotron text-center smooth-scroll list-unstyled">
 		<h1 id="banner-title-jbt">Жазу және Жақсарту</h1>
-  		<p id='b3'>ӨЗІҢІҢ ЖАЗУЛАРЫНДЫ БІЗБЕН БІРГЕ ЖАҚСАРТ! БҰЛ ТЕГІН!</p>
+  		<p id='b3'>{% trans "ӨЗІҢІҢ ЖАЗУЛАРЫНДЫ БІЗБЕН БІРГЕ ЖАҚСАРТ! БҰЛ ТЕГІН!" %}</p>
 	</div>
 
   	<div class="card-deck mx-auto">
@@ -50,29 +55,29 @@
 			<a href=""><img src="{% static 'base/img/ic1.png' %}" class="card-img-top" alt="..."></a>
     		<div class="card-body">
     			<hr>
-      			<h5 class="card-title text-center" id="c1">Деңгейіңді таңда</h5>
+      			<h5 class="card-title text-center" id="c1">{% trans "Деңгейіңді таңда" %}</h5>
 	    	</div>
   		</div>
 		<div class="card shadow p-3 mb-5 bg-white rounded">
 			<a href=""><img src="{% static 'base/img/ic2.png' %}" class="card-img-top" alt="..."></a>
 			<div class="card-body">
 				<hr>
-				<h5 class="card-title text-center" id="c2">Тапсырмаңды таңда</h5>
+				<h5 class="card-title text-center" id="c2">{% trans "Тапсырмаңды таңда" %}</h5>
 			</div>
 		</div>
 		<div class="card shadow p-3 mb-5 bg-white rounded">
 			<a href=""><img src="{% static 'base/img/ic3.png' %}" class="card-img-top" alt="..."></a>
 			<div class="card-body">
 				<hr>
-				<h5 class="card-title text-center" id='c3'>Эссе жаз</h5>
+				<h5 class="card-title text-center" id='c3'>{% trans "Эссе жаз" %}</h5>
 			</div>
 		</div>
 	</div>
 
 	<div class="container-fluid smooth-scroll list-unstyled">
-  		<h2 id="d1">Бізбен бірге тезірек үйрең!<br></h2>
-		<h2 id="d2">Өзіңің жазуларыңды </h2>
-		<h2 id="d3">қазақ тіліңде шынықтыр!</h2>
+  		<h2 id="d1">{% trans "Бізбен бірге тезірек үйрең!" %}<br></h2>
+		<h2 id="d2">{% trans "Өзіңің жазуларыңды" %}</h2>
+		<h2 id="d3">{% trans "Қазақ тіліңде шынықтыр!" %}</h2>
 	  	<div class="row d-flex justify-content-center">
 	    	<div class="col-sm-5 " style="background-color:white;">
 	    		<img src="{% static 'base/img/books.png' %}" alt="Logo" style="width:90%" id="im1">
@@ -87,7 +92,7 @@
 	<div id="carouselExampleIndicators" class="carousel slide"
 		style="width: 50vw; height:50vh; margin: auto;"
 		data-ride="carousel">
-		<h2 style="text-align: center;" id="s1">Тәжірибе,Кері байланыс,Прогресс</h2>
+		<h2 style="text-align: center;" id="s1">{% trans "Тәжірибе,Кері байланыс,Прогресс" %}</h2>
 		<div class="carousel-inner">
 			<div class="carousel-item active">
 				<img class="d-block w-100" src="{% static 'base/img/13.jpg' %}" alt="First slide">
@@ -111,7 +116,7 @@
 	    	<span class="sr-only">Next</span>
 	  	</a>
 	  	<div class="col-md-4 text-center mx-auto" style="margin-top: 7vh; margin-bottom: 5vh;">
-	    	<button class="btn btn-warning" id="p1">Осында баста!</button>
+	    	<a class="btn btn-warning" id="p1" href="{% url 'authentication:signup' %}">{% trans "Осында баста!" %}</a>
 		</div>
 	</div>
 

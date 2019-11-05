@@ -1,13 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, TemplateView
+from django.views.generic import CreateView
 
 from apps.authentication.forms import UserCreationForm, UserAuthForm
-
-#TODO can be deleted
-class InitialView(TemplateView):
-    template_name = 'authentication/initial.html'
 
 
 class RegistrationView(CreateView):

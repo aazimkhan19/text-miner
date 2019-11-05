@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, RedirectView, UpdateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from django.utils.translation import gettext as _
 
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
@@ -54,15 +55,15 @@ class BaseTextModerationView(CreateView):
 
     def configure_email(self, classroom, moderated_text):
         name = moderated_text.original.creator.user.first_name
-        subject = 'Your text is moderated'
+        subject = 'Сіздің эссеңіз тексерілді'
         title = classroom.title
-        message = 'Your essay have been checked'
+        message = 'Сіздің мұғаліміңіз эссеңізді тексерді'
         url = self.request.META['HTTP_HOST'] + moderated_text.get_absolute_url()
         recipient = [moderated_text.original.creator.user.email]
         send_email.delay(name, subject, title, message, url, recipient)
 
     def configure_notification(self, classroom, moderated_text):
-        message = 'Your essay have been checked in {}'.format(classroom.title)
+        message = '{} сыныбында эссеңіз тексерілді'.format(classroom.title)
         Notification.objects.create(user=moderated_text.original.creator.user,
                                     link=self.object.get_absolute_url(),
                                     description=message)
@@ -80,11 +81,13 @@ class BaseTaskCreateView(CreateView):
         return super().form_valid(form)
 
     def configure_email(self, classroom, task):
+        subject = 'Жаңа тапсырма'
+        message = '{} сыныбында жаңа тапсырма жарияланды'.format(classroom.title)
         url = self.request.META['HTTP_HOST'] + task.get_absolute_url()
-        send_emails.delay(classroom.pk, task.pk, url)
+        send_emails.delay(classroom.pk, task.pk, subject, message, url)
 
     def configure_notification(self, classroom, task):
-        message = 'New task added in {}'.format(classroom.title)
+        message = '{} сыныбында жаңа тапсырма жарияланды'.format(classroom.title)
         url = task.get_absolute_url()
         send_mass_notification.delay(classroom.pk, message, url)
 

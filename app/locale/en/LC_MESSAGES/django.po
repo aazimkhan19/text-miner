@@ -1,0 +1,430 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-11-06 00:28+0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: apps/authentication/forms.py:17
+msgid "Студент"
+msgstr "Student"
+
+#: apps/authentication/forms.py:17
+msgid "Мұғалім"
+msgstr "Teacher"
+
+#: apps/authentication/forms.py:17
+msgid "Рөліңіз"
+msgstr "Role"
+
+#: apps/authentication/forms.py:18
+msgid "Құпия сөз"
+msgstr "Password"
+
+#: apps/authentication/forms.py:19
+msgid "Құпия сөзді растау"
+msgstr "Password confirmation"
+
+#: apps/authentication/forms.py:37
+#: apps/authentication/templates/authentication/registration.html:6
+msgid "Тіркелу"
+msgstr "Sign up"
+
+#: apps/authentication/forms.py:44 apps/authentication/forms.py:144
+#: apps/authentication/forms.py:170
+msgid "Электрондық пошта"
+msgstr "Email"
+
+#: apps/authentication/forms.py:45 apps/authentication/forms.py:173
+msgid "Телефон"
+msgstr "Phone"
+
+#: apps/authentication/forms.py:46 apps/authentication/forms.py:171
+msgid "Аты"
+msgstr "First name"
+
+#: apps/authentication/forms.py:47 apps/authentication/forms.py:172
+msgid "Тегі"
+msgstr "Last name"
+
+#: apps/authentication/forms.py:53
+msgid "Электрондық пошта берілмеген"
+msgstr "Email field is not provided"
+
+#: apps/authentication/forms.py:55
+msgid "Осы электрондық поштамен тіркелген қолданушы бар"
+msgstr "User with this email is already in signed up"
+
+#: apps/authentication/forms.py:61
+msgid "Телефон нөмірі берілмеген"
+msgstr "Phone field is not provided"
+
+#: apps/authentication/forms.py:63
+msgid "Осы телефонмен тіркелген қолданушы бар"
+msgstr "User with this phone is already in signed up"
+
+#: apps/authentication/forms.py:69
+msgid "Рөл таңдалмаған"
+msgstr "Role is not provided"
+
+#: apps/authentication/forms.py:71
+msgid "Рөл мұғалім немесе студент бола алады"
+msgstr "Role can be either teacher or student"
+
+#: apps/authentication/forms.py:79
+msgid "Құпия сөздер сәйкес емес"
+msgstr "Passwords don't match"
+
+#: apps/authentication/forms.py:154
+#: apps/authentication/templates/authentication/initial.html:43
+#: apps/authentication/templates/authentication/signin.html:6
+msgid "Кіру"
+msgstr "Sign in"
+
+#: apps/authentication/forms.py:163 apps/mine/forms.py:111
+msgid "Сақтау"
+msgstr "Save"
+
+#: apps/authentication/templates/authentication/initial.html:44
+msgid "Бастау"
+msgstr "Start"
+
+#: apps/authentication/templates/authentication/initial.html:50
+msgid "ӨЗІҢІҢ ЖАЗУЛАРЫНДЫ БІЗБЕН БІРГЕ ЖАҚСАРТ! БҰЛ ТЕГІН!"
+msgstr "IMPROVE YOUR WRITING SKILLS IN THE KAZAKH LANGUAGE WITH US! IT'S FREE!"
+
+#: apps/authentication/templates/authentication/initial.html:58
+msgid "Деңгейіңді таңда"
+msgstr "Choose your level"
+
+#: apps/authentication/templates/authentication/initial.html:65
+msgid "Тапсырмаңды таңда"
+msgstr "Choose your task"
+
+#: apps/authentication/templates/authentication/initial.html:72
+msgid "Эссе жаз"
+msgstr "Write your essay"
+
+#: apps/authentication/templates/authentication/initial.html:78
+msgid "Бізбен бірге тезірек үйрең!"
+msgstr "Learn with us!"
+
+#: apps/authentication/templates/authentication/initial.html:79
+msgid "Өзіңің жазуларыңды"
+msgstr "Improve your writings"
+
+#: apps/authentication/templates/authentication/initial.html:80
+msgid "Қазақ тіліңде шынықтыр!"
+msgstr "in Kazakh language!"
+
+#: apps/authentication/templates/authentication/initial.html:95
+msgid "Тәжірибе,Кері байланыс,Прогресс"
+msgstr "Practice,Feedback,Progress"
+
+#: apps/authentication/templates/authentication/initial.html:119
+msgid "Осында баста!"
+msgstr "Start here!"
+
+#: apps/authentication/templates/authentication/registration.html:10
+msgid "Аккаунтыңыз бар ма?"
+msgstr "Already have an account?"
+
+#: apps/authentication/templates/authentication/registration.html:10
+msgid "Кіріңіз"
+msgstr "Sign in"
+
+#: apps/authentication/templates/authentication/signin.html:10
+msgid "Аккаунтыңыз жоқ па?"
+msgstr "Don't have an account?"
+
+#: apps/authentication/templates/authentication/signin.html:10
+msgid "Тіркеліңіз"
+msgstr "Sign up"
+
+#: apps/authentication/templates/base/base.html:50
+msgid "Шығу"
+msgstr "Exit"
+
+#: apps/mine/forms.py:10
+msgid "Эссе"
+msgstr "Essay"
+
+#: apps/mine/forms.py:18
+msgid "Тапсыру"
+msgstr "Submit"
+
+#: apps/mine/forms.py:40
+msgid "Өзгерту"
+msgstr "Modify"
+
+#: apps/mine/forms.py:46
+msgid "Өзгертілген эссе"
+msgstr "Modified essay"
+
+#: apps/mine/forms.py:57 apps/mine/forms.py:76
+msgid "Құру"
+msgstr "Create"
+
+#: apps/mine/forms.py:63 apps/mine/forms.py:117
+msgid "Тапсырма деңгейі"
+msgstr "Task level"
+
+#: apps/mine/forms.py:64 apps/mine/forms.py:118
+msgid "Тапсырма атауы"
+msgstr "Task title"
+
+#: apps/mine/forms.py:65 apps/mine/forms.py:119
+msgid "Тапсырма сипаттамасы"
+msgstr "Task description"
+
+#: apps/mine/forms.py:83
+msgid "Атауы"
+msgstr "Name"
+
+#: apps/mine/forms.py:88 apps/mine/templates/mine/moderator/classroom.html:162
+msgid "Сынып коды"
+msgstr "Class code"
+
+#: apps/mine/forms.py:96
+msgid "Қосылу"
+msgstr "Join"
+
+#: apps/mine/forms.py:102
+msgid "Сынып табылмады"
+msgstr "Classroom does not exist"
+
+#: apps/mine/models.py:22 apps/mine/templates/mine/miner/base.html:11
+msgid "Жеңіл деңгей"
+msgstr "Beginner"
+
+#: apps/mine/models.py:23 apps/mine/templates/mine/miner/base.html:13
+msgid "Орташа деңгей"
+msgstr "Intermediate"
+
+#: apps/mine/models.py:24 apps/mine/templates/mine/miner/base.html:15
+msgid "Күрделі деңгей"
+msgstr "Advanced"
+
+#: apps/mine/templates/mine/miner/base.html:5
+#: apps/mine/templates/mine/moderator/base.html:5
+msgid "Cәлем"
+msgstr "Hello"
+
+#: apps/mine/templates/mine/miner/base.html:20
+#: apps/mine/templates/mine/moderator/base.html:8
+msgid "Менің сынымтарым"
+msgstr "My classrooms"
+
+#: apps/mine/templates/mine/miner/base.html:23
+#: apps/mine/templates/mine/miner/classroom_list.html:27
+msgid "Сыныпқа қосылу"
+msgstr "Join a classroom"
+
+#: apps/mine/templates/mine/miner/base.html:26
+#: apps/mine/templates/mine/moderator/base.html:14
+msgid "Хабарламалар"
+msgstr "Notifications"
+
+#: apps/mine/templates/mine/miner/base.html:29
+#: apps/mine/templates/mine/moderator/base.html:17
+msgid "Профиль"
+msgstr "Profile"
+
+#: apps/mine/templates/mine/miner/classroom.html:7
+#: apps/mine/templates/mine/miner/classroom_result.html:7
+#: apps/mine/templates/mine/miner/main_task.html:8
+#: apps/mine/templates/mine/miner/task_detail.html:8
+#: apps/mine/templates/mine/miner/task_result.html:7
+#: apps/mine/templates/mine/moderator/classroom.html:9
+#: apps/mine/templates/mine/moderator/task_create.html:7
+#: apps/mine/templates/mine/moderator/task_modify.html:7
+#: apps/mine/templates/mine/moderator/text_moderate.html:7
+#: apps/mine/templates/mine/moderator/text_moderated.html:7
+msgid "Артқа"
+msgstr "Back"
+
+#: apps/mine/templates/mine/miner/classroom.html:15
+#: apps/mine/templates/mine/miner/classroom_result.html:15
+msgid "Жаңа тапсырмалар"
+msgstr "New tasks"
+
+#: apps/mine/templates/mine/miner/classroom.html:16
+#: apps/mine/templates/mine/miner/classroom_result.html:16
+msgid "Нәтижелер"
+msgstr "Results"
+
+#: apps/mine/templates/mine/miner/classroom.html:26
+#: apps/mine/templates/mine/miner/main_tasks.html:12
+msgid "Тапсырмаға өту"
+msgstr "Go to the task"
+
+#: apps/mine/templates/mine/miner/classroom.html:32
+#: apps/mine/templates/mine/miner/classroom_result.html:32
+msgid "Сыныптағы өзгерістерді бақылаңыз"
+msgstr "View classroom updates"
+
+#: apps/mine/templates/mine/miner/classroom.html:33
+msgid "Жаңа тапсырмалар осы жерде жарияланады"
+msgstr "New assignments will be posted here"
+
+#: apps/mine/templates/mine/miner/classroom_list.html:18
+#: apps/mine/templates/mine/miner/classroom_result.html:26
+#: apps/mine/templates/mine/moderator/classroom_list.html:18
+msgid "Өту"
+msgstr "View"
+
+#: apps/mine/templates/mine/miner/classroom_list.html:26
+msgid "Сіз әлі бірде-бір сыныпқа қосылған жоқсыз"
+msgstr "You haven't joined any classrooms yet"
+
+#: apps/mine/templates/mine/miner/classroom_result.html:33
+msgid "Аяқталған тапсырмалар осында болады"
+msgstr "Completed assignments will be here"
+
+#: apps/mine/templates/mine/miner/notifications_read.html:7
+#: apps/mine/templates/mine/miner/notifications_unread.html:7
+#: apps/mine/templates/mine/moderator/notifications_read.html:7
+#: apps/mine/templates/mine/moderator/notifications_unread.html:7
+msgid "Оқылмаған"
+msgstr "Unread"
+
+#: apps/mine/templates/mine/miner/notifications_read.html:8
+#: apps/mine/templates/mine/miner/notifications_unread.html:8
+#: apps/mine/templates/mine/moderator/notifications_read.html:8
+#: apps/mine/templates/mine/moderator/notifications_unread.html:8
+msgid "Оқылған"
+msgstr "Read"
+
+#: apps/mine/templates/mine/miner/notifications_read.html:31
+#: apps/mine/templates/mine/miner/notifications_unread.html:31
+#: apps/mine/templates/mine/moderator/notifications_read.html:31
+#: apps/mine/templates/mine/moderator/notifications_unread.html:31
+msgid "Хабарламаларды қараңыз"
+msgstr "View notifications"
+
+#: apps/mine/templates/mine/miner/notifications_read.html:32
+#: apps/mine/templates/mine/moderator/notifications_read.html:32
+msgid "Оқылған хабарламалар осында болады"
+msgstr "Notifications marked as read will be here"
+
+#: apps/mine/templates/mine/miner/notifications_unread.html:32
+#: apps/mine/templates/mine/moderator/notifications_unread.html:32
+msgid "Оқылмаған хабарламалар осында болады"
+msgstr "Unread notifications will be here"
+
+#: apps/mine/templates/mine/miner/task_result.html:23
+msgid "Сіздің эссеңіз"
+msgstr "Your essay"
+
+#: apps/mine/templates/mine/miner/task_result.html:29
+#: apps/mine/templates/mine/moderator/text_moderated.html:27
+msgid "Тексерілген"
+msgstr "Checked"
+
+#: apps/mine/templates/mine/miner/task_result.html:35
+msgid "Сіздің эссеңіз әлі тексерілген жоқ"
+msgstr "Your essay hasn't checked yet"
+
+#: apps/mine/templates/mine/moderator/base.html:11
+msgid "Жаңа сынып"
+msgstr "Create a classroom"
+
+#: apps/mine/templates/mine/moderator/classroom.html:20
+msgid "Тапсырмалар"
+msgstr "Tasks"
+
+#: apps/mine/templates/mine/moderator/classroom.html:22
+msgid "Жаңа тапсырма"
+msgstr "New task"
+
+#: apps/mine/templates/mine/moderator/classroom.html:60
+msgid "Сіз әлі ешқандай тапсырма қоспадыңыз"
+msgstr "You haven't added any tasks yet"
+
+#: apps/mine/templates/mine/moderator/classroom.html:68
+msgid "Эсселер"
+msgstr "Essays"
+
+#: apps/mine/templates/mine/moderator/classroom.html:105
+msgid "Тексерілмеген эсселер жоқ"
+msgstr "No unchecked essays"
+
+#: apps/mine/templates/mine/moderator/classroom.html:113
+msgid "Тексерілген эсселер"
+msgstr "Checked essays"
+
+#: apps/mine/templates/mine/moderator/classroom.html:123
+msgid "Толығырақ"
+msgstr "Details"
+
+#: apps/mine/templates/mine/moderator/classroom.html:150
+msgid "Тексерілген эсселер жоқ"
+msgstr "No checked essays"
+
+#: apps/mine/templates/mine/moderator/classroom.html:175
+msgid "Студенттер"
+msgstr "Students"
+
+#: apps/mine/templates/mine/moderator/classroom.html:187
+msgid "Бұл сыныпта әлі студент жоқ"
+msgstr "This classroom has no students yet"
+
+#: apps/mine/templates/mine/moderator/classroom.html:195
+#: apps/mine/templates/mine/moderator/classroom.html:206
+msgid "Сыныпты жою"
+msgstr "Delete classroom"
+
+#: apps/mine/templates/mine/moderator/classroom.html:199
+msgid ""
+"Сыныпты жойғаннан кейін студенттерді сыныпқа шақыра алмайсыз. Сіз барлық "
+"тапсырмаларыңыздан және тапсырмалардың нәтижелерінен айрыласыз."
+msgstr ""
+"After you delete a classroom, you cannot invite students to join a "
+"classroom. You will lose all your tasks and results of tasks."
+
+#: apps/mine/templates/mine/moderator/classroom_list.html:12
+#, python-format
+msgid "%(num_students)s студент - "
+msgid_plural "%(num_students)s студент - "
+msgstr[0] "%(num_students)s student - "
+msgstr[1] "%(num_students)s students - "
+
+#: apps/mine/templates/mine/moderator/classroom_list.html:13
+#, python-format
+msgid "%(num_tasks)s тапсырма"
+msgid_plural "%(num_tasks)s тапсырма"
+msgstr[0] "%(num_tasks)s task"
+msgstr[1] "%(num_tasks)s tasks"
+
+#: apps/mine/templates/mine/moderator/classroom_list.html:26
+msgid "Сіз әлі бірде-бір сынып құрған жоқсыз"
+msgstr "You haven't created any classrooms yet"
+
+#: apps/mine/templates/mine/moderator/classroom_list.html:27
+msgid "Сынып құру"
+msgstr "Create a classroom"
+
+#: apps/mine/templates/mine/moderator/text_moderated.html:22
+msgid "Тапсырылған эссе"
+msgstr "Submitted essay"
+
+#: config/settings/common.py:190
+msgid "Kazakh"
+msgstr ""
+
+#: config/settings/common.py:191
+msgid "English"
+msgstr ""

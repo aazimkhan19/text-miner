@@ -1,19 +1,19 @@
 {% extends "mine/base.html" %}
-
+{% load i18n %}
 {% block menu %}
     <div class="list-group-item list-group-item-action bg-dark text-light font-weight-bold">
-        Hello, {{user.first_name}}!
+        {% trans "Cәлем" %}, {{user.first_name}}!
     </div>
     <a href="{% url 'mine:moderator-classrooms' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-list" style="color: #ff9933"></i> My classrooms
+        <i class="fa fa-list" style="color: #ff9933"></i> {% trans "Менің сынымтарым" %}
     </a>
     <a href="{% url 'mine:moderator-classroom-create' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-list" style="color: #ff9933"></i> Create classroom
+        <i class="fa fa-list" style="color: #ff9933"></i> {% trans "Жаңа сынып" %}
     </a>
     <a href="{% url 'mine:moderator-notifications-unread' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-bell" style="color: #ff9933"></i> Notifications
+        <i class="fa fa-bell" style="color: #ff9933"></i> {% trans "Хабарламалар" %}
     </a>
     <a href="{% url 'mine:moderator-profile' %}" class="list-group-item list-group-item-action bg-dark text-light">
-        <i class="fa fa-user" style="color: #ff9933"></i> Profile
+        <i class="fa fa-user" style="color: #ff9933"></i> {% trans "Профиль" %}
     </a>
 {% endblock %}
