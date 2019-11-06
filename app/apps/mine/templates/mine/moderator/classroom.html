@@ -174,13 +174,31 @@
             <div class="card w-100 rounded-0">
                 <h4 class="card-header font-weight-bold rounded-0 bg-dark text-light">{% trans "Студенттер" %}</h4>
                 <ul class="list-group list-group-flush">
+                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">{% trans "Сенімдісіз бе?" %}</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">{% trans "Болдырмау" %}</button>
+                                    <a class="deleteUrl">
+                                        <button type="button" class="btn btn-danger">{% trans "Йә" %}</button>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     {% for user in participants %}
                         <li class="list-group-item d-flex justify-content-between align-content-center">
                             <div class="align-self-center"  style="width: 90%;">
                                 <p class="h6 text-truncate">{{user.user.first_name}} {{user.user.last_name}}</p>
-                                <p class="font-weight-bold text-truncate">{{user.user.email}}</p>
+                                <p class="font-weight-bold text-truncate">{{user.user.email}}{{user.pk}}</p>
                             </div>
-                            <a class="h4 align-self-center" href="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></a>
+                            <span class="h4 align-self-center" data-toggle="modal" data-target="#deleteModal" data-userid="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></span>
                         </li>
                     {% empty %}
                         <li class="list-group-item">
@@ -193,18 +211,32 @@
         <div class="row mb-3">
             <div class="card w-100 rounded-0">
                 <h4 class="card-header font-weight-bold rounded-0 bg-danger text-light">{% trans "Сыныпты жою" %}</h4>
-
                 <div class="card-body">
                     <p class="card-text">
                             {% trans "Сыныпты жойғаннан кейін студенттерді сыныпқа шақыра алмайсыз. Сіз барлық тапсырмаларыңыздан және тапсырмалардың нәтижелерінен айрыласыз." %}
                     </p>
                 </div>
-
                 <div class="card-footer d-flex flex-column align-items-end">
-<!--                    TODO delete classroom option-->
                     <a href="#TODO">
-                        <button class="btn btn-link text-danger">{% trans "Сыныпты жою" %}</button>
+                        <button class="btn btn-link text-danger" data-toggle="modal" data-target="#deleteClassroomInfo">{% trans "Сыныпты жою" %}</button>
                     </a>
+                </div>
+
+                <!-- Modal -->
+                <div class="modal fade" id="deleteClassroomInfo" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header bg-danger">
+                                <h5 class="modal-title text-light" id="exampleModalLongTitle">{% trans "Сыныпты жою" %}</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span class="text-light" aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% trans "Сыныпты өшіру әзірге мүмкін емес. Егер сіз сыныпты жойғыңыз келсе, бізге хабарласыңыз." %}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -214,4 +246,13 @@
 
 {% block javascript %}
 <script src="{% static 'base/js/copy.js' %}"></script>
+<script defer>
+    $('#deleteModal').on('show.bs.modal', function (event) {
+        var span = $(event.relatedTarget)
+        var url = span.data('userid')
+        console.log(url)
+        var modal = $(this)
+        modal.find('.deleteUrl').attr('href', url)
+    })
+</script>
 {% endblock %}

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 14:21+0600\n"
+"POT-Creation-Date: 2019-11-06 23:38+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -382,22 +382,41 @@ msgstr "No checked essays"
 msgid "Студенттер"
 msgstr "Students"
 
+#: apps/mine/templates/mine/moderator/classroom.html:181
+msgid "Сенімдісіз бе?"
+msgstr "Are you sure?"
+
 #: apps/mine/templates/mine/moderator/classroom.html:187
+msgid "Болдырмау"
+msgstr "Cancel"
+
+#: apps/mine/templates/mine/moderator/classroom.html:189
+msgid "Йә"
+msgstr "Yes"
+
+#: apps/mine/templates/mine/moderator/classroom.html:205
 msgid "Бұл сыныпта әлі студент жоқ"
 msgstr "This classroom has no students yet"
 
-#: apps/mine/templates/mine/moderator/classroom.html:195
-#: apps/mine/templates/mine/moderator/classroom.html:206
+#: apps/mine/templates/mine/moderator/classroom.html:213
+#: apps/mine/templates/mine/moderator/classroom.html:221
+#: apps/mine/templates/mine/moderator/classroom.html:230
 msgid "Сыныпты жою"
 msgstr "Delete classroom"
 
-#: apps/mine/templates/mine/moderator/classroom.html:199
+#: apps/mine/templates/mine/moderator/classroom.html:216
 msgid ""
 "Сыныпты жойғаннан кейін студенттерді сыныпқа шақыра алмайсыз. Сіз барлық "
 "тапсырмаларыңыздан және тапсырмалардың нәтижелерінен айрыласыз."
 msgstr ""
 "After you delete a classroom, you cannot invite students to join a "
 "classroom. You will lose all your tasks and results of tasks."
+
+#: apps/mine/templates/mine/moderator/classroom.html:236
+msgid ""
+"Сыныпты өшіру әзірге мүмкін емес. Егер сіз сыныпты жойғыңыз келсе, бізге "
+"хабарласыңыз."
+msgstr "Deleting the class is still unavailable. Contact us if you want to delete classroom."
 
 #: apps/mine/templates/mine/moderator/classroom_list.html:12
 #, python-format
