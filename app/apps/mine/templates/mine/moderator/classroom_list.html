@@ -2,11 +2,11 @@
 {% load i18n %}
 {% block content %}
     {% for classroom in classrooms %}
-        <div class="card bg-white text-decoration-none mb-3 col-sm-12 col-lg-6">
+        <div class="card bg-white text-decoration-none mb-3 col-sm-12 col-xl-6">
             <div class="d-flex justify-content-between pt-3 pb-3">
                 <div class="d-flex flex-column align-self-center" style="width: 90%">
                     <span class="h4 font-weight-bold">
-                        {{classroom.title}}
+                        <a class="text-dark" href="{% url 'mine:moderator-classroom-detail' classroom.pk %}">{{classroom.title}}</a>
                     </span>
                     <p class="h6 text-truncate">
                         {% blocktrans count num_students=classroom.participants_count %}{{num_students}} студент - {% plural %}{{num_students}} студент - {% endblocktrans %}
