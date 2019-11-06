@@ -5,7 +5,6 @@ from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, RedirectView, UpdateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
-from django.utils.translation import gettext as _
 
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
