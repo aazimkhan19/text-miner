@@ -31,7 +31,7 @@ class Task(models.Model):
     task_title = models.CharField(max_length=50, null=True)
     task_description = models.TextField()
     classroom = models.ForeignKey(Classroom, on_delete=models.SET_NULL, related_name='tasks', null=True)
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
 
     @property
     def short_text(self):
@@ -60,7 +60,7 @@ class Text(models.Model):
     creator = models.ForeignKey(Miner, on_delete=models.CASCADE, related_name='completed_tasks')
     task = models.ForeignKey(Task, on_delete=models.SET_NULL, related_name='completed_tasks', null=True)
     classroom = models.ForeignKey(Classroom, on_delete=models.SET_NULL, related_name='completed_tasks', null=True)
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
 
     @property
     def short_text(self):
@@ -83,7 +83,7 @@ class ModeratedText(models.Model):
     content = models.TextField()
     original = models.ForeignKey(Text, on_delete=models.CASCADE, related_name="moderated_tasks")
     moderator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="moderated_tasks")
-    date = models.DateTimeField(auto_now_add=True, null=True)
+    date = models.DateTimeField(default=timezone.now)
 
     @property
     def short_text(self):
