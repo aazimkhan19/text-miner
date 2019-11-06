@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 00:28+0600\n"
+"POT-Creation-Date: 2019-11-06 14:21+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,19 +44,19 @@ msgid "Тіркелу"
 msgstr "Sign up"
 
 #: apps/authentication/forms.py:44 apps/authentication/forms.py:144
-#: apps/authentication/forms.py:170
+#: apps/authentication/forms.py:175
 msgid "Электрондық пошта"
 msgstr "Email"
 
-#: apps/authentication/forms.py:45 apps/authentication/forms.py:173
+#: apps/authentication/forms.py:45 apps/authentication/forms.py:178
 msgid "Телефон"
 msgstr "Phone"
 
-#: apps/authentication/forms.py:46 apps/authentication/forms.py:171
+#: apps/authentication/forms.py:46 apps/authentication/forms.py:176
 msgid "Аты"
 msgstr "First name"
 
-#: apps/authentication/forms.py:47 apps/authentication/forms.py:172
+#: apps/authentication/forms.py:47 apps/authentication/forms.py:177
 msgid "Тегі"
 msgstr "Last name"
 
@@ -88,13 +88,17 @@ msgstr "Role can be either teacher or student"
 msgid "Құпия сөздер сәйкес емес"
 msgstr "Passwords don't match"
 
-#: apps/authentication/forms.py:154
+#: apps/authentication/forms.py:149
+msgid "Пайдаланушы аты немесе құпия сөз дұрыс емес"
+msgstr "Invalid username or password"
+
+#: apps/authentication/forms.py:159
 #: apps/authentication/templates/authentication/initial.html:43
 #: apps/authentication/templates/authentication/signin.html:6
 msgid "Кіру"
 msgstr "Sign in"
 
-#: apps/authentication/forms.py:163 apps/mine/forms.py:111
+#: apps/authentication/forms.py:168 apps/mine/forms.py:111
 msgid "Сақтау"
 msgstr "Save"
 

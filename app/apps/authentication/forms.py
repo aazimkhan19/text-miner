@@ -144,6 +144,11 @@ class UserAuthForm(AuthenticationForm):
         label=_('Электрондық пошта'),
         widget=forms.TextInput(attrs={'autofocus': True})
     )
+
+    error_messages = {
+        'invalid_login': _('Пайдаланушы аты немесе құпия сөз дұрыс емес')
+    }
+
     def __init__(self, *args, **kwargs):
         super(UserAuthForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
