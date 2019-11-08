@@ -1,10 +1,12 @@
 from braces.views import GroupRequiredMixin as BaseGroupRequiredMixin, SuperuserRequiredMixin
-from django.http import Http404
+from django.http import Http404, HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404
 from django.views.generic import CreateView, ListView, DetailView, RedirectView, UpdateView
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Count
+from django.contrib import messages
+from django.utils.translation import ugettext as _
 
 from apps.authentication.forms import ProfileForm
 from apps.authentication.models import User
@@ -94,6 +96,73 @@ class BaseTaskCreateView(CreateView):
 class BaseModeratorView(BaseGroupRequiredMixin):
     group_required = 'moderator'
 # endregion Base
+
+
+# region ModeratorInitial
+# Refactor this duplicates classroom code. Consider abstraction
+class ModeratorInitialView(BaseModeratorView, DetailView):
+    template_name = 'mine/moderator/main_texts.html'
+    model = Classroom
+    app_superuser = 'textminersmtp@gmail.com'
+
+    def get_queryset(self):
+        return Classroom.objects.filter(owner__email=self.app_superuser)
+
+    def get_context_data(self, **kwargs):
+        classroom = self.get_object()
+        moderated_texts = ModeratedText.objects.filter(original__task__classroom=classroom).values_list('original__pk', flat=True)
+        context = {'texts': classroom.completed_tasks.order_by('-date').exclude(pk__in=moderated_texts)}
+        kwargs.update(context)
+        return super().get_context_data(**kwargs)
+
+
+# Refactor this duplicates classroom code. Consider abstraction
+class ModeratorTextDetailView(BaseModeratorView, CreateView, DetailView):
+    template_name = 'mine/moderator/main_text.html'
+    pk_url_kwarg = 'tpk'
+    form_class = ModerateTextForm
+    context_object_name = 'text'
+    initial_text = None
+
+    def get(self, request, *args, **kwargs):
+        self.get_initial_text(kwargs.get(self.pk_url_kwarg))
+        return super().get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.get_initial_text(kwargs.get(self.pk_url_kwarg))
+        return super().post(request, *args, **kwargs)
+
+    def get_initial_text(self, pk):
+        text = Text.objects.filter(pk=pk)
+        if not text.exists():
+            raise Http404
+        self.initial_text = text.first()
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        if self.request.method == 'GET':
+            kwargs.update({'initial_text': self.initial_text.content})
+        return kwargs
+
+    def form_valid(self, form):
+        moderated_texts = ModeratedText.objects.filter(original__pk=self.kwargs['tpk'])
+        if moderated_texts.exists():
+            messages.error(self.request, _("Бұл эссе тексеріліп қойған"))
+            return HttpResponseRedirect(
+                reverse_lazy('mine:moderator-text-detail', kwargs={'pk': self.kwargs['pk'], 'tpk': self.get_object().pk}))
+        else:
+            self.object = form.save(commit=False)
+            self.object.original = self.initial_text
+            self.object.moderator = self.request.user
+            self.object.save()
+            return super().form_valid(form)
+
+    def get_queryset(self):
+        return Text.objects.filter(classroom__pk=self.kwargs['pk'])
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('mine:moderator-texts', kwargs={'pk': self.kwargs['pk']})
+# endregion ModeratorInitial
 
 
 # region Personal
@@ -287,13 +356,3 @@ class ModeratorRemoveUserView(BaseModeratorView, RedirectView):
     def get_redirect_url(self, *args, **kwargs):
         return reverse_lazy('mine:moderator-classroom-detail', kwargs={'pk': self.kwargs['cpk']})
 # endregion Classroom
-
-
-def email_template(request):
-    from django.shortcuts import render
-    context = {
-        'name': 'Alexander',
-        'card_title': 'An essay about summer',
-        'card_text': 'new task in HW\' CSS105',
-    }
-    return render(request, 'mine/email_body.html', context)

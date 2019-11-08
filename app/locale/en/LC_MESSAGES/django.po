@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-06 23:38+0600\n"
+"POT-Creation-Date: 2019-11-08 20:01+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -211,14 +211,26 @@ msgid "Сынып табылмады"
 msgstr "Classroom does not exist"
 
 #: apps/mine/models.py:22 apps/mine/templates/mine/miner/base.html:11
+#: apps/mine/templates/mine/miner/main_result.html:12
+#: apps/mine/templates/mine/miner/main_task.html:12
+#: apps/mine/templates/mine/moderator/base.html:11
+#: apps/mine/templates/mine/moderator/main_text.html:22
 msgid "Жеңіл деңгей"
 msgstr "Beginner"
 
 #: apps/mine/models.py:23 apps/mine/templates/mine/miner/base.html:13
+#: apps/mine/templates/mine/miner/main_result.html:14
+#: apps/mine/templates/mine/miner/main_task.html:14
+#: apps/mine/templates/mine/moderator/base.html:13
+#: apps/mine/templates/mine/moderator/main_text.html:24
 msgid "Орташа деңгей"
 msgstr "Intermediate"
 
 #: apps/mine/models.py:24 apps/mine/templates/mine/miner/base.html:15
+#: apps/mine/templates/mine/miner/main_result.html:16
+#: apps/mine/templates/mine/miner/main_task.html:16
+#: apps/mine/templates/mine/moderator/base.html:15
+#: apps/mine/templates/mine/moderator/main_text.html:26
 msgid "Күрделі деңгей"
 msgstr "Advanced"
 
@@ -228,7 +240,7 @@ msgid "Cәлем"
 msgstr "Hello"
 
 #: apps/mine/templates/mine/miner/base.html:20
-#: apps/mine/templates/mine/moderator/base.html:8
+#: apps/mine/templates/mine/moderator/base.html:20
 msgid "Менің сынымтарым"
 msgstr "My classrooms"
 
@@ -238,21 +250,23 @@ msgid "Сыныпқа қосылу"
 msgstr "Join a classroom"
 
 #: apps/mine/templates/mine/miner/base.html:26
-#: apps/mine/templates/mine/moderator/base.html:14
+#: apps/mine/templates/mine/moderator/base.html:26
 msgid "Хабарламалар"
 msgstr "Notifications"
 
 #: apps/mine/templates/mine/miner/base.html:29
-#: apps/mine/templates/mine/moderator/base.html:17
+#: apps/mine/templates/mine/moderator/base.html:29
 msgid "Профиль"
 msgstr "Profile"
 
 #: apps/mine/templates/mine/miner/classroom.html:7
 #: apps/mine/templates/mine/miner/classroom_result.html:7
+#: apps/mine/templates/mine/miner/main_result.html:8
 #: apps/mine/templates/mine/miner/main_task.html:8
 #: apps/mine/templates/mine/miner/task_detail.html:8
 #: apps/mine/templates/mine/miner/task_result.html:7
 #: apps/mine/templates/mine/moderator/classroom.html:9
+#: apps/mine/templates/mine/moderator/main_text.html:18
 #: apps/mine/templates/mine/moderator/task_create.html:7
 #: apps/mine/templates/mine/moderator/task_modify.html:7
 #: apps/mine/templates/mine/moderator/text_moderate.html:7
@@ -262,16 +276,22 @@ msgstr "Back"
 
 #: apps/mine/templates/mine/miner/classroom.html:15
 #: apps/mine/templates/mine/miner/classroom_result.html:15
+#: apps/mine/templates/mine/miner/main_results.html:6
+#: apps/mine/templates/mine/miner/main_tasks.html:6
 msgid "Жаңа тапсырмалар"
 msgstr "New tasks"
 
 #: apps/mine/templates/mine/miner/classroom.html:16
 #: apps/mine/templates/mine/miner/classroom_result.html:16
+#: apps/mine/templates/mine/miner/main_results.html:7
+#: apps/mine/templates/mine/miner/main_tasks.html:7
 msgid "Нәтижелер"
 msgstr "Results"
 
 #: apps/mine/templates/mine/miner/classroom.html:26
-#: apps/mine/templates/mine/miner/main_tasks.html:12
+#: apps/mine/templates/mine/miner/main_results.html:16
+#: apps/mine/templates/mine/miner/main_tasks.html:16
+#: apps/mine/templates/mine/moderator/main_texts.html:12
 msgid "Тапсырмаға өту"
 msgstr "Go to the task"
 
@@ -281,6 +301,7 @@ msgid "Сыныптағы өзгерістерді бақылаңыз"
 msgstr "View classroom updates"
 
 #: apps/mine/templates/mine/miner/classroom.html:33
+#: apps/mine/templates/mine/miner/main_tasks.html:22
 msgid "Жаңа тапсырмалар осы жерде жарияланады"
 msgstr "New assignments will be posted here"
 
@@ -295,8 +316,25 @@ msgid "Сіз әлі бірде-бір сыныпқа қосылған жоқс�
 msgstr "You haven't joined any classrooms yet"
 
 #: apps/mine/templates/mine/miner/classroom_result.html:33
+#: apps/mine/templates/mine/miner/main_results.html:22
 msgid "Аяқталған тапсырмалар осында болады"
 msgstr "Completed assignments will be here"
+
+#: apps/mine/templates/mine/miner/main_result.html:32
+#: apps/mine/templates/mine/miner/task_result.html:23
+msgid "Сіздің эссеңіз"
+msgstr "Your essay"
+
+#: apps/mine/templates/mine/miner/main_result.html:38
+#: apps/mine/templates/mine/miner/task_result.html:29
+#: apps/mine/templates/mine/moderator/text_moderated.html:27
+msgid "Тексерілген"
+msgstr "Checked"
+
+#: apps/mine/templates/mine/miner/main_result.html:44
+#: apps/mine/templates/mine/miner/task_result.html:35
+msgid "Сіздің эссеңіз әлі тексерілген жоқ"
+msgstr "Your essay hasn't checked yet"
 
 #: apps/mine/templates/mine/miner/notifications_read.html:7
 #: apps/mine/templates/mine/miner/notifications_unread.html:7
@@ -329,20 +367,7 @@ msgstr "Notifications marked as read will be here"
 msgid "Оқылмаған хабарламалар осында болады"
 msgstr "Unread notifications will be here"
 
-#: apps/mine/templates/mine/miner/task_result.html:23
-msgid "Сіздің эссеңіз"
-msgstr "Your essay"
-
-#: apps/mine/templates/mine/miner/task_result.html:29
-#: apps/mine/templates/mine/moderator/text_moderated.html:27
-msgid "Тексерілген"
-msgstr "Checked"
-
-#: apps/mine/templates/mine/miner/task_result.html:35
-msgid "Сіздің эссеңіз әлі тексерілген жоқ"
-msgstr "Your essay hasn't checked yet"
-
-#: apps/mine/templates/mine/moderator/base.html:11
+#: apps/mine/templates/mine/moderator/base.html:23
 msgid "Жаңа сынып"
 msgstr "Create a classroom"
 
@@ -416,7 +441,9 @@ msgstr ""
 msgid ""
 "Сыныпты өшіру әзірге мүмкін емес. Егер сіз сыныпты жойғыңыз келсе, бізге "
 "хабарласыңыз."
-msgstr "Deleting the class is still unavailable. Contact us if you want to delete classroom."
+msgstr ""
+"Deleting the class is still unavailable. Contact us if you want to delete "
+"classroom."
 
 #: apps/mine/templates/mine/moderator/classroom_list.html:12
 #, python-format
@@ -440,9 +467,17 @@ msgstr "You haven't created any classrooms yet"
 msgid "Сынып құру"
 msgstr "Create a classroom"
 
+#: apps/mine/templates/mine/moderator/main_texts.html:18
+msgid "Студенттер жазған эсселер осы жерде жарияланады"
+msgstr "Essays written by students will be published here"
+
 #: apps/mine/templates/mine/moderator/text_moderated.html:22
 msgid "Тапсырылған эссе"
 msgstr "Submitted essay"
+
+#: apps/mine/view/moderator.py:150
+msgid "Бұл эссе тексеріліп қойған"
+msgstr "This essay has been checked"
 
 #: config/settings/common.py:190
 msgid "Kazakh"

@@ -2,8 +2,12 @@
 {% load static %}
 {% load i18n %}
 {% block content %}
+<nav class="nav nav-pills nav-justified mb-2">
+  <a class="nav-link active" href="{% url 'mine:miner-tasks' view.kwargs.pk %}">{% trans "Жаңа тапсырмалар" %}</a>
+  <a class="nav-link" href="{% url 'mine:miner-results' view.kwargs.pk %}">{% trans "Нәтижелер" %}</a>
+</nav>
 <div class="row">
-    {% for task in object_list %}
+    {% for task in tasks %}
         <div class="col-md-12 col-lg-6 col-xl-4">
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
@@ -13,29 +17,10 @@
                 </div>
             </div>
         </div>
-    {% endfor %}
-</div>
-<div class="row fixed-bottom mx-auto">
-    {% if is_paginated %}
-        <div class="pagination m-sm-auto">
-            {% if page_obj.has_previous %}
-                <a class="pagination-list" href="?page=1"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-list"><i class="fa fa-angle-left" aria-hidden="true"></i></a>
-            {% endif %}
-
-            {% for num in page_obj.paginator.page_range %}
-                {% if page_obj.number == num %}
-                    <span class="pagination-number pagination-current">{{ num }}</span>
-                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                    <a class="pagination-number" href="?page={{ num }}">{{ num }}</a>
-                {% endif %}
-            {% endfor %}
-
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}" class="pagination-list"><i class="fa fa-angle-right" aria-hidden="true"></i></a>
-                <a class="pagination-list" href="?page={{ page_obj.paginator.num_pages }}"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
-            {% endif %}
+    {% empty %}
+        <div class="ml-4 card p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
+            <span class="h6 m-0"><i class="fa fa-book"></i> {% trans "Жаңа тапсырмалар осы жерде жарияланады" %}</span>
         </div>
-    {% endif %}
+    {% endfor %}
 </div>
 {% endblock %}

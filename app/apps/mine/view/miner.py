@@ -48,20 +48,95 @@ class BaseMinerView(BaseGroupRequiredMixin):
 
 
 # region MinerInitial
-class MinerInitialView(BaseMinerView, ListView):
+# Refactor this duplicates classroom code. Consider abstraction
+class MinerInitialView(BaseMinerView, DetailView):
     template_name = 'mine/miner/main_tasks.html'
-    paginate_by = 9
+    model = Classroom
+    app_superuser = 'textminersmtp@gmail.com'
 
     def get_queryset(self):
-        return get_object_or_404(Classroom, pk=self.kwargs['pk']).tasks.all()
+        return Classroom.objects.filter(owner__email=self.app_superuser)
+
+    def get_context_data(self, **kwargs):
+        classroom = self.get_object()
+        miner = self.request.user.miner
+        texts = miner.task.all().filter(classroom=classroom).values_list('pk', flat=True)
+        context = {'tasks': classroom.tasks.order_by('-date').exclude(pk__in=texts)}
+        kwargs.update(context)
+        return super().get_context_data(**kwargs)
 
 
-class MinerTaskDetailView(BaseMinerView, BaseTextCreateView, DetailView):
+# Refactor this duplicates classroom code. Consider abstraction
+class MinerResultsInitialView(BaseMinerView, DetailView):
+    template_name = 'mine/miner/main_results.html'
+    model = Classroom
+    app_superuser = 'textminersmtp@gmail.com'
+
+    def get_queryset(self):
+        return Classroom.objects.filter(owner__email=self.app_superuser)
+
+    def get_context_data(self, **kwargs):
+        classroom = self.get_object()
+        miner = self.request.user.miner
+        texts = miner.completed_tasks.filter(task__classroom=classroom).order_by('-date')
+        context = {'texts': texts}
+        kwargs.update(context)
+        return super().get_context_data(**kwargs)
+
+
+# Refactor this duplicates classroom code. Consider abstraction
+class MinerTaskDetailView(BaseMinerView, CreateView, DetailView):
     template_name = 'mine/miner/main_task.html'
     pk_url_kwarg = 'tpk'
+    form_class = TextForm
+    model = Task
+
+    def form_valid(self, form):
+        self.object = form.save()
+        self.object.creator = self.request.user.miner
+        self.object.task = Task.objects.get(pk=self.kwargs['tpk'])
+        self.object.classroom = Classroom.objects.get(pk=self.kwargs['pk'])
+        self.object.save()
+        return super().form_valid(form)
+
+    def get(self, request, *args, **kwargs):
+        task = self.get_object()
+        miner = self.request.user.miner
+        texts = task.completed_tasks.filter(creator=miner)
+        if texts.exists():
+            text = texts.first()
+            return HttpResponseRedirect(
+                reverse_lazy('mine:miner-result-detail', kwargs={'pk': kwargs['pk'], 'tpk': text.pk}))
+
+        return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
         return Task.objects.filter(classroom__pk=self.kwargs['pk'])
+
+    def get_success_url(self, **kwargs):
+        return reverse_lazy('mine:miner-tasks', kwargs={'pk': self.kwargs['pk']})
+
+
+# Refactor this duplicates classroom code. Consider abstraction
+class MinerResultDetailView(BaseMinerView, DetailView):
+    template_name = 'mine/miner/main_result.html'
+    pk_url_kwarg = 'tpk'
+    model = Text
+
+    def get_context_data(self, **kwargs):
+        try:
+            moderated_text = ModeratedText.objects.get(original__pk=self.kwargs['tpk'])
+            context = {'moderated': True, 'moderated_text': moderated_text}
+        except ModeratedText.DoesNotExist:
+            context = {'moderated': False}
+        kwargs.update(context)
+        return super().get_context_data(**kwargs)
+
+    def get_queryset(self):
+        classroom = get_object_or_404(Classroom, pk=self.kwargs['pk'])
+        miner = self.request.user.miner
+        texts = miner.completed_tasks.filter(task__classroom=classroom)
+        return texts
 
     def get_success_url(self, **kwargs):
         return reverse_lazy('mine:miner-tasks', kwargs={'pk': self.kwargs['pk']})

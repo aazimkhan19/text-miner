@@ -19,9 +19,9 @@ admin_patterns = [
     path('admin/profile/', admin.AdminProfileView.as_view(), name='admin-profile')
 ]
 moderator_patterns = [
-    path('email/', moderator.email_template, name='email'),
-
     path('moderator/', moderator.ModeratorClassroomListView.as_view(), name='moderator-initial'),
+    path('moderator/texts/<int:pk>/', moderator.ModeratorInitialView.as_view(), name='moderator-texts'),
+    path('moderator/texts/<int:pk>/text/<int:tpk>', moderator.ModeratorTextDetailView.as_view(), name='moderator-text-detail'),
     path('moderator/classrooms/', moderator.ModeratorClassroomListView.as_view(), name='moderator-classrooms'),
     path('moderator/classroom/<int:pk>', moderator.ModeratorClassroomDetailView.as_view(), name='moderator-classroom-detail'),
     path('moderator/classroom/create', moderator.ModeratorClassroomCreateView.as_view(), name='moderator-classroom-create'),
@@ -40,7 +40,9 @@ moderator_patterns = [
 miner_patterns = [
     path('miner/', miner.MinerInitialView.as_view(), name='miner-initial'),
     path('miner/tasks/<int:pk>/', miner.MinerInitialView.as_view(), name='miner-tasks'),
+    path('miner/results/<int:pk>/', miner.MinerResultsInitialView.as_view(), name='miner-results'),
     path('miner/tasks/<int:pk>/task/<int:tpk>', miner.MinerTaskDetailView.as_view(), name='miner-task-detail'),
+    path('miner/results/<int:pk>/result/<int:tpk>', miner.MinerResultDetailView.as_view(), name='miner-result-detail'),
     path('miner/classroom/join/', miner.MinerClassroomJoinView.as_view(), name='miner-classroom-join'),
     path('miner/classroom/<int:pk>', miner.MinerClassroomDetailView.as_view(), name='miner-classroom-detail'),
     path('miner/classroom/<int:pk>/results', miner.MinerClassroomResultsView.as_view(), name='miner-classroom-detail-results'),

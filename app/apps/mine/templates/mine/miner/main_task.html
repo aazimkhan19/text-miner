@@ -7,7 +7,15 @@
         <a class="h5" href="{% url 'mine:miner-tasks' view.kwargs.pk %}">
             <i class="fa fa-arrow-left"></i> {% trans "Артқа" %}
         </a>
-        <h5 class="font-weight-bold ml-3">{{task.classroom.title}}</h5>
+        <h5 class="font-weight-bold ml-3">
+            {% if task.classroom.title == 'beginner' %}
+                {% trans "Жеңіл деңгей" %}
+            {% elif task.classroom.title == 'intermediate' %}
+                {% trans "Орташа деңгей" %}
+            {% elif task.classroom.title == 'advanced' %}
+                {% trans "Күрделі деңгей" %}
+            {% endif %}
+        </h5>
     </div>
     <div class="col-md-12 col-lg-8 col-xl-6 flex-grow-1">
         <div class="card mb-4 shadow-sm rounded-0">
