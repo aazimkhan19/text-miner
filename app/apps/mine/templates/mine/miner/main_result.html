@@ -1,0 +1,50 @@
+{% extends "mine/miner/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="d-flex mb-2">
+    <a class="h5" href="{% url 'mine:miner-results' view.kwargs.pk %}">
+        <i class="fa fa-arrow-left"></i> {% trans "Артқа" %}
+    </a>
+    <h5 class="font-weight-bold ml-3">
+        {% if text.classroom.title == 'beginner' %}
+            {% trans "Жеңіл деңгей" %}
+        {% elif text.classroom.title == 'intermediate' %}
+            {% trans "Орташа деңгей" %}
+        {% elif text.classroom.title == 'advanced' %}
+            {% trans "Күрделі деңгей" %}
+        {% endif %}
+    </h5>
+</div>
+
+<div class="col-md-12 col-lg-8 col-xl-6">
+    <div class="card mb-3 shadow-sm rounded-0">
+        <div class="card-header d-flex align-items-center rounded-0 bg-dark text-light">
+            <div>
+                <span class="font-weight-bold h4">{{ text.task.task_title }}</span>
+            </div>
+        </div>
+
+        <p class="card-text h6 ml-4 mr-4 mb-2 mt-3">{{ text.task.task_description }}</p>
+
+        <div class="card-body">
+            <p class="card-text h6">{% trans "Сіздің эссеңіз" %}</p>
+            <div class="card card-body mb-4  shadow">
+                <p class="card-text h6">{{ text.content }}</p>
+            </div>
+
+            {% if moderated %}
+                <p class="card-text h6">{% trans "Тексерілген" %}</p>
+                <div class="card card-body mb-3 shadow">
+                    <p class="card-text h6">{{ moderated_text.content }}</p>
+                </div>
+            {% else %}
+                <div class="card card-body mb-3 shadow">
+                    <p class="card-text h6">{% trans "Сіздің эссеңіз әлі тексерілген жоқ" %}</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

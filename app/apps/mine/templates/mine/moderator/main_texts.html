@@ -1,0 +1,22 @@
+{% extends "mine/moderator/base.html" %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+<div class="row">
+    {% for text in texts %}
+        <div class="col-md-12 col-lg-6 col-xl-4">
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <h4 class="card-title text-truncate">{{text.task.task_title}}</h4>
+                    <p class="card-text text-truncate">{{text.task.task_description}}</p>
+                    <a href="{% url 'mine:moderator-text-detail' view.kwargs.pk text.pk %}" class="btn btn-dark">{% trans "Тапсырмаға өту" %}</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <div class="ml-4 card p-4 col-lg-5 col-md-10 col-xs-12 col-xl-4">
+            <span class="m-0 h6"><i class="fa fa-book"></i> {% trans "Студенттер жазған эсселер осы жерде жарияланады" %}</span>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

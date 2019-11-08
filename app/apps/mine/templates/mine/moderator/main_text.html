@@ -1,0 +1,50 @@
+{% extends "mine/moderator/base.html" %}
+{% load crispy_forms_tags %}
+{% load static %}
+{% load i18n %}
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    {% endfor %}
+{% endif %}
+<div class="d-flex mb-2">
+    <a class="h5" href="{% url 'mine:moderator-texts' view.kwargs.pk %}">
+        <i class="fa fa-arrow-left"></i> {% trans "Артқа" %}
+    </a>
+    <h5 class="font-weight-bold ml-3">
+        {% if text.classroom.title == 'beginner' %}
+            {% trans "Жеңіл деңгей" %}
+        {% elif text.classroom.title == 'intermediate' %}
+            {% trans "Орташа деңгей" %}
+        {% elif text.classroom.title == 'advanced' %}
+            {% trans "Күрделі деңгей" %}
+        {% endif %}
+    </h5>
+</div>
+<div class="col-md-12 col-lg-8 col-xl-6">
+    <div class="card rounded-0 mb-4">
+        <div class="card-header d-flex align-items-center rounded-0 bg-dark text-light">
+            <div>
+                <span class="font-weight-bold h4">{{ text.task.task_title }}</span>
+            </div>
+        </div>
+
+        <p class="card-text h6 ml-4 mr-4 mb-2 mt-3">{{ text.task.task_description }}</p>
+
+        <div class="card-body ">
+            <div class="card card-body mb-3 shadow">
+                <p class="card-text">{{text.content}}</p>
+            </div>
+            <form method="post" class="uniForm">
+                {% crispy form %}
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
