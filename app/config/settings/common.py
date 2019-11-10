@@ -31,7 +31,7 @@ environ.Env.read_env(PARENT_DIR.file('.env'))  # reading .env file
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = env.bool("DJANGO_DEBUG", False)
+DEBUG = False
 
 # EMAIL SETTINGS TODO set another email host
 EMAIL_HOST = 'smtp.gmail.com'
@@ -46,9 +46,10 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     '127.0.0.1',
     'localhost',
+    '185.22.67.8'
 ]
 
-INTERNAL_IPS = ['127.0.0.1', '::1', '185.22.64.49']
+INTERNAL_IPS = ['127.0.0.1', '::1', '185.22.64.49', '185.22.67.8']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
