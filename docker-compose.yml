@@ -17,7 +17,7 @@ services:
       - ./app:/app
       - ./public:/public
     depends_on:
-      - redis
+#      - redis
       - postgres
 #      - broker
 
@@ -53,9 +53,9 @@ services:
 #      - postgres
 #      - broker
 
-  redis:
-    build:
-      ./redis
+#  redis:
+#    build:
+#      ./redis
 
 #  broker:
 #    build:
