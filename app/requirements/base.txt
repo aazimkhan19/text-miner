@@ -4,7 +4,7 @@ django-debug-toolbar==1.9.1
 django-environ==0.4.5
 django-extensions==2.0.7
 django-rest-swagger==2.2.0
-djangorestframework==3.8.2
+djangorestframework==3.9.1
 djangorestframework-jwt==1.11.0
 django-filter==2.0.0
 Fabric3==1.14.post1
