@@ -33,7 +33,7 @@ class BaseTextCreateView(CreateView):
         message = '{} сыныбында жаңа эссе жіберілді'.format(classroom.title)
         url = self.request.META['HTTP_HOST'] + text.get_absolute_url()
         recipient = [classroom.owner.email]
-        send_email.delay(name, subject, title, message, url, recipient)
+        send_email(name, subject, title, message, url, recipient)
 
     def configure_notification(self, classroom):
         message = '{} сыныбында жаңа эссе жіберілді'.format(classroom.title)

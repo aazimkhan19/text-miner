@@ -31,6 +31,7 @@ environ.Env.read_env(PARENT_DIR.file('.env'))  # reading .env file
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = env.bool("DJANGO_DEBUG", False)
 DEBUG = False
 
 # EMAIL SETTINGS TODO set another email host
@@ -267,7 +268,7 @@ CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
 
-from celery.schedules import crontab
+# from celery.schedules import crontab
 
 CELERY_BEAT_SCHEDULE = {
 }

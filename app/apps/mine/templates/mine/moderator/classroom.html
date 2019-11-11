@@ -196,7 +196,7 @@
                         <li class="list-group-item d-flex justify-content-between align-content-center">
                             <div class="align-self-center"  style="width: 90%;">
                                 <p class="h6 text-truncate">{{user.user.first_name}} {{user.user.last_name}}</p>
-                                <p class="font-weight-bold text-truncate">{{user.user.email}}{{user.pk}}</p>
+                                <p class="font-weight-bold text-truncate">{{user.user.email}}</p>
                             </div>
                             <span class="h4 align-self-center" data-toggle="modal" data-target="#deleteModal" data-userid="{% url 'mine:moderator-classroom-user-remove' object.pk user.pk%}"><i class="fa fa-trash-o text-danger"></i></span>
                         </li>

@@ -61,7 +61,7 @@ class BaseTextModerationView(CreateView):
         message = 'Сіздің мұғаліміңіз эссеңізді тексерді'
         url = self.request.META['HTTP_HOST'] + moderated_text.get_absolute_url()
         recipient = [moderated_text.original.creator.user.email]
-        send_email.delay(name, subject, title, message, url, recipient)
+        send_email(name, subject, title, message, url, recipient)
 
     def configure_notification(self, classroom, moderated_text):
         message = '{} сыныбында эссеңіз тексерілді'.format(classroom.title)
@@ -85,12 +85,12 @@ class BaseTaskCreateView(CreateView):
         subject = 'Жаңа тапсырма'
         message = '{} сыныбында жаңа тапсырма жарияланды'.format(classroom.title)
         url = self.request.META['HTTP_HOST'] + task.get_absolute_url()
-        send_emails.delay(classroom.pk, task.pk, subject, message, url)
+        send_emails(classroom.pk, task.pk, subject, message, url)
 
     def configure_notification(self, classroom, task):
         message = '{} сыныбында жаңа тапсырма жарияланды'.format(classroom.title)
         url = task.get_absolute_url()
-        send_mass_notification.delay(classroom.pk, message, url)
+        send_mass_notification(classroom.pk, message, url)
 
 
 class BaseModeratorView(BaseGroupRequiredMixin):
