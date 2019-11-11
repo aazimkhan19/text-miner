@@ -12,7 +12,7 @@ flake8==3.5.0
 gunicorn==19.8.1
 ipython==6.4.0
 requests==2.19.1
-Werkzeug==0.14.1
+Werkzeug==0.15.3
 psycopg2-binary==2.7.5
 django-crispy-forms==1.7.2
 django-braces==1.13.0
