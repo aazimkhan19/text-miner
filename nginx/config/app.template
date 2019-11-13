@@ -1,5 +1,5 @@
 server {
-        server_name ${NGINX_HOST} 127.0.0.1 0.0.0.0;
+        server_name ${NGINX_HOST} 127.0.0.1 0.0.0.0 54.70.247.155 www.qatesiz.kz;
 
         client_max_body_size 32m;
 

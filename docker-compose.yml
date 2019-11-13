@@ -4,9 +4,9 @@ services:
   app:
     build: .
     # TEST boot
-    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && python /app/manage.py runserver 0.0.0.0:8000"
+#    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && python /app/manage.py runserver 0.0.0.0:8000"
     # PROD boot
-#    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && cd /app && gunicorn config.wsgi --bind=0.0.0.0:8000 --workers=3"
+    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && cd /app && gunicorn config.wsgi --bind=54.70.247.155:8000 --workers=3"
     stdin_open: true
     tty: true
     restart: always
@@ -17,57 +17,8 @@ services:
       - ./app:/app
       - ./public:/public
     depends_on:
-#      - redis
       - postgres
-#      - broker
 
-#  celery:
-#    build: .
-#    command: bash -c "cd /app && celery -A config worker -l info"
-#    stdin_open: true
-#    tty: true
-#    restart: always
-#    environment:
-#      DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
-#      RABBITMQ_URL: '${RABBITMQ_URL}'
-#    volumes:
-#      - ./app:/app
-#      - ./public:/public
-#    depends_on:
-#      - redis
-#      - postgres
-#      - broker
-
-#  celery_beat:
-#    build: .
-#    command: bash -c "cd /app && celery -A config beat -l info"
-#    restart: always
-#    environment:
-#      DJANGO_SETTINGS_MODULE: '${DJANGO_SETTINGS_MODULE}'
-#      RABBITMQ_URL: '${RABBITMQ_URL}'
-#    volumes:
-#      - ./app:/app
-#      - ./public:/public
-#    depends_on:
-#      - redis
-#      - postgres
-#      - broker
-
-#  redis:
-#    build:
-#      ./redis
-
-#  broker:
-#    build:
-#      ./broker
-#    logging:
-#      driver: none
-#    restart: always
-#    environment:
-#      RABBITMQ_DEFAULT_USER: '${RABBITMQ_USER}'
-#      RABBITMQ_DEFAULT_PASS: '${RABBITMQ_PASSWORD}'
-#    volumes:
-#      - ./dockerfiles/rabbitmq:/var/lib/rabbitmq/mnesia
 
   postgres:
     build:
@@ -80,12 +31,6 @@ services:
     volumes:
       - ./dockerfiles/pgdata:/var/lib/postgresql/data
 
-#  adminer:
-#    build:
-#      ./adminer
-#    restart: always
-#    depends_on:
-#      - postgres
 
   nginx:
     build:
