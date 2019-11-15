@@ -99,7 +99,6 @@ class ModeratedText(models.Model):
 class Notification(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
     date = models.DateTimeField(default=timezone.now)
-    # TODO consider later applying polymorphism
     link = models.TextField(null=True)
     description = models.CharField(max_length=100)
     read = models.BooleanField(default=False)

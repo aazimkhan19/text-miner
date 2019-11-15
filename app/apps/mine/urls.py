@@ -30,8 +30,6 @@ moderator_patterns = [
     path('moderator/classroom/<int:cpk>/task/<int:tpk>/edit', moderator.ModeratorClassroomTaskEditView.as_view(), name='moderator-classroom-edit-task'),
     path('moderator/classroom/<int:cpk>/text/<int:tpk>/moderate/', moderator.ModeratorClassroomModerateTextView.as_view(), name='moderator-classroom-text-moderate'),
     path('moderator/classroom/<int:cpk>/text/moderated/<int:tpk>/', moderator.ModeratorClassroomModeratedTextView.as_view(), name='moderator-classroom-moderated-text'),
-    # Refactor to soft delete
-    # path('moderator/classroom/<int:cpk>/task/<int:tpk>/remove', moderator.ModeratorClassroomTaskRemoveView.as_view(), name='moderator-classroom-task-remove'),
     path('moderator/notifications/unread', moderator.ModeratorUnreadNotificationsView.as_view(), name='moderator-notifications-unread'),
     path('moderator/notifications/read', moderator.ModeratorReadNotificationsView.as_view(), name='moderator-notifications-read'),
     path('moderator/notifications/<int:pk>/toggle', moderator.ModeratorNotificationToggleView.as_view(), name='moderator-notification-status-toggle'),

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-08 20:01+0600\n"
+"POT-Creation-Date: 2019-11-15 17:29+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -233,6 +233,18 @@ msgstr "Intermediate"
 #: apps/mine/templates/mine/moderator/main_text.html:26
 msgid "Күрделі деңгей"
 msgstr "Advanced"
+
+#: apps/mine/templates/mine/404.html:20
+msgid "Бет табылмады"
+msgstr "Page not found"
+
+#: apps/mine/templates/mine/404.html:23
+msgid "кешіріңіз, бірақ сіз сұраған бет табылмады"
+msgstr "we are sorry, but the page you requested was not found"
+
+#: apps/mine/templates/mine/500.html:20
+msgid "Ішкі қате"
+msgstr "Internal Server Erro"
 
 #: apps/mine/templates/mine/miner/base.html:5
 #: apps/mine/templates/mine/moderator/base.html:5
@@ -475,14 +487,14 @@ msgstr "Essays written by students will be published here"
 msgid "Тапсырылған эссе"
 msgstr "Submitted essay"
 
-#: apps/mine/view/moderator.py:150
+#: apps/mine/view/moderator.py:151
 msgid "Бұл эссе тексеріліп қойған"
 msgstr "This essay has been checked"
 
-#: config/settings/common.py:190
+#: config/settings/common.py:193
 msgid "Kazakh"
 msgstr ""
 
-#: config/settings/common.py:191
+#: config/settings/common.py:194
 msgid "English"
 msgstr ""

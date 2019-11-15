@@ -306,22 +306,11 @@ class ModeratorClassroomTaskEditView(BaseModeratorView, UpdateView):
     template_name = 'mine/moderator/task_modify.html'
 
     def get_queryset(self):
-        return Classroom.objects.get(pk=self.kwargs['cpk']).tasks.all()
+        classroom = get_object_or_404(Classroom, pk=self.kwargs['cpk'])
+        return classroom.tasks.all()
 
     def get_success_url(self):
         return reverse_lazy('mine:moderator-classroom-detail', kwargs={'pk': self.kwargs['cpk'], })
-
-
-class ModeratorClassroomTaskRemoveView(BaseModeratorView, RedirectView):
-    def get(self, request, *args, **kwargs):
-        tasks = Task.objects.filter(pk=kwargs['tpk'])
-        if tasks.exists():
-            task = tasks.first()
-            task.delete()
-        return super().get(request, *args, **kwargs)
-
-    def get_redirect_url(self, *args, **kwargs):
-        return reverse_lazy('mine:moderator-classroom-detail', kwargs={'pk': self.kwargs['cpk']})
 
 
 class ModeratorClassroomModerateTextView(BaseModeratorView, BaseTextModerationView, DetailView):

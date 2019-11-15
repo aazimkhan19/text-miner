@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 {% load static %}
+{% load i18n %}
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<title>Қатесіз</title>
+	<title>Qatesiz.kz</title>
 
 	<link rel="stylesheet" href="{% static 'base/css/error.css' %}"/>
 
@@ -16,7 +17,7 @@
 	<div id="notfound">
 		<div class="notfound">
 			<div class="notfound-404">
-				<h3>Internal Server Error</h3>
+				<h3>{% trans "Ішкі қате" %}</h3>
 				<h1><span>5</span><span>0</span><span>0</span></h1>
 			</div>
 		</div>
