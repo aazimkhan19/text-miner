@@ -1,11 +1,15 @@
 from django.shortcuts import redirect, render, reverse
+from apps.mine.models import Classroom
 
 
 def initial(request):
     if request.user.is_authenticated:
         if request.user.groups.filter(name='miner').exists():
-            beginner_classroom_pk = 25
-            return redirect(reverse('mine:miner-tasks', kwargs={'pk': beginner_classroom_pk}))
+            try:
+                beginner_classroom = Classroom.objects.get(title='beginner')
+                return redirect(reverse('mine:miner-tasks', kwargs={'pk': beginner_classroom.pk}))
+            except Classroom.DoesNotExist:
+                return redirect(reverse('mine:miner-classrooms'))
         else:
             return redirect('mine:moderator-initial')
     return render(request, 'authentication/initial.html')
