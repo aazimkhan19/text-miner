@@ -9,6 +9,7 @@ from apps.authentication.forms import ProfileForm
 from apps.mine.forms import TextForm, ModerateTextForm, CreateTaskForm, CreateClassroomForm, JoinClassroomForm
 from apps.mine.models import Text, ModeratedText, Task, Classroom, Notification, Miner
 from apps.mine.task import send_email
+from config.settings.common import EMAIL_HOST_USER
 
 
 # region Base
@@ -52,7 +53,7 @@ class BaseMinerView(BaseGroupRequiredMixin):
 class MinerInitialView(BaseMinerView, DetailView):
     template_name = 'mine/miner/main_tasks.html'
     model = Classroom
-    app_superuser = 'textminersmtp@gmail.com'
+    app_superuser = EMAIL_HOST_USER
 
     def get_queryset(self):
         return Classroom.objects.filter(owner__email=self.app_superuser)
@@ -70,7 +71,7 @@ class MinerInitialView(BaseMinerView, DetailView):
 class MinerResultsInitialView(BaseMinerView, DetailView):
     template_name = 'mine/miner/main_results.html'
     model = Classroom
-    app_superuser = 'textminersmtp@gmail.com'
+    app_superuser = EMAIL_HOST_USER
 
     def get_queryset(self):
         return Classroom.objects.filter(owner__email=self.app_superuser)

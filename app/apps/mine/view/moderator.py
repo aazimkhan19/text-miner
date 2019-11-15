@@ -13,6 +13,7 @@ from apps.authentication.models import User
 from apps.mine.forms import TextForm, ModerateTextForm, CreateTaskForm, CreateClassroomForm, JoinClassroomForm, ModifyTaskForm
 from apps.mine.models import Text, ModeratedText, Task, Classroom, Notification
 from apps.mine.task import send_email, send_emails, send_mass_notification
+from config.settings.common import EMAIL_HOST_USER
 
 from nanoid import generate
 
@@ -103,7 +104,7 @@ class BaseModeratorView(BaseGroupRequiredMixin):
 class ModeratorInitialView(BaseModeratorView, DetailView):
     template_name = 'mine/moderator/main_texts.html'
     model = Classroom
-    app_superuser = 'textminersmtp@gmail.com'
+    app_superuser = EMAIL_HOST_USER
 
     def get_queryset(self):
         return Classroom.objects.filter(owner__email=self.app_superuser)
