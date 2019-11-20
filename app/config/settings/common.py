@@ -35,12 +35,12 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = True
 
 # EMAIL SETTINGS TODO set another email host
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'textminersmtp@gmail.com'
-EMAIL_HOST_PASSWORD = '`5-j^ch?NtPDmPR"'
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'Unilever <unilever.elefanto.smtp@gmail.com>'
+DEFAULT_FROM_EMAIL = ''
 
 
 ALLOWED_HOSTS = [
