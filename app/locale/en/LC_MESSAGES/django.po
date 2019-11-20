@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-15 17:29+0600\n"
+"POT-Creation-Date: 2019-11-20 20:12+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,10 +31,12 @@ msgid "Рөліңіз"
 msgstr "Role"
 
 #: apps/authentication/forms.py:18
+#: apps/authentication/templates/registration/password_reset_confirm.html:14
 msgid "Құпия сөз"
 msgstr "Password"
 
 #: apps/authentication/forms.py:19
+#: apps/authentication/templates/registration/password_reset_confirm.html:18
 msgid "Құпия сөзді растау"
 msgstr "Password confirmation"
 
@@ -45,6 +47,7 @@ msgstr "Sign up"
 
 #: apps/authentication/forms.py:44 apps/authentication/forms.py:144
 #: apps/authentication/forms.py:175
+#: apps/authentication/templates/registration/password_reset_form.html:8
 msgid "Электрондық пошта"
 msgstr "Email"
 
@@ -93,8 +96,9 @@ msgid "Пайдаланушы аты немесе құпия сөз дұрыс �
 msgstr "Invalid username or password"
 
 #: apps/authentication/forms.py:159
-#: apps/authentication/templates/authentication/initial.html:43
+#: apps/authentication/templates/authentication/initial.html:41
 #: apps/authentication/templates/authentication/signin.html:6
+#: apps/authentication/templates/registration/password_reset_complete.html:6
 msgid "Кіру"
 msgstr "Sign in"
 
@@ -102,43 +106,43 @@ msgstr "Sign in"
 msgid "Сақтау"
 msgstr "Save"
 
-#: apps/authentication/templates/authentication/initial.html:44
+#: apps/authentication/templates/authentication/initial.html:42
 msgid "Бастау"
 msgstr "Start"
 
-#: apps/authentication/templates/authentication/initial.html:50
+#: apps/authentication/templates/authentication/initial.html:48
 msgid "ӨЗІҢІҢ ЖАЗУЛАРЫНДЫ БІЗБЕН БІРГЕ ЖАҚСАРТ! БҰЛ ТЕГІН!"
 msgstr "IMPROVE YOUR WRITING SKILLS IN THE KAZAKH LANGUAGE WITH US! IT'S FREE!"
 
-#: apps/authentication/templates/authentication/initial.html:58
+#: apps/authentication/templates/authentication/initial.html:56
 msgid "Деңгейіңді таңда"
 msgstr "Choose your level"
 
-#: apps/authentication/templates/authentication/initial.html:65
+#: apps/authentication/templates/authentication/initial.html:63
 msgid "Тапсырмаңды таңда"
 msgstr "Choose your task"
 
-#: apps/authentication/templates/authentication/initial.html:72
+#: apps/authentication/templates/authentication/initial.html:70
 msgid "Эссе жаз"
 msgstr "Write your essay"
 
-#: apps/authentication/templates/authentication/initial.html:78
+#: apps/authentication/templates/authentication/initial.html:76
 msgid "Бізбен бірге тезірек үйрең!"
 msgstr "Learn with us!"
 
-#: apps/authentication/templates/authentication/initial.html:79
+#: apps/authentication/templates/authentication/initial.html:77
 msgid "Өзіңің жазуларыңды"
 msgstr "Improve your writings"
 
-#: apps/authentication/templates/authentication/initial.html:80
+#: apps/authentication/templates/authentication/initial.html:78
 msgid "Қазақ тіліңде шынықтыр!"
 msgstr "in Kazakh language!"
 
-#: apps/authentication/templates/authentication/initial.html:95
+#: apps/authentication/templates/authentication/initial.html:93
 msgid "Тәжірибе,Кері байланыс,Прогресс"
 msgstr "Practice,Feedback,Progress"
 
-#: apps/authentication/templates/authentication/initial.html:119
+#: apps/authentication/templates/authentication/initial.html:117
 msgid "Осында баста!"
 msgstr "Start here!"
 
@@ -151,16 +155,84 @@ msgid "Кіріңіз"
 msgstr "Sign in"
 
 #: apps/authentication/templates/authentication/signin.html:10
+msgid "Құпия сөзді ұмыттыңыз ба?"
+msgstr "Forgot password?"
+
+#: apps/authentication/templates/authentication/signin.html:13
 msgid "Аккаунтыңыз жоқ па?"
 msgstr "Don't have an account?"
 
-#: apps/authentication/templates/authentication/signin.html:10
+#: apps/authentication/templates/authentication/signin.html:13
 msgid "Тіркеліңіз"
 msgstr "Sign up"
 
 #: apps/authentication/templates/base/base.html:50
 msgid "Шығу"
 msgstr "Exit"
+
+#: apps/authentication/templates/registration/done_password_reset.html:5
+#: apps/authentication/templates/registration/password_reset_form.html:5
+msgid "Құпия сөзді қалпына келтіру"
+msgstr "Password reset"
+
+#: apps/authentication/templates/registration/done_password_reset.html:6
+msgid ""
+"Егер сіз енгізген электрондық поштада тіркелген болса, біз сізге құпия сөзді "
+"қалпына келтіру туралы нұсқаулар жібердік. Сіз оларды тез арада алуыңыз "
+"керек."
+msgstr "We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+
+#: apps/authentication/templates/registration/done_password_reset.html:7
+msgid ""
+"Егер сізге электрондық хат келмесе, тіркелген электрондық поштаңызды немесе "
+"спам қалтасын тексеріңіз."
+msgstr "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+
+#: apps/authentication/templates/registration/password_reset_complete.html:5
+msgid "Сіздің құпия сөзіңіз енгізілді. Жүйеге кіруіңізге болады."
+msgstr "Your password has been set. You may sign in now."
+
+#: apps/authentication/templates/registration/password_reset_confirm.html:6
+msgid "Жаңа құпия сөз енгізіңіз"
+msgstr "Enter a new password"
+
+#: apps/authentication/templates/registration/password_reset_confirm.html:22
+msgid "Құпия сөзді өзгерту"
+msgstr "Change my password"
+
+#: apps/authentication/templates/registration/password_reset_confirm.html:25
+msgid ""
+"Құпия сөзді қалпына келтіру сілтемесі жарамсыз, мүмкін бұл сілтеме бұрын "
+"қолданылған. Құпия сөзді қалпына келтіруді қайтадан сұраңыз."
+msgstr "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
+
+#: apps/authentication/templates/registration/password_reset_email.html:2
+msgid ""
+"Сіз бұл электрондық хатты Qatesiz.kz сайтындағы құпия сөзіңізді қалпына "
+"келтіруді сұрағандықтан алдыңыз."
+msgstr "You're receiving this email because you requested a password reset for your user account at Qatesiz.kz."
+
+#: apps/authentication/templates/registration/password_reset_email.html:4
+msgid "Жаңа құпия сөзді орнату үшін келесі бетке өтіңіз:"
+msgstr "Please go to the following page to set a new password:"
+
+#: apps/authentication/templates/registration/password_reset_email.html:7
+msgid ""
+"Егер жоғарыдағы сілтемені басу көмектеспесе, URL мекенжайын көшіріп, "
+"браузердің жаңа терезесіне қойыңыз."
+msgstr "If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead."
+
+#: apps/authentication/templates/registration/password_reset_email.html:9
+msgid "Qatesiz.kz командасы"
+msgstr "The Qatesiz.kz team"
+
+#: apps/authentication/templates/registration/password_reset_form.html:9
+msgid "Құпия сөзді жаңарту"
+msgstr "Reset my password"
+
+#: apps/authentication/templates/registration/password_reset_subject.txt:2
+msgid "Qatesiz.kz сайтында құпия сөзді өзгерту"
+msgstr "Password reset on Qatesiz.kz"
 
 #: apps/mine/forms.py:10
 msgid "Эссе"
