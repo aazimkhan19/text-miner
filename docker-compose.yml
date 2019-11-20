@@ -4,9 +4,9 @@ services:
   app:
     build: .
     # TEST boot
-    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && python /app/manage.py runserver 0.0.0.0:8000"
+#     command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && python /app/manage.py runserver 0.0.0.0:8000"
     # PROD boot
-#    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && cd /app && gunicorn config.wsgi --bind=0.0.0.0:8000 --workers=3"
+    command: bash -c "python /app/manage.py collectstatic -v0 --noinput && python /app/manage.py migrate --noinput && cd /app && gunicorn config.wsgi --bind=0.0.0.0:8000 --workers=3"
     stdin_open: true
     tty: true
     restart: always
