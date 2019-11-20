@@ -35,23 +35,20 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = False
 
 # EMAIL SETTINGS TODO set another email host
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'textminersmtp@gmail.com'
-EMAIL_HOST_PASSWORD = '`5-j^ch?NtPDmPR"'
+EMAIL_HOST = ''
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = 'Unilever <unilever.elefanto.smtp@gmail.com>'
+DEFAULT_FROM_EMAIL = ''
 
 
 ALLOWED_HOSTS = [
-    '0.0.0.0',
-    '127.0.0.1',
-    'localhost',
     '54.70.247.155',
     'qatesiz.kz'
 ]
 
-INTERNAL_IPS = ['127.0.0.1', '::1', '185.22.64.49', '54.70.247.155']
+INTERNAL_IPS = ['54.70.247.155']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
@@ -86,7 +83,7 @@ LOCAL_APPS = [
 
 AUTH_USER_MODEL = 'authentication.User'
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
