@@ -32,7 +32,7 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 #DEBUG = env.bool("DJANGO_DEBUG", False)
-DEBUG = False
+DEBUG = True
 
 # EMAIL SETTINGS TODO set another email host
 EMAIL_HOST = 'smtp.gmail.com'
@@ -47,11 +47,9 @@ ALLOWED_HOSTS = [
     '0.0.0.0',
     '127.0.0.1',
     'localhost',
-    '54.70.247.155',
-    'qatesiz.kz'
 ]
 
-INTERNAL_IPS = ['127.0.0.1', '::1', '185.22.64.49', '54.70.247.155']
+INTERNAL_IPS = ['127.0.0.1', '::1']
 
 CORS_ORIGIN_ALLOW_ALL = True
 
