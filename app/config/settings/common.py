@@ -34,12 +34,13 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 DEBUG = env.bool("DJANGO_DEBUG", False)
 
 # EMAIL SETTINGS
-EMAIL_HOST = ''
-EMAIL_HOST_USER = ''
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'qatesiz.kz@gmail.com'
 EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-DEFAULT_FROM_EMAIL = ''
+DEFAULT_FROM_EMAIL = 'Qatesiz.kz'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 ALLOWED_HOSTS = [
@@ -83,7 +84,7 @@ LOCAL_APPS = [
 
 AUTH_USER_MODEL = 'authentication.User'
 
-INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
+INSTALLED_APPS = LOCAL_APPS + DJANGO_APPS + THIRD_PARTY_APPS
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
