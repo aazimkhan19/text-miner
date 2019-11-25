@@ -31,10 +31,9 @@ environ.Env.read_env(PARENT_DIR.file('.env'))  # reading .env file
 SECRET_KEY = env("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = env.bool("DJANGO_DEBUG", False)
-DEBUG = True
+DEBUG = env.bool("DJANGO_DEBUG", False)
 
-# EMAIL SETTINGS TODO set another email host
+# EMAIL SETTINGS
 EMAIL_HOST = ''
 EMAIL_HOST_USER = ''
 EMAIL_HOST_PASSWORD = ''
