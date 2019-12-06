@@ -8,9 +8,9 @@
         <a href="{% url 'mine:moderator-texts' main_classroom.0 %}" class="list-group-item list-group-item-action bg-dark text-light">
             <i class="fa fa-star" style="color: #ff9933"></i>
             {% if main_classroom.1 == 'beginner' %}
-                {% trans "Жеңіл деңгей" %}
+                {% trans "Қарапайым деңгей" %}
             {% elif main_classroom.1 == 'intermediate' %}
-                {% trans "Орташа деңгей" %}
+                {% trans "Орта деңгей" %}
             {% elif main_classroom.1 == 'advanced' %}
                 {% trans "Күрделі деңгей" %}
             {% endif %}

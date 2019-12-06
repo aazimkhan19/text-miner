@@ -30,6 +30,10 @@
                 <div class="card card-body mb-3 shadow">
                     <p class="card-text h6">{{ moderated_text.content }}</p>
                 </div>
+                <div class="card card-body mb-3 shadow">
+                    <p class="card-text h6">{% trans "Сауаттылығы үшін баға" %}<span class="font-weight-bold">: {{ moderated_text.grammar_grade }}/10</span></p>
+                    <p class="card-text h6">{% trans "Мазмұны үшін баға" %}<span class="font-weight-bold">: {{ moderated_text.essay_grade }}/10</span>
+                </div>
             {% else %}
                 <div class="card card-body mb-3 shadow">
                     <p class="card-text h6">{% trans "Сіздің эссеңіз әлі тексерілген жоқ" %}</p>

@@ -37,13 +37,17 @@ class ModerateTextForm(forms.ModelForm):
         self.helper.form_id = 'id-offline-ticket'
         self.helper.form_class = 'OfflineTicket'
         self.helper.form_method = 'post'
+        self.fields['grammar_grade'].widget.attrs = {'class': 'col-sm-2'}
+        self.fields['essay_grade'].widget.attrs = {'class': 'col-sm-2'}
         self.helper.add_input(Submit('submit', _('Өзгерту'), css_class='btn btn-dark'))
 
     class Meta:
         model = ModeratedText
-        fields = ('content', )
+        fields = ('content', 'grammar_grade', 'essay_grade')
         labels = {
             'content': _('Өзгертілген эссе'),
+            'grammar_grade': _('Сауаттылығы үшін баға'),
+            'essay_grade': _('Мазмұны үшін баға'),
         }
 
 

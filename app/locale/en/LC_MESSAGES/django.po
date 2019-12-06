@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-11-20 20:12+0600\n"
+"POT-Creation-Date: 2019-12-06 14:17+0600\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -102,7 +102,7 @@ msgstr "Invalid username or password"
 msgid "Кіру"
 msgstr "Sign in"
 
-#: apps/authentication/forms.py:168 apps/mine/forms.py:111
+#: apps/authentication/forms.py:168 apps/mine/forms.py:115
 msgid "Сақтау"
 msgstr "Save"
 
@@ -111,7 +111,7 @@ msgid "Бастау"
 msgstr "Start"
 
 #: apps/authentication/templates/authentication/initial.html:48
-msgid "ӨЗІҢІҢ ЖАЗУЛАРЫНДЫ БІЗБЕН БІРГЕ ЖАҚСАРТ! БҰЛ ТЕГІН!"
+msgid "ҚАЗАҚ ТІЛІҢДІ БІЗБЕН БІРГЕ ДАМЫТ! БҰЛ ТЕГІН!"
 msgstr "IMPROVE YOUR WRITING SKILLS IN THE KAZAKH LANGUAGE WITH US! IT'S FREE!"
 
 #: apps/authentication/templates/authentication/initial.html:56
@@ -127,22 +127,38 @@ msgid "Эссе жаз"
 msgstr "Write your essay"
 
 #: apps/authentication/templates/authentication/initial.html:76
-msgid "Бізбен бірге тезірек үйрең!"
+msgid "Бізбен бірге тезірек үйрен!"
 msgstr "Learn with us!"
 
 #: apps/authentication/templates/authentication/initial.html:77
-msgid "Өзіңің жазуларыңды"
+msgid "Өзіңнің жазуларыңды"
 msgstr "Improve your writings"
 
 #: apps/authentication/templates/authentication/initial.html:78
 msgid "Қазақ тіліңде шынықтыр!"
 msgstr "in Kazakh language!"
 
-#: apps/authentication/templates/authentication/initial.html:93
-msgid "Тәжірибе,Кері байланыс,Прогресс"
-msgstr "Practice,Feedback,Progress"
+#: apps/authentication/templates/authentication/initial.html:86
+msgid ""
+"“Адамның адамдық, ұлттың ұлттық ең жоғарғы қасиеті – тіл өткірлігі "
+"мойымасын, тіл сұлулығы кемімесін!” ~ Ғабиден Мұстафин"
+msgstr "To have another language is to possess a second soul. ‒ Charlemagne"
 
-#: apps/authentication/templates/authentication/initial.html:117
+#: apps/authentication/templates/authentication/initial.html:89
+msgid ""
+"Қазіргі заманда жаңа ұрпақтардың қазақ тіліне деген қызығушылығы өсуде. "
+"Сондықтан, біз қоғамға үлесімізді қосу үшін, адамдардың қазақ тіліндегі "
+"сауаттылығын арттырғымыз келеді. Біз тәгін әрі жеңіл жолмен көмектесеміз."
+msgstr ""
+"Nowadays, the interest of new generation towards to the Kazakh language is "
+"growing. Therefore, our aim is to help to society by improving their "
+"literacy in Kazakh language. We can show you the easy and free way."
+
+#: apps/authentication/templates/authentication/initial.html:97
+msgid "Бұл біздің видео нұсқаулық"
+msgstr "See this video guideline"
+
+#: apps/authentication/templates/authentication/initial.html:101
 msgid "Осында баста!"
 msgstr "Start here!"
 
@@ -180,13 +196,17 @@ msgid ""
 "Егер сіз енгізген электрондық поштада тіркелген болса, біз сізге құпия сөзді "
 "қалпына келтіру туралы нұсқаулар жібердік. Сіз оларды тез арада алуыңыз "
 "керек."
-msgstr "We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly."
+msgstr ""
+"We've emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
 
 #: apps/authentication/templates/registration/done_password_reset.html:7
 msgid ""
 "Егер сізге электрондық хат келмесе, тіркелген электрондық поштаңызды немесе "
 "спам қалтасын тексеріңіз."
-msgstr "If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."
+msgstr ""
+"If you don't receive an email, please make sure you've entered the address "
+"you registered with, and check your spam folder."
 
 #: apps/authentication/templates/registration/password_reset_complete.html:5
 msgid "Сіздің құпия сөзіңіз енгізілді. Жүйеге кіруіңізге болады."
@@ -204,13 +224,17 @@ msgstr "Change my password"
 msgid ""
 "Құпия сөзді қалпына келтіру сілтемесі жарамсыз, мүмкін бұл сілтеме бұрын "
 "қолданылған. Құпия сөзді қалпына келтіруді қайтадан сұраңыз."
-msgstr "The password reset link was invalid, possibly because it has already been used.  Please request a new password reset."
+msgstr ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
 
 #: apps/authentication/templates/registration/password_reset_email.html:2
 msgid ""
 "Сіз бұл электрондық хатты Qatesiz.kz сайтындағы құпия сөзіңізді қалпына "
 "келтіруді сұрағандықтан алдыңыз."
-msgstr "You're receiving this email because you requested a password reset for your user account at Qatesiz.kz."
+msgstr ""
+"You're receiving this email because you requested a password reset for your "
+"user account at Qatesiz.kz."
 
 #: apps/authentication/templates/registration/password_reset_email.html:4
 msgid "Жаңа құпия сөзді орнату үшін келесі бетке өтіңіз:"
@@ -220,7 +244,9 @@ msgstr "Please go to the following page to set a new password:"
 msgid ""
 "Егер жоғарыдағы сілтемені басу көмектеспесе, URL мекенжайын көшіріп, "
 "браузердің жаңа терезесіне қойыңыз."
-msgstr "If clicking the link above doesn't work, please copy and paste the URL in a new browser window instead."
+msgstr ""
+"If clicking the link above doesn't work, please copy and paste the URL in a "
+"new browser window instead."
 
 #: apps/authentication/templates/registration/password_reset_email.html:9
 msgid "Qatesiz.kz командасы"
@@ -242,43 +268,53 @@ msgstr "Essay"
 msgid "Тапсыру"
 msgstr "Submit"
 
-#: apps/mine/forms.py:40
+#: apps/mine/forms.py:42
 msgid "Өзгерту"
 msgstr "Modify"
 
-#: apps/mine/forms.py:46
+#: apps/mine/forms.py:48
 msgid "Өзгертілген эссе"
 msgstr "Modified essay"
 
-#: apps/mine/forms.py:57 apps/mine/forms.py:76
+#: apps/mine/forms.py:49 apps/mine/templates/mine/miner/task_result.html:34
+#: apps/mine/templates/mine/moderator/text_moderated.html:33
+msgid "Сауаттылығы үшін баға"
+msgstr "Literacy grade"
+
+#: apps/mine/forms.py:50 apps/mine/templates/mine/miner/task_result.html:35
+#: apps/mine/templates/mine/moderator/text_moderated.html:34
+msgid "Мазмұны үшін баға"
+msgstr "Essay grade"
+
+#: apps/mine/forms.py:61 apps/mine/forms.py:80
 msgid "Құру"
 msgstr "Create"
 
-#: apps/mine/forms.py:63 apps/mine/forms.py:117
+#: apps/mine/forms.py:67 apps/mine/forms.py:121
 msgid "Тапсырма деңгейі"
 msgstr "Task level"
 
-#: apps/mine/forms.py:64 apps/mine/forms.py:118
+#: apps/mine/forms.py:68 apps/mine/forms.py:122
 msgid "Тапсырма атауы"
 msgstr "Task title"
 
-#: apps/mine/forms.py:65 apps/mine/forms.py:119
+#: apps/mine/forms.py:69 apps/mine/forms.py:123
 msgid "Тапсырма сипаттамасы"
 msgstr "Task description"
 
-#: apps/mine/forms.py:83
+#: apps/mine/forms.py:87
 msgid "Атауы"
 msgstr "Name"
 
-#: apps/mine/forms.py:88 apps/mine/templates/mine/moderator/classroom.html:162
+#: apps/mine/forms.py:92 apps/mine/templates/mine/moderator/classroom.html:162
 msgid "Сынып коды"
 msgstr "Class code"
 
-#: apps/mine/forms.py:96
+#: apps/mine/forms.py:100
 msgid "Қосылу"
 msgstr "Join"
 
-#: apps/mine/forms.py:102
+#: apps/mine/forms.py:106
 msgid "Сынып табылмады"
 msgstr "Classroom does not exist"
 
@@ -287,7 +323,7 @@ msgstr "Classroom does not exist"
 #: apps/mine/templates/mine/miner/main_task.html:12
 #: apps/mine/templates/mine/moderator/base.html:11
 #: apps/mine/templates/mine/moderator/main_text.html:22
-msgid "Жеңіл деңгей"
+msgid "Қарапайым деңгей"
 msgstr "Beginner"
 
 #: apps/mine/models.py:23 apps/mine/templates/mine/miner/base.html:13
@@ -295,7 +331,7 @@ msgstr "Beginner"
 #: apps/mine/templates/mine/miner/main_task.html:14
 #: apps/mine/templates/mine/moderator/base.html:13
 #: apps/mine/templates/mine/moderator/main_text.html:24
-msgid "Орташа деңгей"
+msgid "Орта деңгей"
 msgstr "Intermediate"
 
 #: apps/mine/models.py:24 apps/mine/templates/mine/miner/base.html:15
@@ -416,7 +452,7 @@ msgid "Тексерілген"
 msgstr "Checked"
 
 #: apps/mine/templates/mine/miner/main_result.html:44
-#: apps/mine/templates/mine/miner/task_result.html:35
+#: apps/mine/templates/mine/miner/task_result.html:39
 msgid "Сіздің эссеңіз әлі тексерілген жоқ"
 msgstr "Your essay hasn't checked yet"
 
@@ -563,10 +599,10 @@ msgstr "Submitted essay"
 msgid "Бұл эссе тексеріліп қойған"
 msgstr "This essay has been checked"
 
-#: config/settings/common.py:193
+#: config/settings/common.py:190
 msgid "Kazakh"
 msgstr ""
 
-#: config/settings/common.py:194
+#: config/settings/common.py:191
 msgid "English"
 msgstr ""

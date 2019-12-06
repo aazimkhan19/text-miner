@@ -19,8 +19,8 @@ class Task(models.Model):
     INTERMEDIATE = 'INTERMEDIATE'
     ADVANCED = 'ADVANCED'
     LEVEL_CHOICES = [
-        (BEGINNER, _('Жеңіл деңгей')),
-        (INTERMEDIATE, _('Орташа деңгей')),
+        (BEGINNER, _('Қарапайым деңгей')),
+        (INTERMEDIATE, _('Орта деңгей')),
         (ADVANCED, _('Күрделі деңгей')),
     ]
     task_level = models.CharField(
@@ -84,6 +84,8 @@ class ModeratedText(models.Model):
     original = models.ForeignKey(Text, on_delete=models.CASCADE, related_name="moderated_tasks")
     moderator = models.ForeignKey(User, on_delete=models.CASCADE, related_name="moderated_tasks")
     date = models.DateTimeField(default=timezone.now)
+    grammar_grade = models.IntegerField(choices=[(i, i) for i in range(0, 11)], blank=False, default=0)
+    essay_grade = models.IntegerField(choices=[(i, i) for i in range(0, 11)], blank=False, default=0)
 
     @property
     def short_text(self):
